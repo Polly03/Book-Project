@@ -1,0 +1,32 @@
+﻿<UserControl x:Class="BookDatabase.BookDetail"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:BookDatabase"
+             mc:Ignorable="d" 
+             d:DesignHeight="720" d:DesignWidth="1280">
+    <Grid>
+        <Image Margin="762,25,148,285" Source="https://www.dummyimage.com/370x410/456258/fff456"></Image>
+        <TextBlock Margin="135,130,812,570" Foreground="Aqua">
+            <Run Text="Název"></Run>
+            <Run Text="{Binding Name}"></Run>
+        </TextBlock>
+        <TextBlock Margin="135,160,812,540">
+            <Run Text="Autor"></Run>
+            <Run Text="{Binding Author}"></Run>
+        </TextBlock>
+        <TextBlock Margin="135,190,812,510">
+            <Run Text="Počet stránek"></Run>
+            <Run Text="{Binding Length}"></Run>   
+        </TextBlock>
+        <TextBlock Margin="135,220,812,480">
+            <Run Text="Název"></Run>
+            <Run Text="{Binding Genre}"></Run>       
+        </TextBlock>
+
+        <TextBox Margin="74,466,148,20">
+            
+        </TextBox>
+    </Grid>
+</UserControl>
