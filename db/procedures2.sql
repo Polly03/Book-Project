@@ -1,0 +1,10 @@
+
+SET TERM ^ ;
+
+
+END;
+^
+
+SET TERM ; ^
+
+COMMIT!

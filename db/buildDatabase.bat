@@ -17,6 +17,7 @@ echo tables and inputs
 echo TESTS:
 "%FB_PATH%\isql.exe" "%DB_PATH%" -user %DB_USER% -password %DB_PASSWORD% -i test.sql
 "%FB_PATH%\isql.exe" "%DB_PATH%" -user %DB_USER% -password %DB_PASSWORD% -i procedures.sql
+"%FB_PATH%\isql.exe" "%DB_PATH%" -user %DB_USER% -password %DB_PASSWORD% -i procedures2.sql
 echo zaznamy v tabulce authors a books jsou testovaci
 
 

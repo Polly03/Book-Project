@@ -13,10 +13,10 @@ RETURNS (
     Name VARCHAR(64),
     Author VARCHAR(64),
     Genre VARCHAR(64)
-)
-AS
-DECLARE VARIABLE sql_text VARCHAR(8000);
+)E sql_text VARCHAR(8000);
 BEGIN
+AS
+DECLARE VARIABL
     sql_text = '
         SELECT Books.Photo, Books.Name, Authors.Name, Genres.Name
         FROM Books

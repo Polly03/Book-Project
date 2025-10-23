@@ -31,6 +31,7 @@ namespace BookDatabase
             SelectBooksByFilters(null, null, null, null);
             SelectBooksWithSearch("");
             SelectAuthorWithSearch("");
+            SelectBook("");
         }
 
         public void SelectBooksByFilters(string? author, string? genres, string? languages, string? publishers)
@@ -143,6 +144,33 @@ namespace BookDatabase
                 }
             }
         }
+
+        public void SelectBook(string name)
+        {
+            using (FbConnection con = new FbConnection(connString))
+            {
+                con.Open();
+
+                using (var cmd = new FbCommand("select * from SelectBook(@search)", con))
+                {
+                    cmd.Parameters.AddWithValue("@search", (object?)name ?? DBNull.Value);
+
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+
+                            var names = reader["Name"];
+                            var date = reader["DateOfBirth"];
+                            var country = reader["Country"];
+
+                            Console.WriteLine("books ale select: " + date + " " + names + " " + country + "\n");
+                        }
+                    }
+                }
+            }
+        }
     }
+    
 }
 
