@@ -33,6 +33,14 @@
           }
         }
       },
+      "FirebirdSql.Data.FirebirdClient/10.3.3": {
+        "runtime": {
+          "lib/net8.0/FirebirdSql.Data.FirebirdClient.dll": {
+            "assemblyVersion": "10.3.3.0",
+            "fileVersion": "10.3.3.0"
+          }
+        }
+      },
       "Microsoft.Bcl.AsyncInterfaces/8.0.0": {
         "runtime": {
           "lib/netstandard2.1/Microsoft.Bcl.AsyncInterfaces.dll": {
@@ -733,6 +741,13 @@
       "sha512": "sha512-YhNMwOTwT+I2wIcJKSdP0ADyB2aK+JaYWZxO8LSRDm5w77LFr0ykR9xmt2ZV5T1gaI7xU6iNFIh/yW1dAlpddQ==",
       "path": "azure.identity/1.14.2",
       "hashPath": "azure.identity.1.14.2.nupkg.sha512"
+    },
+    "FirebirdSql.Data.FirebirdClient/10.3.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-iAj21eY5u7obZumA3NAVZf8ynu7Z6lslkU3V4W8Mm9Mowa4gcadT2a+LIMwAovDIg8iS8RpCSzIzFdKFCdakTg==",
+      "path": "firebirdsql.data.firebirdclient/10.3.3",
+      "hashPath": "firebirdsql.data.firebirdclient.10.3.3.nupkg.sha512"
     },
     "Microsoft.Bcl.AsyncInterfaces/8.0.0": {
       "type": "package",

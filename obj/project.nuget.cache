@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "WOv9ni/krkE=",
+  "dgSpecHash": "DRhZgNIUR60=",
   "success": true,
   "projectFilePath": "C:\\Users\\polasekj\\source\\repos\\Book-Project\\BookDatabase\\BookDatabase\\BookDatabase.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\polasekj\\.nuget\\packages\\azure.core\\1.47.1\\azure.core.1.47.1.nupkg.sha512",
     "C:\\Users\\polasekj\\.nuget\\packages\\azure.identity\\1.14.2\\azure.identity.1.14.2.nupkg.sha512",
+    "C:\\Users\\polasekj\\.nuget\\packages\\firebirdsql.data.firebirdclient\\10.3.3\\firebirdsql.data.firebirdclient.10.3.3.nupkg.sha512",
     "C:\\Users\\polasekj\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\8.0.0\\microsoft.bcl.asyncinterfaces.8.0.0.nupkg.sha512",
     "C:\\Users\\polasekj\\.nuget\\packages\\microsoft.bcl.cryptography\\8.0.0\\microsoft.bcl.cryptography.8.0.0.nupkg.sha512",
     "C:\\Users\\polasekj\\.nuget\\packages\\microsoft.data.sqlclient\\6.1.2\\microsoft.data.sqlclient.6.1.2.nupkg.sha512",

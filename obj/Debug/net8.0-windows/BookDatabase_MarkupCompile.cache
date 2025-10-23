@@ -1,7 +1,7 @@
 ﻿BookDatabase
 
 
-winexe
+exe
 C#
 .cs
 C:\Users\polasekj\source\repos\Book-Project\BookDatabase\BookDatabase\obj\Debug\net8.0-windows\
@@ -13,7 +13,7 @@ C:\Users\polasekj\source\repos\Book-Project\BookDatabase\BookDatabase\App.xaml
 51611117175
 
 11-1809473739
-2351812628203
+236341378582
 AddBookForm.xaml;BookDetail.xaml;BooksWindow.xaml;CardView.xaml;MainWindow.xaml;
 
 False

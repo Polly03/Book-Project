@@ -1,132 +1,146 @@
-﻿using Microsoft.Data.Sqlite;
-using Microsoft.EntityFrameworkCore.Sqlite;
-using System.Data;
-using System.IO;
-using Microsoft.Data.SqlClient;
-using System.Windows.Controls;
-using System.Windows;
+﻿using FirebirdSql.Data.FirebirdClient;
+using System.Runtime.InteropServices;
+
 
 
 namespace BookDatabase
 {
+
     public class Database
     {
+
+        [DllImport("kernel32.dll", SetLastError = true)]
+        static extern bool AttachConsole(uint dwProcessId);
+
+        const uint ATTACH_PARENT_PROCESS = 0x0ffffffff;
+
+
+
         public Database()
         {
-            SetupDatabase();
+            AttachConsole(ATTACH_PARENT_PROCESS);
+
+            SelectAuthorsByFilers(null, null);
+            SelectBooksByFilters(null, null, null, null);
+            SelectBooksWithSearch("");
+            SelectAuthorWithSearch("");
         }
 
-        public void SetupDatabase()
+
+        public void SelectBooksByFilters(string? author, string? genres, string? languages, string? publishers)
         {
-            string path = Path.Combine(Directory.GetCurrentDirectory(), "Books.db");
+            string connectionString = "User=SYSDBA;Password=masterkey;Database=C:\\mojeDB\\db\\mydatabase.fdb;DataSource=localhost;Port=3050;Dialect=3;Charset=UTF8;";
 
-            using (var conn = new SqliteConnection($"Data Source={path}"))
+            using (FbConnection con = new FbConnection(connectionString))
             {
-                conn.Open();
-                string command = "CREATE TABLE IF NOT EXISTS Country(ID integer primary key autoincrement, Name varchar(64));";
-                var createTable = new SqliteCommand(command, conn);
-                createTable.ExecuteNonQuery();
-                command = "CREATE TABLE IF NOT EXISTS Genre(ID integer primary key autoincrement, Name varchar(64));";
-                createTable = new SqliteCommand(command, conn);
-                createTable.ExecuteNonQuery();
-                command = "CREATE TABLE IF NOT EXISTS Language(ID integer primary key autoincrement, Name varchar(64));";
-                createTable = new SqliteCommand(command, conn);
-                createTable.ExecuteNonQuery();
-                command = "CREATE TABLE IF NOT EXISTS Publisher(ID integer primary key autoincrement, Name varchar(64));";
-                createTable = new SqliteCommand(command, conn);
-                createTable.ExecuteNonQuery();
-                command = "CREATE TABLE IF NOT EXISTS Book_type(ID integer primary key autoincrement, Name varchar(32));";
-                createTable = new SqliteCommand(command, conn);
-                createTable.ExecuteNonQuery();
+                con.Open();
 
-                command = "Select Count(*) from Genre";
-                int n;
-                using (var select = new SqliteCommand(command, conn))
+                using (var cmd = new FbCommand("select * from select_books_with_filters(@Author_list, @Genre_list, @Language_list, @Publishing_house_list)", con))
                 {
-                    using (SqliteDataReader reader = select.ExecuteReader())
+                    cmd.Parameters.AddWithValue("@Author_list", (object?)author ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("@Genre_list", (object?)genres ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("@Language_list", (object?)languages ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("@Publishing_house_list", (object?)publishers ?? DBNull.Value);
+
+                    using (var reader = cmd.ExecuteReader())
                     {
                         while (reader.Read())
                         {
-                            n = reader.GetInt32(0);
-                            if (n == 0)
-                            {
-                                conn.Close();
-                                SetupData();
-                            }
+                            var photo = reader["Photo"];
+                            var names = reader["Name"];
+                            var authors = reader["Author"];
+                            var genre = reader["Genre"];
+
+                            Console.WriteLine("books: " + photo + " " + names + " " + genre + " " + authors + "\n");
+
                         }
                     }
-
-
                 }
-
-                conn.Close();
-
             }
-
         }
 
-
-
-        public List<string> SelectFromTable(string selectCom)
+        public void SelectAuthorsByFilers(string? Names, string? Countries)
         {
-            string path = Path.Combine(Directory.GetCurrentDirectory(), "Books.db");
-            List<string> selected = new List<string>();
+            string connectionString = "User=SYSDBA;Password=masterkey;Database=C:\\mojeDB\\db\\mydatabase.fdb;DataSource=localhost;Port=3050;Dialect=3;Charset=UTF8;";
 
-            using (var conn = new SqliteConnection($"Data Source={path}"))
+            using (FbConnection con = new FbConnection(connectionString))
             {
-                conn.Open();
-                using (var select = new SqliteCommand(selectCom, conn))
+                con.Open();
+
+                using (var cmd = new FbCommand("select * from select_authors_with_filters(@Name_list, @Countries_list)", con))
                 {
-                    using (SqliteDataReader reader = select.ExecuteReader())
+                    cmd.Parameters.AddWithValue("@Name_list", (object?)Names ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("@Countries_list", (object?)Countries ?? DBNull.Value);
+
+                    using (var reader = cmd.ExecuteReader())
                     {
-                        int n = reader.FieldCount;
                         while (reader.Read())
                         {
-                            List<string> list = new List<string>();
-                            for (int i = 0; i < n; i++)
-                            {
+                            var name = reader["Name"];
+                            var dateOfBirth = reader["DateOfBirth"];
+                            var country = reader["Country"];
 
-                                list.Add(reader.GetString(i));
-                            }
-                            string s = string.Join(",", list.ToArray());
-                            selected.Add(s);
+                            Console.WriteLine("autoři: " + name + " " + dateOfBirth + " " + country + "\n");
                         }
                     }
                 }
-                conn.Close();
             }
-            return selected;
         }
 
-        public void SetupData()
+        public void SelectBooksWithSearch(string search)
         {
-            string path = Path.Combine(Directory.GetCurrentDirectory(), "Books.db");
+            string connectionString = "User=SYSDBA;Password=masterkey;Database=C:\\mojeDB\\db\\mydatabase.fdb;DataSource=localhost;Port=3050;Dialect=3;Charset=UTF8;";
 
-            using (var conn = new SqliteConnection($"Data Source={path}"))
+            using (FbConnection con = new FbConnection(connectionString))
             {
-                conn.Open();
-                string command = "INSERT INTO Country (Name) VALUES('Česká republika'),('Slovensko'),('Německo'),('Rakousko'),('Francie'),('Itálie'),('Španělsko'),('Portugalsko'),('Polsko'),('Maďarsko'),('Nizozemsko'),('Belgie'),('Švýcarsko'),('Velká Británie'),('Irsko'),('Norsko'),('Švédsko'),('Dánsko'),('Finsko'),('Rusko'),('Ukrajina'),('USA'),('Kanada'),('Austrálie'),('Čína'),('Japonsko'),('Jižní Korea'),('Indie'),('Mexiko'),('Brazílie');";
-                var createTable = new SqliteCommand(command, conn);
-                createTable.ExecuteNonQuery();
-                command = "INSERT INTO Genre (Name) VALUES ('Román'),('Detektivka'),('Fantasy'),('Sci-fi'),('Historický');";
-                createTable = new SqliteCommand(command, conn);
-                createTable.ExecuteNonQuery();
-                command = "INSERT INTO Language (Name) VALUES('Čeština'),('Slovenština'),('Němčina'),('Angličtina'),('Francouzština'),('Italština'),('Španělština'),('Portugalština'),('Polština'),('Maďarština'),('Nizozemština'),('Vlámština'),('Švýcarská němčina'),('Norština'),('Švédština'),('Dánština'),('Finština'),('Ruština'),('Ukrajinština'),('Čínština'),('Japonština'),('Korejština'),('Hindština'),('Arabština'),('Hebrejština'),('Řečtina'),('Turečtina'),('Latina'),('Esperanto');";
-                createTable = new SqliteCommand(command, conn);
-                createTable.ExecuteNonQuery();
-                command = "INSERT INTO Publisher (Name) VALUES ('Nakladatelství Albatros'),('Euromedia Group'),('Host'),('Fragment'),('XYZ vydavatelství');";
-                createTable = new SqliteCommand(command, conn);
-                createTable.ExecuteNonQuery();
-                command = "Insert into Book_type(Name) VALUES('Měkká'),('Tvrdá'),('Polotvrdá'),('audio'),('elektronická');";
-                createTable = new SqliteCommand(command, conn);
-                createTable.ExecuteNonQuery();
-                conn.Close();
+                con.Open();
 
+                using (var cmd = new FbCommand("select * from select_book_with_search(@search)", con))
+                {
+                    cmd.Parameters.AddWithValue("@search", (object?) search ?? DBNull.Value);
+
+                    using(var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            var photo = reader["Photo"];
+                            var names = reader["Name"];
+                            var authors = reader["Author"];
+                            var genre = reader["Genre"];
+
+                            Console.WriteLine("books ale search: " + photo + " " + names + " " + genre + " " + authors + "\n");
+                        }
+                    }
+                }
             }
-
         }
 
+        public void SelectAuthorWithSearch(string search)
+        {
+            string connectionString = "User=SYSDBA;Password=masterkey;Database=C:\\mojeDB\\db\\mydatabase.fdb;DataSource=localhost;Port=3050;Dialect=3;Charset=UTF8;";
 
+            using (FbConnection con = new FbConnection(connectionString))
+            {
+                con.Open();
+
+                using (var cmd = new FbCommand("select * from select_author_with_search(@search)", con))
+                {
+                    cmd.Parameters.AddWithValue("@search", (object?)search ?? DBNull.Value);
+
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            var name = reader["Name"];
+                            var dateOfBirth = reader["DateOfBirth"];
+                            var country = reader["Country"];
+
+                            Console.WriteLine("autoři ale search: " + name + " " + dateOfBirth + " " + country + "\n");
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 
