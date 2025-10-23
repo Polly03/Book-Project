@@ -1,4 +1,5 @@
 ﻿using FirebirdSql.Data.FirebirdClient;
+using System.IO;
 using System.Runtime.InteropServices;
 
 
@@ -8,6 +9,7 @@ namespace BookDatabase
 
     public class Database
     {
+        private string connString {  get; set; }
 
         [DllImport("kernel32.dll", SetLastError = true)]
         static extern bool AttachConsole(uint dwProcessId);
@@ -18,6 +20,11 @@ namespace BookDatabase
 
         public Database()
         {
+
+            string projectDir = Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).Parent.Parent.Parent.FullName;
+            string dbPath = Path.Combine(projectDir, "db", "mydatabase.fdb");
+
+            this.connString = $"User=SYSDBA;Password=masterkey;Database={dbPath};DataSource=localhost;Port=3050;Dialect=3;Charset=UTF8;";
             AttachConsole(ATTACH_PARENT_PROCESS);
 
             SelectAuthorsByFilers(null, null);
@@ -26,12 +33,10 @@ namespace BookDatabase
             SelectAuthorWithSearch("");
         }
 
-
         public void SelectBooksByFilters(string? author, string? genres, string? languages, string? publishers)
         {
-            string connectionString = "User=SYSDBA;Password=masterkey;Database=C:\\mojeDB\\db\\mydatabase.fdb;DataSource=localhost;Port=3050;Dialect=3;Charset=UTF8;";
 
-            using (FbConnection con = new FbConnection(connectionString))
+            using (FbConnection con = new FbConnection(connString))
             {
                 con.Open();
 
@@ -61,9 +66,8 @@ namespace BookDatabase
 
         public void SelectAuthorsByFilers(string? Names, string? Countries)
         {
-            string connectionString = "User=SYSDBA;Password=masterkey;Database=C:\\mojeDB\\db\\mydatabase.fdb;DataSource=localhost;Port=3050;Dialect=3;Charset=UTF8;";
 
-            using (FbConnection con = new FbConnection(connectionString))
+            using (FbConnection con = new FbConnection(connString))
             {
                 con.Open();
 
@@ -89,9 +93,9 @@ namespace BookDatabase
 
         public void SelectBooksWithSearch(string search)
         {
-            string connectionString = "User=SYSDBA;Password=masterkey;Database=C:\\mojeDB\\db\\mydatabase.fdb;DataSource=localhost;Port=3050;Dialect=3;Charset=UTF8;";
 
-            using (FbConnection con = new FbConnection(connectionString))
+
+            using (FbConnection con = new FbConnection(connString))
             {
                 con.Open();
 
@@ -117,9 +121,7 @@ namespace BookDatabase
 
         public void SelectAuthorWithSearch(string search)
         {
-            string connectionString = "User=SYSDBA;Password=masterkey;Database=C:\\mojeDB\\db\\mydatabase.fdb;DataSource=localhost;Port=3050;Dialect=3;Charset=UTF8;";
-
-            using (FbConnection con = new FbConnection(connectionString))
+            using (FbConnection con = new FbConnection(connString))
             {
                 con.Open();
 
