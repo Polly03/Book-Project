@@ -1,4 +1,5 @@
 ﻿using FirebirdSql.Data.FirebirdClient;
+using System.Data;
 using System.IO;
 using System.Runtime.InteropServices;
 
@@ -22,8 +23,7 @@ namespace BookDatabase
         {
 
             string projectDir = Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).Parent.Parent.Parent.FullName;
-            
-            string dbPath = Path.Combine(projectDir, "db", "mydatabase.fdb");
+            string dbPath = Path.Combine(projectDir, "db", "Book_db.fdb");
 
             this.connString = $"User=SYSDBA;Password=masterkey;Database={dbPath};DataSource=localhost;Port=3050;Dialect=3;Charset=UTF8;";
             AttachConsole(ATTACH_PARENT_PROCESS);
@@ -32,7 +32,20 @@ namespace BookDatabase
             SelectBooksByFilters(null, null, null, null);
             SelectBooksWithSearch("");
             SelectAuthorWithSearch("");
-            SelectBook("");
+            SelectBook("1984");
+            SelectAuthor("Franz Kafka");
+            SelectAllAuthors();
+            SelectAllBooks();
+
+        }
+        public void SelectAllAuthors()
+        {
+            SelectAuthorWithSearch("");
+        }
+
+        public void SelectAllBooks()
+        {
+            SelectBooksWithSearch("");
         }
 
         public void SelectBooksByFilters(string? author, string? genres, string? languages, string? publishers)
@@ -152,20 +165,64 @@ namespace BookDatabase
             {
                 con.Open();
 
-                using (var cmd = new FbCommand("select * from Select_Book(@search)", con))
+                using (var cmd = new FbCommand("select * from select_book(@name)", con))
                 {
-                    cmd.Parameters.AddWithValue("@search", (object?)name ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("@name", (object?)name ?? DBNull.Value);
 
                     using (var reader = cmd.ExecuteReader())
                     {
                         while (reader.Read())
                         {
-
+                            var rating = reader["rating"];
+                            var type = reader["BOOK_type"];
+                            var publisher = reader["publisher"];
+                            var genre = reader["Genre"];
+                            var author = reader["author"];
+                            var language = reader["language"];
+                            var ean = reader["ean"];
+                            var isbn = reader["isbn"];
+                            var photo = reader["photo"];
+                            var description = reader["Description"];
                             var names = reader["Name"];
-                            var date = reader["DateOfBirth"];
-                            var country = reader["Country"];
 
-                            Console.WriteLine("books ale select: " + date + " " + names + " " + country + "\n");
+                            Console.WriteLine(
+                                    $"Book info:\n" +
+                                    $"Name: {names}\n" +
+                                    $"Author: {author}\n" +
+                                    $"Genre: {genre}\n" +
+                                    $"Type: {type}\n" +
+                                    $"Language: {language}\n " +
+                                    $"Publisher: {publisher}\n" +
+                                    $"EAN: {ean}\n" +
+                                    $"ISBN: {isbn}\n" +
+                                    $"Rating: {rating}\n" +
+                                    $"Description: {description}\n" +
+                                    $"Photo: {photo}\n");
+                        }
+                    }
+                }
+            }
+        }
+
+        public void SelectAuthor(string name)
+        {
+            using (FbConnection con = new FbConnection(connString))
+            {
+                con.Open();
+                using (var cmd = new FbCommand("select * from select_author(@Name_input)", con))
+                {
+                    cmd.Parameters.AddWithValue("@Name_input", (object?)name ?? DBNull.Value);
+
+                    using ( var reader = cmd.ExecuteReader())
+                    {
+
+                        while (reader.Read())
+                        {
+                            var names = reader["Name"];
+                            var dateOfBirth = reader["DATE_OF_BIRTH"];
+                            var country = reader["Country"];
+                            var aboutAuthor = reader["About_Author"];
+                            Console.WriteLine("tohle je autor: " + names + " " + dateOfBirth + " " + country + " " + aboutAuthor + "\n");
                         }
                     }
                 }
