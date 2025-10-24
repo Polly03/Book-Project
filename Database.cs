@@ -36,6 +36,7 @@ namespace BookDatabase
             SelectAuthor("Franz Kafka");
             SelectAllAuthors();
             SelectAllBooks();
+            OrderBooks("books.name", "asc");
 
         }
         public void SelectAllAuthors()
@@ -225,6 +226,34 @@ namespace BookDatabase
                             Console.WriteLine("tohle je autor: " + names + " " + dateOfBirth + " " + country + " " + aboutAuthor + "\n");
                         }
                     }
+                }
+            }
+        }
+
+        public void OrderBooks(string argument, string way)
+        {
+            using (FbConnection con = new FbConnection(connString))
+            {
+                con.Open();
+
+                using (var cmd = new FbCommand("select * from order_books(@way, @argument)", con))
+                {
+                    cmd.Parameters.AddWithValue("@argument", (object?)argument ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("@way", (object?)way ?? DBNull.Value);
+
+                    using( var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            var photo = reader["photo"];
+                            var name = reader["Name"];
+                            var author = reader["author"];
+                            var genre = reader["genre"];
+
+                            Console.WriteLine("order: " + photo + " " + name + " " + genre + " " + author + "\n");
+                        }
+                    }
+
                 }
             }
         }
