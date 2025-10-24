@@ -20,6 +20,8 @@ namespace BookDatabase
     {
         public MainWindow()
         {
+            InitializeComponent();
+            Main.Content = new BooksWindow();
             Database db = new Database();
 
 
