@@ -152,7 +152,7 @@ namespace BookDatabase
             {
                 con.Open();
 
-                using (var cmd = new FbCommand("select * from SelectBook(@search)", con))
+                using (var cmd = new FbCommand("select * from Select_Book(@search)", con))
                 {
                     cmd.Parameters.AddWithValue("@search", (object?)name ?? DBNull.Value);
 
