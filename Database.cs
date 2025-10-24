@@ -20,8 +20,8 @@ namespace BookDatabase
 
         public Database()
         {
-            string tmpProjectDir? = Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).FullName;
-            string projectDir = .Parent.Parent.FullName;
+
+            string projectDir = Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).Parent.Parent.Parent.FullName;
             
             string dbPath = Path.Combine(projectDir, "db", "mydatabase.fdb");
 
