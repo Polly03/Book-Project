@@ -5,9 +5,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BookDatabase"
              mc:Ignorable="d" 
-             d:DesignHeight="200" d:DesignWidth="100">
-    <Border Background="LightPink"
-            BorderBrush="#CCCCCC"
+             d:DesignHeight="200" d:DesignWidth="150">
+    
+    <Border Background="AliceBlue"
             BorderThickness="1"
             CornerRadius="8">
         <Grid>
@@ -16,20 +16,20 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <Image Grid.Row="0"
-                   Source="https://via.placeholder.com/150"  Stretch="Uniform"
-                   Margin="5"/>
 
-            <StackPanel Grid.Row="1" Margin="10,0,10,10">
-                <TextBlock Text="Card Title" 
+            <StackPanel Grid.Row="1" Margin="10,10,10,10">
+                <Image Height="100" Width="100"/>
+
+
+                <TextBlock Text="100 stupnu celsia" 
                            FontSize="14" 
                            FontWeight="Bold" 
                            TextWrapping="Wrap"
                            Margin="0,0,0,5"/>
-                <TextBlock Text="This is a short description of the card content." 
+                <TextBlock Text="Franz Kafka" 
                            FontSize="12" 
-                           Foreground="Gray"
-                           TextWrapping="Wrap"/>
+                           FontWeight="Bold" 
+                           TextWrapping="Wrap" Height="43"/>
             </StackPanel>
         </Grid>
     </Border>

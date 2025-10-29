@@ -1,0 +1,45 @@
+﻿<UserControl x:Class="BookDatabase.test"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:BookDatabase"
+             mc:Ignorable="d" 
+             d:DesignHeight="720" d:DesignWidth="1280">
+    <Grid>
+
+        <Button Margin="310,32,740,625" >test</Button>
+        <Button Margin="37,32,1018,625">
+        </Button>
+        <Button Margin="589,32,474,625">ss</Button>
+        <TextBox Margin="841,32,33,625" ></TextBox>
+
+        <StackPanel Margin="37,160,1136,383" >
+            <TextBlock Text="Vyber jazyky:" FontWeight="Bold" Margin="0,0,0,10"/>
+
+            <CheckBox Content="Česky" Margin="0,2"/>
+            <CheckBox Content="Anglicky" Margin="0,2"/>
+            <CheckBox Content="Německy" Margin="0,2"/>
+        </StackPanel>
+
+        <Grid Margin="252,191,0,0">
+            <ScrollViewer VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Disabled" Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="1" Grid.RowSpan="3">
+                <ItemsControl ItemsSource="{Binding MyItems}" >
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel x:Name="MyPanel"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <!-- Define how each item should look -->
+                            <Border Margin="5" Padding="10">
+                                <local:CardView Height="{Binding Height}" Width="{Binding Width}"/>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+        </Grid>
+    </Grid>
+</UserControl>

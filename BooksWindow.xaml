@@ -5,62 +5,90 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookDatabase"
         mc:Ignorable="d"  
-        Height="auto" Width="auto">
+        Height="720" Width="1280">
 
-    <ScrollViewer>
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="auto"></RowDefinition>
-                <RowDefinition Height="auto"></RowDefinition>
-                <RowDefinition Height="auto"></RowDefinition>
-                <RowDefinition Height="*"></RowDefinition>
-                
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="auto" ></ColumnDefinition>
-                <ColumnDefinition Width="auto"></ColumnDefinition>
-                <ColumnDefinition Width="auto"></ColumnDefinition>
-                <ColumnDefinition Width="*"></ColumnDefinition>
-            </Grid.ColumnDefinitions>
+    <Grid>
 
-            <Menu Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" Padding="100,10,100,10">
-                <Menu.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <DockPanel/>
-                    </ItemsPanelTemplate>
-                </Menu.ItemsPanel>
+        <Button Margin="310,32,740,625" >Autoři</Button>
+        <Button Margin="37,32,1018,625">
+        </Button>
+        <Button Margin="589,32,474,625">Knihy</Button>
+        <TextBox Margin="841,32,33,625" >Vyhledat</TextBox>
 
-                <MenuItem FontSize="35" Width="130" Height="60">
-                    <MenuItem.Header>
-                        <TextBlock Text="Knihy" VerticalAlignment="Center" Height="60" Width="123"/>
-                    </MenuItem.Header>
-                </MenuItem>
+        <Grid Margin="0,176,1018,0">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <StackPanel>
 
-                <MenuItem FontSize="35" Width="130">
-                    <MenuItem.Header>
-                        <TextBlock Text="Autoři" VerticalAlignment="Center" Height="60" Width="121"/>
-                    </MenuItem.Header>
-                </MenuItem>
+                    <StackPanel Margin="0,0,0,20">
+                        <TextBlock Text="Vyber autora:" FontWeight="Bold" Margin="0,0,0,5" Width="200"/>
+                        <TextBox Width="200" Margin="0,0,0,5" Text="{Binding SearchTextAuthor, UpdateSourceTrigger=PropertyChanged}"/>
 
-                <MenuItem FontSize="35" Width="200">
-                    <MenuItem.Header>
-                        <TextBlock Text="Vyhledat" VerticalAlignment="Center" Height="60" Width="200"/>
-                    </MenuItem.Header>
-                </MenuItem>
-                <MenuItem FontSize="25" Width="250">
-                    <MenuItem.Header>
-                        <TextBox Text="Vyhledat sem" VerticalAlignment="Center" Height="72" Width="244"></TextBox>
-                    </MenuItem.Header>
-                </MenuItem>
-            </Menu>
-            <StackPanel Grid.Row="1" Grid.Column="0" Grid.RowSpan="3" MinHeight="500">
-                <Button  FontSize="25" Click="Button_Click">Přidat knihu</Button>
-                <Button  FontSize="25">Filtrovat</Button>
-                <Button  FontSize="25">seřadit</Button>
-            </StackPanel>
+                        <ScrollViewer Height="150" VerticalScrollBarVisibility="Auto">
+                            <ItemsControl ItemsSource="{Binding FilteredAuthors}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <CheckBox Content="{Binding Name}" IsChecked="{Binding IsSelected, Mode=TwoWay}" Margin="0,2"/>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </ScrollViewer>
+                    </StackPanel>
 
-            <ScrollViewer VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Disabled" Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="1" Grid.RowSpan="3">
-                <ItemsControl ItemsSource="{Binding MyItems}" >
+                    <!-- Filtr: Název -->
+                    <StackPanel Margin="0,0,0,20">
+                        <TextBlock Text="Vyber žánr:" FontWeight="Bold" Margin="0,0,0,5" Width="200"/>
+                        <TextBox Width="200" Margin="0,0,0,5" Text="{Binding SearchTextGenre, UpdateSourceTrigger=PropertyChanged}"/>
+
+                        <ScrollViewer Height="150" VerticalScrollBarVisibility="Auto">
+                            <ItemsControl ItemsSource="{Binding FilteredGenres}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <CheckBox Content="{Binding Name}" IsChecked="{Binding IsSelected, Mode=TwoWay}" Margin="0,2"/>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </ScrollViewer>
+                    </StackPanel>
+
+                    <StackPanel Margin="0,0,0,20">
+                        <TextBlock Text="Vyber jazyk:" FontWeight="Bold" Margin="0,0,0,5" Width="200"/>
+                        <TextBox Width="200" Margin="0,0,0,5" Text="{Binding SearchTextLanguages, UpdateSourceTrigger=PropertyChanged}"/>
+
+                        <ScrollViewer Height="150" VerticalScrollBarVisibility="Auto">
+                            <ItemsControl ItemsSource="{Binding FilteredLanguages}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <CheckBox Content="{Binding Name}" IsChecked="{Binding IsSelected, Mode=TwoWay}" Margin="0,2"/>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </ScrollViewer>
+                    </StackPanel>
+
+                    <StackPanel Margin="0,0,0,20">
+                        <TextBlock Text="Vyber nakladatale:" FontWeight="Bold" Margin="0,0,0,5" Width="200"/>
+                        <TextBox Width="200" Margin="0,0,0,5" Text="{Binding SearchTextPublisher, UpdateSourceTrigger=PropertyChanged}"/>
+
+                        <ScrollViewer Height="150" VerticalScrollBarVisibility="Auto">
+                            <ItemsControl ItemsSource="{Binding FilteredPublishers}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <CheckBox Content="{Binding Name}" IsChecked="{Binding IsSelected, Mode=TwoWay}" Margin="0,2"/>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </ScrollViewer>
+                    </StackPanel>
+
+                </StackPanel>
+            </ScrollViewer>
+
+        </Grid>
+
+
+        <Grid Margin="284,176,0,0">
+            <ScrollViewer VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Disabled" Margin="0,10,31,0">
+                <ItemsControl ItemsSource="{Binding MyItems}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
                             <WrapPanel x:Name="MyPanel"/>
@@ -76,10 +104,8 @@
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
             </ScrollViewer>
-          
-
         </Grid>
-    </ScrollViewer>
+    </Grid>
 
 
 

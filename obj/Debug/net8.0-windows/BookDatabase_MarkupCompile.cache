@@ -1,7 +1,7 @@
 ﻿BookDatabase
 
 
-exe
+winexe
 C#
 .cs
 C:\Users\polasekj\source\repos\Book-Project\BookDatabase\BookDatabase\obj\Debug\net8.0-windows\
@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET8_0;NETCOREAPP;WINDOWS;WINDOWS7_0;NET5_0_OR_GREATER;NET6_0_OR_GREATER;NET7_0_OR_GREATER;NET8_0_OR_GREATER;NETCOREAPP3_0_OR_GREATER;NETCOREAPP3_1_OR_GREATER;WINDOWS7_0_OR_GREATER
 C:\Users\polasekj\source\repos\Book-Project\BookDatabase\BookDatabase\App.xaml
-51611117175
+6612181799
 
-11-1809473739
+101163644291
 209-1110785566
-AddBookForm.xaml;BookDetail.xaml;BooksWindow.xaml;CardView.xaml;MainWindow.xaml;
+AddBookForm.xaml;BookDetail.xaml;BooksWindow.xaml;CardView.xaml;MainWindow.xaml;test.xaml;
 
 False
 
