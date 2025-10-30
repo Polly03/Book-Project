@@ -18,18 +18,14 @@
 
 
             <StackPanel Grid.Row="1" Margin="10,10,10,10">
-                <Image Height="100" Width="100"/>
+                <Image Height="100" Width="100" Source="{Binding ImageSource, RelativeSource={RelativeSource AncestorType=UserControl}}"/>
+                <TextBlock Text="{Binding Title, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                   FontSize="14" FontWeight="Bold" TextWrapping="Wrap" Margin="0,0,0,5"/>
+                <TextBlock Text="{Binding Author, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                   FontSize="12" FontWeight="Bold" TextWrapping="Wrap" Height="28"/>
+                <TextBlock Text="{Binding Genre, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                   FontSize="12" FontWeight="Bold" TextWrapping="Wrap" Height="43"/>
 
-
-                <TextBlock Text="100 stupnu celsia" 
-                           FontSize="14" 
-                           FontWeight="Bold" 
-                           TextWrapping="Wrap"
-                           Margin="0,0,0,5"/>
-                <TextBlock Text="Franz Kafka" 
-                           FontSize="12" 
-                           FontWeight="Bold" 
-                           TextWrapping="Wrap" Height="43"/>
             </StackPanel>
         </Grid>
     </Border>

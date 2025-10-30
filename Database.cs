@@ -2,6 +2,7 @@
 using System.Data;
 using System.IO;
 using System.Runtime.InteropServices;
+using System.Windows;
 
 
 
@@ -22,7 +23,7 @@ namespace BookDatabase
         public Database()
         {
 
-            string projectDir = Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).Parent.Parent.Parent.FullName;
+            string projectDir = Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory)!.Parent!.Parent!.Parent!.FullName;
             string dbPath = Path.Combine(projectDir, "db", "Book_db.fdb");
 
             this.connString = $"User=SYSDBA;Password=masterkey;Database={dbPath};DataSource=localhost;Port=3050;Dialect=3;Charset=UTF8;";
@@ -255,7 +256,39 @@ namespace BookDatabase
                     }
 
                 }
+                con.Close();
             }
+        }
+
+        public List<string> SelectTableByName(string tableName)
+        {
+            using (FbConnection con = new FbConnection(connString))
+            {
+                con.Open();
+
+                using (var cmd = new FbCommand("SELECT * FROM SELECT_TABLE_BY_NAME(@tableName)", con))
+                {
+                    cmd.Parameters.AddWithValue("@tableName", (object?)tableName ?? DBNull.Value);
+
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        List<string> list = new List<string>();
+
+                        while (reader.Read())
+                        {
+                            string name = reader["Name"].ToString();
+                            list.Add(name);
+                        }
+                        con.Close();
+                        return list;
+                    }
+
+                }
+                
+                
+
+            }
+            
         }
     }
     

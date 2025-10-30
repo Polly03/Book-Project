@@ -8,12 +8,20 @@
         Height="720" Width="1280">
 
     <Grid>
+        <Button Margin="0,0,1055,641" Width="225" FontSize="32">Knihy</Button>
+        <Button Margin="225,0,830,641" Width="225" FontSize="32">Autoři</Button>
+        <Button Margin="20,92,1076,569" FontSize="25">Přidat knihu</Button>
+        <Button Margin="515,10,572,647" FontSize="25">Vyhledat</Button>
+        <TextBox Margin="515,92,572,595" FontSize="20"  ></TextBox>
 
-        <Button Margin="310,32,740,625" >Autoři</Button>
-        <Button Margin="37,32,1018,625">
-        </Button>
-        <Button Margin="589,32,474,625">Knihy</Button>
-        <TextBox Margin="841,32,33,625" >Vyhledat</TextBox>
+        <TextBlock VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="25" Margin="766,26,0,0">Seřadit podle:</TextBlock>
+        <ComboBox Margin="937,27,127,660">
+            <ComboBoxItem PreviewMouseLeftButtonDown="Order_MouseDown" x:Name="ABCasc">Abecedně (od A)</ComboBoxItem>
+            <ComboBoxItem PreviewMouseLeftButtonDown="Order_MouseDown" x:Name="ABCdsc">Abecedně (od Z)</ComboBoxItem>
+            <ComboBoxItem PreviewMouseLeftButtonDown="Order_MouseDown" x:Name="LENasc">Počet stran (od nejmenší)</ComboBoxItem>
+            <ComboBoxItem PreviewMouseLeftButtonDown="Order_MouseDown" x:Name="LENdsc">Počet stran (Od největší)</ComboBoxItem>
+        </ComboBox>
+
 
         <Grid Margin="0,176,1018,0">
             <ScrollViewer VerticalScrollBarVisibility="Auto">
@@ -23,7 +31,7 @@
                         <TextBlock Text="Vyber autora:" FontWeight="Bold" Margin="0,0,0,5" Width="200"/>
                         <TextBox Width="200" Margin="0,0,0,5" Text="{Binding SearchTextAuthor, UpdateSourceTrigger=PropertyChanged}"/>
 
-                        <ScrollViewer Height="150" VerticalScrollBarVisibility="Auto">
+                        <ScrollViewer Height="150" VerticalScrollBarVisibility="Hidden">
                             <ItemsControl ItemsSource="{Binding FilteredAuthors}">
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
@@ -39,7 +47,7 @@
                         <TextBlock Text="Vyber žánr:" FontWeight="Bold" Margin="0,0,0,5" Width="200"/>
                         <TextBox Width="200" Margin="0,0,0,5" Text="{Binding SearchTextGenre, UpdateSourceTrigger=PropertyChanged}"/>
 
-                        <ScrollViewer Height="150" VerticalScrollBarVisibility="Auto">
+                        <ScrollViewer Height="150" VerticalScrollBarVisibility="Hidden">
                             <ItemsControl ItemsSource="{Binding FilteredGenres}">
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
@@ -98,7 +106,8 @@
                         <DataTemplate>
                             <!-- Define how each item should look -->
                             <Border Margin="5" Padding="10">
-                                <local:CardView Height="{Binding Height}" Width="{Binding Width}"/>
+                                <local:CardView Author="{Binding Author}" Height="{Binding Height}" Width="{Binding Width}"
+                                                Genre ="{Binding Genre}" ImageSource="{Binding image}"/>
                             </Border>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>

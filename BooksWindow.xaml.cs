@@ -21,6 +21,7 @@ namespace BookDatabase
     public partial class BooksWindow : UserControl, INotifyPropertyChanged
 
     {
+
         public ObservableCollection<FilterOption> Authors { get; set; }
         public ObservableCollection<FilterOption> Genres { get; set; }
         public ObservableCollection<FilterOption> Languages { get; set; }
@@ -97,8 +98,6 @@ namespace BookDatabase
                 OnPropertyChanged(); }
         }
 
-
-
         private ObservableCollection<CardData> MyItems { get; set; }
 
         public BooksWindow()
@@ -113,30 +112,42 @@ namespace BookDatabase
                 MyItems.Add(new CardData { Width = 150, Height = 200 });
             }
 
-            Authors = new ObservableCollection<FilterOption>
-        {
-            new FilterOption { Name = "Karel Čapek" },
-            new FilterOption { Name = "Emanuel" },
-            new FilterOption { Name = "Franz Kafka" }
-        };
-            Genres = new ObservableCollection<FilterOption>
-        {
-            new FilterOption { Name = "Scifi" },
-            new FilterOption { Name = "Román" },
-            new FilterOption { Name = "Drama" }
-        };
-            Languages = new ObservableCollection<FilterOption>
-        {
-            new FilterOption { Name = "Česky" },
-            new FilterOption { Name = "Anglicky" },
-            new FilterOption { Name = "Německy" }
-        };
-            Publishers = new ObservableCollection<FilterOption>
-        {
-            new FilterOption { Name = "penguin" },
-            new FilterOption { Name = "neco" },
-            new FilterOption { Name = "test" }
-        };
+            Authors = new ObservableCollection<FilterOption>{};
+            Database db = new Database();
+            List<string> listOfAuthors = db.SelectTableByName("Authors");
+            foreach (string elem in listOfAuthors)
+            {
+                FilterOption option = new FilterOption();
+                option.Name = elem;
+                Authors.Add(option);
+            }
+
+            Genres = new ObservableCollection<FilterOption>{};
+            List<string> listOfGenres = db.SelectTableByName("Genres");
+            foreach (string elem in listOfGenres)
+            {
+                FilterOption option = new FilterOption();
+                option.Name = elem;
+                Genres.Add(option);
+            }
+
+            Languages = new ObservableCollection<FilterOption> { };
+            List<string> listOfLanguages = db.SelectTableByName("Languages");
+            foreach (string elem in listOfLanguages)
+            {
+                FilterOption option = new FilterOption();
+                option.Name = elem;
+                Languages.Add(option);
+            }
+
+            Publishers = new ObservableCollection<FilterOption> { };
+            List<string> listOfPublishers = db.SelectTableByName("Publishers");
+            foreach (string elem in listOfPublishers)
+            {
+                FilterOption option = new FilterOption();
+                option.Name = elem;
+                Publishers.Add(option);
+            }
 
             FilteredAuthors = new ObservableCollection<FilterOption>(Authors);
             FilteredGenres = new ObservableCollection<FilterOption>(Genres);
@@ -147,11 +158,17 @@ namespace BookDatabase
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             MyItems.Add(new CardData { Width = 150, Height = 200 });
+
+            
         }
 
 
-
-      
+        private void Order_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            var item = ((ComboBoxItem)sender);
+            var s = item.Name;
+            ((ComboBox)item.Parent).Text = item.Content.ToString();
+        }
 
 
         private void ApplyFilterAuthors()
@@ -232,12 +249,21 @@ namespace BookDatabase
         protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
             => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
+        private void test2_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+
+        }
     }
 
     public class CardData
     {
         public double Width { get; set; }
         public double Height { get; set; }
+        public string Title { get; set; }
+        public string Genre { get; set; }
+        public string Author { get; set; }
+        public BitmapImage image { get; set; }
+
     }
 
     public class FilterOption : INotifyPropertyChanged
