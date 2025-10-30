@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:BookDatabase"
         mc:Ignorable="d"
         Width="1280" Height="720"
+        ResizeMode="NoResize"
       
         Title="MainWindow">
    

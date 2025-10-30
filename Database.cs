@@ -22,9 +22,8 @@ namespace BookDatabase
 
         public Database()
         {
-
-            string projectDir = Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory)!.Parent!.Parent!.Parent!.FullName;
-            string dbPath = Path.Combine(projectDir, "db", "Book_db.fdb");
+            string path = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", ".."));
+            string dbPath = Path.Combine(path, "db", "Book_db.fdb");
 
             this.connString = $"User=SYSDBA;Password=masterkey;Database={dbPath};DataSource=localhost;Port=3050;Dialect=3;Charset=UTF8;";
             AttachConsole(ATTACH_PARENT_PROCESS);
@@ -40,9 +39,9 @@ namespace BookDatabase
             OrderBooks("books.name", "asc");
 
         }
-        public void SelectAllAuthors()
+        public List<Tuple<string, string, string>> SelectAllAuthors()
         {
-            SelectAuthorWithSearch("");
+            return SelectAuthorWithSearch("");
         }
 
         public List<Tuple<Byte[], string, string, string>> SelectAllBooks()
@@ -141,7 +140,7 @@ namespace BookDatabase
             }
         }
 
-        public void SelectAuthorWithSearch(string search)
+        public List<Tuple<string, string, string>> SelectAuthorWithSearch(string search)
         {
             using (FbConnection con = new FbConnection(connString))
             {
@@ -153,14 +152,19 @@ namespace BookDatabase
 
                     using (var reader = cmd.ExecuteReader())
                     {
+                        List<Tuple<string, string, string>> list = new List<Tuple<string, string, string>> { };
                         while (reader.Read())
                         {
-                            var name = reader["Name"];
-                            var dateOfBirth = reader["DateOfBirth"];
-                            var country = reader["Country"];
+                            var name = (string)reader["Name"];
+                            var dateOfBirth = (string)reader["DateOfBirth"];
+                            var country = (string)reader["Country"];
 
-                            Console.WriteLine("autoři ale search: " + name + " " + dateOfBirth + " " + country + "\n");
+                            Tuple<string, string, string> tup = new Tuple<string, string, string> ( name, dateOfBirth, country );
+                            list.Add(tup);
+                            
                         }
+                        con.Close();
+                        return list;
                     }
                 }
             }

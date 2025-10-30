@@ -8,9 +8,13 @@
         Height="720" Width="1280">
 
     <Grid>
-        <Button Margin="0,0,1055,641" Width="225" FontSize="32">Knihy</Button>
-        <Button Margin="225,0,830,641" Width="225" FontSize="32">Autoři</Button>
-        <Button Margin="20,92,1076,569" FontSize="25" Click="AddBookButton">Přidat knihu</Button>
+        <Button Margin="0,0,1055,641" Width="225" FontSize="32" IsEnabled="false">Knihy</Button>
+        <Button Margin="225,0,830,641" Width="225" FontSize="32" Click="OpenAuthors">Autoři</Button>
+        <Button Margin="131,92,965,569" FontSize="32" Click="AddBookButton" >
+            Přidat
+        </Button>
+
+
         <Button Margin="515,10,572,647" FontSize="25">Vyhledat</Button>
         <TextBox Margin="515,92,572,595" FontSize="20"  ></TextBox>
 

@@ -12,7 +12,7 @@
                 <Button Margin="0,0,1130,670" Click="Return">Zrušit</Button>
                 <Button Margin="1130,0,0,670">Potvrdit</Button>
 
-                <Button FontSize="20" Margin="93,92,1045,583">Vybrat fotku</Button>
+                <Button FontSize="20" Margin="93,101,1045,574">Vybrat fotku</Button>
                 <TextBox Margin="49,160,1015,527" IsReadOnly="True"></TextBox>
 
                 <TextBlock FontSize="20" Margin="378,101,766,588">Vyberte žánr</TextBlock>
@@ -25,13 +25,13 @@
                 </ComboBox>
 
 
-                <TextBlock FontSize="20" Margin="63,594,1029,94" RenderTransformOrigin="0.498,0.688">zadejte počet stran</TextBlock>
-                <TextBox Margin="49,631,1015,56" PreviewTextInput="Length_PreviewTextInput"></TextBox>
+                <TextBlock FontSize="20" Margin="63,598,1029,90" RenderTransformOrigin="0.498,0.688">zadejte počet stran</TextBlock>
+                <TextBox Margin="49,640,1015,47" PreviewTextInput="Length_PreviewTextInput"></TextBox>
 
-                <TextBlock FontSize="20" Margin="89,373,1055,316" RenderTransformOrigin="0.515,0.194">zadejte EAN</TextBlock>
-                <TextBox Margin="49,413,1015,274" MaxLength="13"></TextBox>
+                <TextBlock FontSize="20" Margin="89,344,1055,344" RenderTransformOrigin="0.515,0.194">zadejte EAN</TextBlock>
+                <TextBox Margin="49,381,1015,307" MaxLength="13"></TextBox>
 
-                <TextBlock FontSize="20" Margin="99,480,1051,209">zadejte ISBN</TextBlock>
+                <TextBlock FontSize="20" Margin="89,471,1061,218">zadejte ISBN</TextBlock>
                 <TextBox Margin="49,518,1015,169" MaxLength="13"></TextBox>
 
                 <TextBlock FontSize="20" Margin="353,415,731,274">Vyberte Vydavatele</TextBlock>
@@ -52,8 +52,8 @@
                     </ComboBox.ItemTemplate>
                 </ComboBox>
 
-                <TextBlock FontSize="20" Margin="65,268,1017,420">zadejte název knihy</TextBlock>
-                <TextBox Margin="49,309,1015,378" MaxLength="64"></TextBox>
+                <TextBlock FontSize="20" Margin="71,236,1023,452">zadejte název knihy</TextBlock>
+                <TextBox Margin="49,273,1015,414" MaxLength="64"></TextBox>
 
                 <TextBlock FontSize="20" Margin="393,253,781,436">Typ knihy</TextBlock>
                 <ComboBox Margin="338,310,726,377"

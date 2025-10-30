@@ -1,28 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using BookDatabase.Models;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using static System.Net.WebRequestMethods;
+using static BookDatabase.Models.BooksData;
 
 namespace BookDatabase
 {
- 
+
     public partial class BooksWindow : UserControl, INotifyPropertyChanged
 
     {
-        public ObservableCollection<CardData> MyItems { get; set; }
+        public ObservableCollection<BooksData> MyItems { get; set; }
         public ObservableCollection<FilterOption> Authors { get; set; }
         public ObservableCollection<FilterOption> Genres { get; set; }
         public ObservableCollection<FilterOption> Languages { get; set; }
@@ -65,10 +57,10 @@ namespace BookDatabase
         public ObservableCollection<FilterOption> FilteredGenres
         {
             get => _filteredGenres;
-            set { 
-                    _filteredGenres = value; 
-                    OnPropertyChanged(); 
-                }
+            set {
+                _filteredGenres = value;
+                OnPropertyChanged();
+            }
         }
         public string SearchTextGenre
         {
@@ -82,20 +74,20 @@ namespace BookDatabase
         public ObservableCollection<FilterOption> FilteredLanguages
         {
             get => _filteredLanguages;
-            set { 
-                    _filteredLanguages = value; 
-                    OnPropertyChanged(); 
-                }
+            set {
+                _filteredLanguages = value;
+                OnPropertyChanged();
+            }
         }
 
 
         private ObservableCollection<FilterOption> _filteredPublishers;
         public ObservableCollection<FilterOption> FilteredPublishers
         {
-            get => 
+            get =>
                 _filteredPublishers;
-            set { 
-                _filteredPublishers = value; 
+            set {
+                _filteredPublishers = value;
                 OnPropertyChanged(); }
         }
 
@@ -107,20 +99,19 @@ namespace BookDatabase
             DataContext = this;
             Database db = new Database();
 
-            MyItems = new ObservableCollection<CardData>();
+            MyItems = new ObservableCollection<BooksData>();
             List<Tuple<Byte[], string, string, string>> list = db.SelectAllBooks();  // photo, name, author, genre
 
-            foreach(var item in list)
+            foreach (var item in list)
             {
-                MyItems.Add(new CardData { Height = 200, Width = 150, 
-                                           Title = item.Item2, Author = item.Item3, Genre = item.Item4 });
+                MyItems.Add(new BooksData(150, 200, item.Item2, item.Item3, item.Item4));
 
             }
 
 
 
-            Authors = new ObservableCollection<FilterOption>{};
-          
+            Authors = new ObservableCollection<FilterOption> { };
+
             List<string> listOfAuthors = db.SelectTableByName("Authors");
             foreach (string elem in listOfAuthors)
             {
@@ -129,7 +120,7 @@ namespace BookDatabase
                 Authors.Add(option);
             }
 
-            Genres = new ObservableCollection<FilterOption>{};
+            Genres = new ObservableCollection<FilterOption> { };
             List<string> listOfGenres = db.SelectTableByName("Genres");
             foreach (string elem in listOfGenres)
             {
@@ -162,7 +153,7 @@ namespace BookDatabase
             FilteredPublishers = new ObservableCollection<FilterOption>(Publishers);
         }
 
- 
+
 
 
         private void Order_MouseDown(object sender, MouseButtonEventArgs e)
@@ -185,37 +176,37 @@ namespace BookDatabase
                 FilteredAuthors = new ObservableCollection<FilterOption>
                                   (Authors.Where(a => a.Name.ToLower().Contains(SearchTextAuthor.ToLower())));
             }
-                
+
         }
 
-       
-   
+
+
 
         public string SearchTextLanguages
         {
             get => _searchTextLanguages;
             set { _searchTextLanguages = value; OnPropertyChanged(); ApplyFilterLanguages(); }
         }
-      
+
 
         public string SearchTextPublisher
         {
             get => _searchTextPublisher;
             set { _searchTextPublisher = value; OnPropertyChanged(); ApplyFilterPublishers(); }
         }
-     
-
-     
 
 
-    
-
-      
 
 
-       
 
-       
+
+
+
+
+
+
+
+
 
         private void ApplyFilterGenres()
         {
@@ -251,42 +242,18 @@ namespace BookDatabase
         protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
             => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
-        private void test2_MouseDown(object sender, MouseButtonEventArgs e)
-        {
 
-        }
 
         private void AddBookButton(object sender, RoutedEventArgs e)
         {
             ((MainWindow)Application.Current.MainWindow).Main.Content = new AddBookForm();
         }
-    }
 
-    public class CardData
-    {
-        public double Width { get; set; }
-        public double Height { get; set; }
-        public string Title { get; set; }
-        public string Genre { get; set; }
-        public string Author { get; set; }
-
-    }
-
-    public class FilterOption : INotifyPropertyChanged
-    {
-        public string Name { get; set; }
-
-        private bool _isSelected;
-        public bool IsSelected
+        private void OpenAuthors(object sender, RoutedEventArgs e)
         {
-            get => _isSelected;
-            set { _isSelected = value; OnPropertyChanged(); }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            ((MainWindow)Application.Current.MainWindow).Main.Content = new AuthorsWindow();
         }
     }
+
+    
 }

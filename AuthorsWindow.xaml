@@ -1,0 +1,71 @@
+﻿<UserControl x:Class="BookDatabase.AuthorsWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:BookDatabase" xmlns:local1="clr-namespace:BookDatabase.Views"
+             mc:Ignorable="d" 
+          Height="720" Width="1280">
+
+    <Grid>
+        <Button Margin="0,0,1055,641" Width="225" FontSize="32" Click="OpenBooks">Knihy</Button>
+        <Button Margin="225,-1,830,642" Width="225" FontSize="32" IsEnabled="False">Autoři</Button>
+        <Button Margin="131,92,965,569" FontSize="32" Click="AddAuthor" >
+            Přidat
+        </Button>
+
+
+        <Button Margin="515,10,572,647" FontSize="25">Vyhledat</Button>
+        <TextBox Margin="515,92,572,595" FontSize="20"  ></TextBox>
+
+        <TextBlock VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="25" Margin="766,26,0,0">Seřadit podle:</TextBlock>
+        <ComboBox Margin="937,27,127,660" SelectionChanged="ComboBox_SelectionChanged">
+            <ComboBoxItem PreviewMouseLeftButtonDown="Order_MouseDown" x:Name="ABCasc">Abecedně (od A)</ComboBoxItem>
+            <ComboBoxItem PreviewMouseLeftButtonDown="Order_MouseDown" x:Name="ABCdsc">Abecedně (od Z)</ComboBoxItem>
+            <ComboBoxItem PreviewMouseLeftButtonDown="Order_MouseDown" x:Name="Birthasc">Rok narození (od nejstaršího)</ComboBoxItem>
+            <ComboBoxItem PreviewMouseLeftButtonDown="Order_MouseDown" x:Name="Birthdsc">Rok narození (od nejmladšího)</ComboBoxItem>
+        </ComboBox>
+
+
+        <Grid Margin="0,176,1018,10">
+            <TextBlock Text="Vyber Zemi původu:" FontWeight="Bold" Margin="0,0,0,5" Width="200" HorizontalAlignment="Center"/>
+                <TextBox Width="200" Margin="31,28,31,480" Text="{Binding SearchTextCountry, UpdateSourceTrigger=PropertyChanged}"/>
+
+            <ScrollViewer Margin="10,0,0,0" VerticalScrollBarVisibility="Visible">
+                <ItemsControl ItemsSource="{Binding FilteredCountries}" Height="332" RenderTransformOrigin="0.548,0.342">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <CheckBox Content="{Binding Name}" IsChecked="{Binding IsSelected, Mode=TwoWay}" Margin="0,2"/>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+        </Grid>
+
+
+        <Grid Margin="284,176,0,0">
+            <ScrollViewer VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Disabled" Margin="0,10,31,0">
+                <ItemsControl ItemsSource="{Binding MyItemsAuthors}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel x:Name="MyPanel"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <!-- Define how each item should look -->
+                            <Border Margin="5" Padding="10">
+                                <local1:CardViewAuthor NameOf="{Binding NameOf}" Date="{Binding Date}" Height="{Binding Height}" Width="{Binding Width}" Country ="{Binding Country}"/>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+        </Grid>
+    </Grid>
+
+
+
+
+</UserControl>
+

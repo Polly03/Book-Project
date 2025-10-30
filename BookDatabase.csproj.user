@@ -5,16 +5,22 @@
     <Compile Update="AddBookForm.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="AuthorsWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="BookDetail.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="BooksWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="CardView.xaml.cs">
+    <Compile Update="Views\CardView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="test.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\CardViewAuthor.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>

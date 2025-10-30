@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET8_0;NETCOREAPP;WINDOWS;WINDOWS7_0;NET5_0_OR_GREATER;NET6_0_OR_GREATER;NET7_0_OR_GREATER;NET8_0_OR_GREATER;NETCOREAPP3_0_OR_GREATER;NETCOREAPP3_1_OR_GREATER;WINDOWS7_0_OR_GREATER
 C:\Users\polasekj\source\repos\Book-Project\BookDatabase\BookDatabase\App.xaml
-6612181799
+81074291827
 
-121919598791
+17-745914200
 209-1110785566
-AddBookForm.xaml;BookDetail.xaml;BooksWindow.xaml;CardView.xaml;MainWindow.xaml;test.xaml;
+AddBookForm.xaml;AuthorsWindow.xaml;BookDetail.xaml;BooksWindow.xaml;MainWindow.xaml;test.xaml;Views\CardView.xaml;Views\CardViewAuthor.xaml;
 
-False
+True
 

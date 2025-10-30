@@ -29,10 +29,10 @@ namespace BookDatabase
         {
 
         }
-
-        private void Return(object sender, RoutedEventArgs e)
+        public void Return(object sender, RoutedEventArgs e)
         {
             ((MainWindow)Application.Current.MainWindow).Main.Content = new BooksWindow();
         }
+    
     }
 }
