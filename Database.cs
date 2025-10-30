@@ -45,9 +45,9 @@ namespace BookDatabase
             SelectAuthorWithSearch("");
         }
 
-        public void SelectAllBooks()
+        public List<Tuple<Byte[], string, string, string>> SelectAllBooks()
         {
-            SelectBooksWithSearch("");
+           return SelectBooksWithSearch("");
         }
 
         public void SelectBooksByFilters(string? author, string? genres, string? languages, string? publishers)
@@ -108,10 +108,8 @@ namespace BookDatabase
             }
         }
 
-        public void SelectBooksWithSearch(string search)
+        public List<Tuple<Byte[], string, string, string>> SelectBooksWithSearch(string search)
         {
-
-
             using (FbConnection con = new FbConnection(connString))
             {
                 con.Open();
@@ -122,15 +120,22 @@ namespace BookDatabase
 
                     using(var reader = cmd.ExecuteReader())
                     {
+                        List < Tuple<Byte[], string, string, string> > list = new List<Tuple<Byte[], string, string, string>> { };
+
                         while (reader.Read())
                         {
-                            var photo = reader["Photo"];
-                            var names = reader["Name"];
-                            var authors = reader["Author"];
-                            var genre = reader["Genre"];
+                            var photo = reader["Photo"] == DBNull.Value ? null : (byte[])reader["Photo"];
+                            var names = (string)reader["Name"];
+                            var authors = (string)reader["Author"];
+                            var genre = (string)reader["Genre"];
 
-                            Console.WriteLine("books ale search: " + photo + " " + names + " " + genre + " " + authors + "\n");
+                            Tuple<Byte[], string, string, string> tup = new Tuple<byte[], string, string, string>(photo, names, authors, genre);
+                            list.Add(tup);
+
+
                         }
+                        con.Close();
+                        return list;
                     }
                 }
             }

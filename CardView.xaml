@@ -18,7 +18,7 @@
 
 
             <StackPanel Grid.Row="1" Margin="10,10,10,10">
-                <Image Height="100" Width="100" Source="{Binding ImageSource, RelativeSource={RelativeSource AncestorType=UserControl}}"/>
+               
                 <TextBlock Text="{Binding Title, RelativeSource={RelativeSource AncestorType=UserControl}}"
                    FontSize="14" FontWeight="Bold" TextWrapping="Wrap" Margin="0,0,0,5"/>
                 <TextBlock Text="{Binding Author, RelativeSource={RelativeSource AncestorType=UserControl}}"

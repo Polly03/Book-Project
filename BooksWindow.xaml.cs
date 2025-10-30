@@ -14,6 +14,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using static System.Net.WebRequestMethods;
 
 namespace BookDatabase
 {
@@ -21,7 +22,7 @@ namespace BookDatabase
     public partial class BooksWindow : UserControl, INotifyPropertyChanged
 
     {
-
+        public ObservableCollection<CardData> MyItems { get; set; }
         public ObservableCollection<FilterOption> Authors { get; set; }
         public ObservableCollection<FilterOption> Genres { get; set; }
         public ObservableCollection<FilterOption> Languages { get; set; }
@@ -98,22 +99,28 @@ namespace BookDatabase
                 OnPropertyChanged(); }
         }
 
-        private ObservableCollection<CardData> MyItems { get; set; }
 
         public BooksWindow()
         {
             InitializeComponent();
 
-            MyItems = new ObservableCollection<CardData>();
             DataContext = this;
+            Database db = new Database();
 
-            for (int i = 0; i < 5; i++)
+            MyItems = new ObservableCollection<CardData>();
+            List<Tuple<Byte[], string, string, string>> list = db.SelectAllBooks();  // photo, name, author, genre
+
+            foreach(var item in list)
             {
-                MyItems.Add(new CardData { Width = 150, Height = 200 });
+                MyItems.Add(new CardData { Height = 200, Width = 150, 
+                                           Title = item.Item2, Author = item.Item3, Genre = item.Item4 });
+
             }
 
+
+
             Authors = new ObservableCollection<FilterOption>{};
-            Database db = new Database();
+          
             List<string> listOfAuthors = db.SelectTableByName("Authors");
             foreach (string elem in listOfAuthors)
             {
@@ -155,12 +162,7 @@ namespace BookDatabase
             FilteredPublishers = new ObservableCollection<FilterOption>(Publishers);
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            MyItems.Add(new CardData { Width = 150, Height = 200 });
-
-            
-        }
+ 
 
 
         private void Order_MouseDown(object sender, MouseButtonEventArgs e)
@@ -253,6 +255,11 @@ namespace BookDatabase
         {
 
         }
+
+        private void AddBookButton(object sender, RoutedEventArgs e)
+        {
+            ((MainWindow)Application.Current.MainWindow).Main.Content = new AddBookForm();
+        }
     }
 
     public class CardData
@@ -262,7 +269,6 @@ namespace BookDatabase
         public string Title { get; set; }
         public string Genre { get; set; }
         public string Author { get; set; }
-        public BitmapImage image { get; set; }
 
     }
 

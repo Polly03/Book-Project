@@ -24,5 +24,15 @@ namespace BookDatabase
         {
             InitializeComponent();
         }
+
+        private void Length_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+
+        }
+
+        private void Return(object sender, RoutedEventArgs e)
+        {
+            ((MainWindow)Application.Current.MainWindow).Main.Content = new BooksWindow();
+        }
     }
 }

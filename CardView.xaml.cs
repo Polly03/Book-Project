@@ -46,19 +46,11 @@ namespace BookDatabase
         public static readonly DependencyProperty GenreProperty =
             DependencyProperty.Register("Genre", typeof(string), typeof(CardView), new PropertyMetadata(""));
 
-        public string Category
+        public string Genre
         {
             get => (string)GetValue(GenreProperty);
             set => SetValue(GenreProperty, value);
         }
-
-        public static readonly DependencyProperty ImageSourceProperty =
-            DependencyProperty.Register("ImageSource", typeof(BitmapImage), typeof(CardView), new PropertyMetadata(null));
-
-        public BitmapImage ImageSource
-        {
-            get => (BitmapImage)GetValue(ImageSourceProperty);
-            set => SetValue(ImageSourceProperty, value);
-        }
+       
     }
 }
