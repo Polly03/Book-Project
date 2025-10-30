@@ -55,7 +55,7 @@
                         <DataTemplate>
                             <!-- Define how each item should look -->
                             <Border Margin="5" Padding="10">
-                                <local1:CardViewAuthor NameOf="{Binding NameOf}" Date="{Binding Date}" Height="{Binding Height}" Width="{Binding Width}" Country ="{Binding Country}"/>
+                                
                             </Border>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>

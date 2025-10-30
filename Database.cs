@@ -156,10 +156,10 @@ namespace BookDatabase
                         while (reader.Read())
                         {
                             var name = (string)reader["Name"];
-                            var dateOfBirth = (string)reader["DateOfBirth"];
+                            var dateOfBirth = (DateTime)reader["DateOfBirth"];
                             var country = (string)reader["Country"];
 
-                            Tuple<string, string, string> tup = new Tuple<string, string, string> ( name, dateOfBirth, country );
+                            Tuple<string, string, string> tup = new Tuple<string, string, string> ( name, dateOfBirth.ToString(), country );
                             list.Add(tup);
                             
                         }
