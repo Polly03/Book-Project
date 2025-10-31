@@ -41,7 +41,7 @@
 
         <!-- Země původu -->
         <TextBlock Grid.Row="2" Grid.Column="0" FontSize="20" VerticalAlignment="Center">Zadejte zemi původu</TextBlock>
-        <ComboBox Grid.Row="2" Grid.Column="1" ItemsSource="{Binding Authors}" FontSize="20">
+        <ComboBox Grid.Row="2" Grid.Column="1" ItemsSource="{Binding Authors}" x:Name="CountriesBox" FontSize="20">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding Country}" />
@@ -51,7 +51,7 @@
 
         <!-- Datum narození -->
         <TextBlock Grid.Row="3" Grid.Column="0" FontSize="20" VerticalAlignment="Center">Zadejte datum narození</TextBlock>
-        <DatePicker Grid.Row="3" Grid.Column="1" FontSize="20" DateValidationError="DatePicker_DateValidationError"/>
+        <DatePicker Grid.Row="3" Grid.Column="1" FontSize="20" DateValidationError="DatePicker_DateValidationError" SelectedDateChanged="MyDatePicker_SelectedDateChanged" x:Name="DateAuthor"/>
 
         <!-- Popis autora -->
         <TextBlock Grid.Row="4" Grid.Column="0" FontSize="20" VerticalAlignment="Top" Margin="0,10,0,0">Zadejte popis autora</TextBlock>

@@ -1,21 +1,13 @@
 ﻿using BookDatabase.Models;
-using System;
-using System.Collections.Generic;
+using BookDatabase.Windows;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
+
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+
 
 namespace BookDatabase
 {
@@ -97,7 +89,8 @@ namespace BookDatabase
 
         private void AddAuthor(object sender, RoutedEventArgs e)
         {
-
+            AddAuthorForm win = new AddAuthorForm("Authors");
+            win.ShowDialog();
         }
 
         private void Return(object sender, RoutedEventArgs e)

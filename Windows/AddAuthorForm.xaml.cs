@@ -48,6 +48,16 @@ namespace BookDatabase.Windows
         private void DatePicker_DateValidationError(object sender, DatePickerDateValidationErrorEventArgs e)
         {
             MessageBox.Show("test");
+            DateAuthor.Background = Brushes.Red;
         }
+
+        private void MyDatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            DateAuthor.Background = Brushes.White;
+        }
+
+
+
+
     }
 }
