@@ -293,7 +293,7 @@ namespace BookDatabase
 
                         while (reader.Read())
                         {
-                            string name = reader["Name"].ToString();
+                            string? name = reader["Name"].ToString();
                             list.Add(name);
                         }
                         con.Close();

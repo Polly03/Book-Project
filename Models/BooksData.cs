@@ -14,7 +14,7 @@ namespace BookDatabase.Models
         public string Genre { get; set; }
         public string Author { get; set; }
 
-        public BooksData(int Width, int Height, string Title, string Genre, string Author)
+        public BooksData(int Width, int Height, string Title, string Author, string Genre)
         {
             this.Author = Author;
             this.Width = Width;

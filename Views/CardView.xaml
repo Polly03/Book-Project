@@ -20,9 +20,9 @@
             <StackPanel Grid.Row="1" Margin="10,10,10,10">
                
                 <TextBlock Text="{Binding Title, RelativeSource={RelativeSource AncestorType=UserControl}}"
-                   FontSize="14" FontWeight="Bold" TextWrapping="Wrap" Margin="0,0,0,5"/>
+                   FontSize="14" FontWeight="Bold" TextWrapping="Wrap" Margin="0,0,0,5" MouseDown="ShowBook"/>
                 <TextBlock Text="{Binding Author, RelativeSource={RelativeSource AncestorType=UserControl}}"
-                   FontSize="12" FontWeight="Bold" TextWrapping="Wrap" Height="28"/>
+                   FontSize="12" FontWeight="Bold" TextWrapping="Wrap" Height="28" MouseDown="ShowAuthor"/>
                 <TextBlock Text="{Binding Genre, RelativeSource={RelativeSource AncestorType=UserControl}}"
                    FontSize="12" FontWeight="Bold" TextWrapping="Wrap" Height="43"/>
 

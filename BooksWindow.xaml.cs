@@ -29,7 +29,7 @@ namespace BookDatabase
          * vlastnosti pro 
          * 1. interní deklaraci filtrovaných autorů (tedy textu v textBoxu), 
          * 2. veřejné nastavení autorů na tu interní se kteoru pracujeme (užviatel zadá "K" a interní vlastno s "_" se nastaví na veřejnou
-         * 3. 
+         * 3. nastavení metody applyfilters pro filtry, aby při změně vyhledávání filtru se zobrazily jen ty, co mají v názvu podstring
          */
         private ObservableCollection<FilterOption> _filteredAuthors;
         public ObservableCollection<FilterOption> FilteredAuthors
@@ -52,20 +52,25 @@ namespace BookDatabase
             }
         }
 
-        /* stejné co u autorů ale pro žánry */
+        /* stejné co u autorů ale pro žánry a všecny ostatní filtry */
+
         private ObservableCollection<FilterOption> _filteredGenres;
         public ObservableCollection<FilterOption> FilteredGenres
         {
             get => _filteredGenres;
             set {
-                _filteredGenres = value;
-                OnPropertyChanged();
-            }
+                    _filteredGenres = value;
+                    OnPropertyChanged();
+                }
         }
         public string SearchTextGenre
         {
             get => _searchTextGenre;
-            set { _searchTextGenre = value; OnPropertyChanged(); ApplyFilterGenres(); }
+            set { 
+                    _searchTextGenre = value; 
+                    OnPropertyChanged(); 
+                    ApplyFilterGenres(); 
+                }
         }
 
 
@@ -75,32 +80,53 @@ namespace BookDatabase
         {
             get => _filteredLanguages;
             set {
-                _filteredLanguages = value;
-                OnPropertyChanged();
-            }
+                    _filteredLanguages = value;
+                    OnPropertyChanged();
+                }
         }
+        public string SearchTextLanguages
+        {
+            get => _searchTextLanguages;
+            set { 
+                    _searchTextLanguages = value; 
+                    OnPropertyChanged(); 
+                    ApplyFilterLanguages(); 
+                }
+        }
+
 
 
         private ObservableCollection<FilterOption> _filteredPublishers;
         public ObservableCollection<FilterOption> FilteredPublishers
         {
-            get =>
-                _filteredPublishers;
+            get => _filteredPublishers;
             set {
-                _filteredPublishers = value;
-                OnPropertyChanged(); }
+                    _filteredPublishers = value;
+                    OnPropertyChanged(); 
+                }
+        }
+
+        public string SearchTextPublisher
+        {
+            get => _searchTextPublisher;
+            set { 
+                    _searchTextPublisher = value; 
+                    OnPropertyChanged(); 
+                    ApplyFilterPublishers(); 
+                }
         }
 
 
         public BooksWindow()
         {
+            // základní zobrazení všech knih
             InitializeComponent();
 
             DataContext = this;
             Database db = new Database();
-
             MyItems = new ObservableCollection<BooksData>();
-            List<Tuple<Byte[], string, string, string>> list = db.SelectAllBooks();  // photo, name, author, genre
+
+            List<Tuple<Byte[], string, string, string>> list = db.SelectAllBooks(); 
 
             foreach (var item in list)
             {
@@ -108,7 +134,7 @@ namespace BookDatabase
 
             }
 
-
+            // přidání autorů, žánrů atd do filtrů jako klikací checkbox
 
             Authors = new ObservableCollection<FilterOption> { };
 
@@ -152,6 +178,8 @@ namespace BookDatabase
             FilteredLanguages = new ObservableCollection<FilterOption>(Languages);
             FilteredPublishers = new ObservableCollection<FilterOption>(Publishers);
 
+            // každý filter má klikací metodu, která po zaškrtnutí filtru zobrazí knihy s daným filtrem
+
             foreach (var author in Authors)
             {
                 author.PropertyChanged += (s, e) => { if (e.PropertyName == nameof(FilterOption.IsSelected)) { ApplyFilter(); } };
@@ -174,6 +202,30 @@ namespace BookDatabase
 
         }
 
+        // metoda pro tlačítko na smazání všech filtrů
+        private void DeleteFilters(object sender, RoutedEventArgs e)
+        {
+
+            foreach(var author in Authors)
+            {
+                author.IsSelected = false;
+            }
+            foreach (var genre in Genres)
+            {
+                genre.IsSelected = false;
+            }
+            foreach (var language in Languages)
+            {
+                language.IsSelected = false;
+            }
+            foreach (var publisher in Publishers)
+            {
+                publisher.IsSelected = false;
+            }
+        }
+
+        // při zaškrtnutí dalšího filtru se znovu zavolá SQL procedura a vrátí se knihy odpvídajícím prvkům
+        // zároven jsou stringu přidány jednoduché uvozovky aby se mohl reprezentovat jako list v SQL
         private void ApplyFilter()
         {
             var authors = GetSelectedAuthors().Count == 0 ? "" : 
@@ -198,6 +250,8 @@ namespace BookDatabase
             }
         }
 
+
+        // metody pro vrácení filtrů, které byly vybrány
         private List<string> GetSelectedAuthors()
         {
             return Authors.Where(a => a.IsSelected).Select(a => a.Name).ToList();
@@ -220,7 +274,7 @@ namespace BookDatabase
 
 
 
-
+        // metoda pro volání sql procedury která vrátí knihy ORDER BY určitého elementu
         private void Order_MouseDown(object sender, MouseButtonEventArgs e)
         {
             var item = ((ComboBoxItem)sender);
@@ -242,6 +296,7 @@ namespace BookDatabase
             }
         }
 
+        // metoda, která se spustí tlačítkem které vyhledá a zobrazí knihy obsahující substring v názvu nebo v autorově jméně
         private void StartSearchBook(object sender, EventArgs e)
         {
             Database db = new Database();
@@ -254,75 +309,64 @@ namespace BookDatabase
 
         }
 
-
+        // metody, které zobrazí filtry podle toho jaké je ve vyhledávání 
         private void ApplyFilterAuthors()
         {
             if (string.IsNullOrWhiteSpace(SearchTextAuthor))
             {
                 FilteredAuthors = new ObservableCollection<FilterOption>(Authors);
             }
-
             else
             {
                 FilteredAuthors = new ObservableCollection<FilterOption>
                                   (Authors.Where(a => a.Name.ToLower().Contains(SearchTextAuthor.ToLower())));
             }
-
         }
-
-
-
-
-        public string SearchTextLanguages
-        {
-            get => _searchTextLanguages;
-            set { _searchTextLanguages = value; OnPropertyChanged(); ApplyFilterLanguages(); }
-        }
-
-
-        public string SearchTextPublisher
-        {
-            get => _searchTextPublisher;
-            set { _searchTextPublisher = value; OnPropertyChanged(); ApplyFilterPublishers(); }
-        }
-
-
-
 
         private void ApplyFilterGenres()
         {
             if (string.IsNullOrWhiteSpace(SearchTextGenre))
+            {
                 FilteredGenres = new ObservableCollection<FilterOption>(Genres);
+            }
             else
+            {
                 FilteredGenres = new ObservableCollection<FilterOption>(
-                    Genres.Where(g => g.Name.ToLower().Contains(SearchTextGenre.ToLower()))
-                );
+                                 Genres.Where(g => g.Name.ToLower().Contains(SearchTextGenre.ToLower())));
+            }    
         }
 
         private void ApplyFilterLanguages()
         {
             if (string.IsNullOrWhiteSpace(SearchTextLanguages))
+            {
                 FilteredLanguages = new ObservableCollection<FilterOption>(Languages);
+            }
             else
+            {
                 FilteredLanguages = new ObservableCollection<FilterOption>(
-                    Languages.Where(l => l.Name.ToLower().Contains(SearchTextLanguages.ToLower()))
-                );
+                                    Languages.Where(l => l.Name.ToLower().Contains(SearchTextLanguages.ToLower())));
+            }
+               
         }
 
         private void ApplyFilterPublishers()
         {
             if (string.IsNullOrWhiteSpace(SearchTextPublisher))
+            {
                 FilteredPublishers = new ObservableCollection<FilterOption>(Publishers);
+            }
             else
+            {
                 FilteredPublishers = new ObservableCollection<FilterOption>(
-                    Publishers.Where(p => p.Name.ToLower().Contains(SearchTextPublisher.ToLower()))
-                );
+                                     Publishers.Where(p => p.Name.ToLower().Contains(SearchTextPublisher.ToLower())));
+            }
+                
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        public event PropertyChangedEventHandler? PropertyChanged;
+        protected void OnPropertyChanged([CallerMemberName] string? propertyName = null)
             => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-
 
 
         private void AddBookButton(object sender, RoutedEventArgs e)

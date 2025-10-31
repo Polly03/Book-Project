@@ -51,6 +51,16 @@ namespace BookDatabase
             get => (string)GetValue(GenreProperty);
             set => SetValue(GenreProperty, value);
         }
-       
+
+        public void ShowBook(object sender, MouseEventArgs e)
+        {
+            MessageBox.Show("Getting book");
+        }
+
+        public void ShowAuthor(object sender, MouseEventArgs e)
+        {
+            MessageBox.Show("Getting Author");
+        }
+
     }
 }
