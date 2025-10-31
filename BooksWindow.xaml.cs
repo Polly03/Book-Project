@@ -151,6 +151,71 @@ namespace BookDatabase
             FilteredGenres = new ObservableCollection<FilterOption>(Genres);
             FilteredLanguages = new ObservableCollection<FilterOption>(Languages);
             FilteredPublishers = new ObservableCollection<FilterOption>(Publishers);
+
+            foreach (var author in Authors)
+            {
+                author.PropertyChanged += (s, e) => { if (e.PropertyName == nameof(FilterOption.IsSelected)) { ApplyFilter(); } };
+            }
+
+            foreach (var genre in Genres)
+            {
+                genre.PropertyChanged += (s, e) => { if (e.PropertyName == nameof(FilterOption.IsSelected)) { ApplyFilter(); } };
+            }
+
+            foreach (var language in Languages)
+            {
+                language.PropertyChanged += (s, e) => { if (e.PropertyName == nameof(FilterOption.IsSelected)) { ApplyFilter(); } };
+            }
+
+            foreach (var publisher in Publishers)
+            {
+                publisher.PropertyChanged += (s, e) => { if (e.PropertyName == nameof(FilterOption.IsSelected)) { ApplyFilter(); } };
+            }
+
+        }
+
+        private void ApplyFilter()
+        {
+            var authors = GetSelectedAuthors().Count == 0 ? "" : 
+                string.Join(",", GetSelectedAuthors().Select(a => $"'{a.Replace("'", "''")}'"));
+
+            var genres = GetSelectedGenres().Count == 0 ? "" : 
+                string.Join(",",  GetSelectedGenres().Select(a => $"'{a.Replace("'", "''")}'"));
+
+            var languages = GetSelectedLanguages().Count == 0 ? "" : 
+                string.Join(",", GetSelectedLanguages().Select(a => $"'{a.Replace("'", "''")}'"));
+
+            var publishers = GetSelectedPublishers().Count == 0 ? "" : 
+                string.Join(",", GetSelectedPublishers().Select(a => $"'{a.Replace("'", "''")}'"));
+
+            Database db = new Database();
+            List<Tuple<byte[], string, string, string>> list = db.SelectBooksByFilters(authors, genres, languages, publishers);
+
+            MyItems.Clear();
+            foreach (var elem in list)
+            {
+                MyItems.Add(new BooksData(150, 200, elem.Item2, elem.Item3, elem.Item4));
+            }
+        }
+
+        private List<string> GetSelectedAuthors()
+        {
+            return Authors.Where(a => a.IsSelected).Select(a => a.Name).ToList();
+        }
+
+        private List<string> GetSelectedGenres()
+        {
+            return Genres.Where(a => a.IsSelected).Select(a => a.Name).ToList();
+        }
+
+        private List<string> GetSelectedLanguages()
+        {
+            return Languages.Where(a => a.IsSelected).Select(a => a.Name).ToList();
+        }
+
+        private List<string> GetSelectedPublishers()
+        {
+            return Publishers.Where(a => a.IsSelected).Select(a => a.Name).ToList();
         }
 
 
@@ -160,7 +225,33 @@ namespace BookDatabase
         {
             var item = ((ComboBoxItem)sender);
             var s = item.Name;
-            ((ComboBox)item.Parent).Text = item.Content.ToString();
+            Database db = new Database();
+            string column = "";
+            string way = "";
+            if (s == "ABCasc") { column = "books.name"; way = "asc"; }
+            if (s == "ABCdsc") { column = "books.name"; way = "desc"; }
+            if (s == "LENasc") { column = "books.length"; way = "asc"; }
+            if (s == "LENdsc") { column = "books.length"; way = "desc"; }
+
+            
+            List<Tuple<byte[], string, string, string>> list = db.OrderBooks(column, way);
+            MyItems.Clear();
+            foreach (var elem in list)
+            {
+                MyItems.Add(new BooksData(150, 200, elem.Item2, elem.Item3, elem.Item4));
+            }
+        }
+
+        private void StartSearchBook(object sender, EventArgs e)
+        {
+            Database db = new Database();
+            List <Tuple<Byte[], string, string, string>> list = db.SelectBooksWithSearch(searchBar.Text);
+            MyItems.Clear();
+            foreach (var elem in list)
+            {
+                MyItems.Add(new BooksData(150, 200, elem.Item2, elem.Item3, elem.Item4));
+            }
+
         }
 
 
@@ -194,16 +285,6 @@ namespace BookDatabase
             get => _searchTextPublisher;
             set { _searchTextPublisher = value; OnPropertyChanged(); ApplyFilterPublishers(); }
         }
-
-
-
-
-
-
-
-
-
-
 
 
 

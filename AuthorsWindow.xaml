@@ -16,7 +16,7 @@
 
 
         <Button Margin="515,10,572,647" FontSize="25">Vyhledat</Button>
-        <TextBox Margin="515,92,572,595" FontSize="20"  ></TextBox>
+        <TextBox Margin="515,92,572,595" FontSize="20"></TextBox>
 
         <TextBlock VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="25" Margin="766,26,0,0">Seřadit podle:</TextBlock>
         <ComboBox Margin="937,27,127,660" SelectionChanged="ComboBox_SelectionChanged">

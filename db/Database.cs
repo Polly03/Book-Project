@@ -49,7 +49,7 @@ namespace BookDatabase
            return SelectBooksWithSearch("");
         }
 
-        public void SelectBooksByFilters(string? author, string? genres, string? languages, string? publishers)
+        public List<Tuple<byte[], string, string, string>> SelectBooksByFilters(string? author, string? genres, string? languages, string? publishers)
         {
 
             using (FbConnection con = new FbConnection(connString))
@@ -65,16 +65,20 @@ namespace BookDatabase
 
                     using (var reader = cmd.ExecuteReader())
                     {
+                        List<Tuple<byte[], string, string, string>> list = new List<Tuple<byte[], string, string, string>> { };
+
                         while (reader.Read())
                         {
-                            var photo = reader["Photo"];
-                            var names = reader["Name"];
-                            var authors = reader["Author"];
-                            var genre = reader["Genre"];
+                            var photo = reader["Photo"] == DBNull.Value ? null : (byte[])reader["Photo"];
+                            var names = (string)reader["Name"];
+                            var authors = (string)reader["Author"];
+                            var genre = (string)reader["Genre"];
 
-                            Console.WriteLine("books: " + photo + " " + names + " " + genre + " " + authors + "\n");
-
+                            Tuple<byte[], string, string, string> tup = new Tuple<byte[], string, string, string>(photo, names, authors, genre);
+                            list.Add(tup);
                         }
+                        con.Close();
+                        return list;
                     }
                 }
             }
@@ -240,7 +244,7 @@ namespace BookDatabase
             }
         }
 
-        public void OrderBooks(string argument, string way)
+        public List<Tuple<byte[], string, string, string>> OrderBooks(string argument, string way)
         {
             using (FbConnection con = new FbConnection(connString))
             {
@@ -253,19 +257,23 @@ namespace BookDatabase
 
                     using( var reader = cmd.ExecuteReader())
                     {
+                        List<Tuple<byte[], string, string, string>> list = new List<Tuple<byte[], string, string, string>>();
                         while (reader.Read())
                         {
-                            var photo = reader["photo"];
-                            var name = reader["Name"];
-                            var author = reader["author"];
-                            var genre = reader["genre"];
+                            var photo = reader["Photo"] == DBNull.Value ? null : (byte[])reader["Photo"];
+                            var name = (string)reader["Name"];
+                            var author = (string)reader["author"];
+                            var genre = (string)reader["genre"];
 
-                            Console.WriteLine("order: " + photo + " " + name + " " + genre + " " + author + "\n");
+                            Tuple<byte[], string, string, string> tup = new Tuple<byte[], string, string, string>(photo, name, author, genre);
+                            list.Add(tup);
                         }
+                        con.Close();
+                        return list;
                     }
 
                 }
-                con.Close();
+                
             }
         }
 

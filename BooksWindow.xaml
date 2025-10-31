@@ -15,8 +15,8 @@
         </Button>
 
 
-        <Button Margin="515,10,572,647" FontSize="25">Vyhledat</Button>
-        <TextBox Margin="515,92,572,595" FontSize="20"  ></TextBox>
+        <Button Margin="515,10,572,647" FontSize="25" Click="StartSearchBook">Vyhledat</Button>
+        <TextBox Margin="515,92,572,595" FontSize="20" x:Name="searchBar"></TextBox>
 
         <TextBlock VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="25" Margin="766,26,0,0">Seřadit podle:</TextBlock>
         <ComboBox Margin="937,27,127,660">
