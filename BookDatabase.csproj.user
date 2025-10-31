@@ -2,25 +2,22 @@
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup />
   <ItemGroup>
-    <Compile Update="AddBookForm.xaml.cs">
+    <Compile Update="Windows\AddAuthorForm.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="AuthorsWindow.xaml.cs">
+    <Compile Update="Windows\AddBookForm.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="BookDetail.xaml.cs">
+    <Compile Update="UserControls\AuthorsWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="BooksWindow.xaml.cs">
+    <Compile Update="UserControls\BooksWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Views\CardView.xaml.cs">
+    <Compile Update="CardViews\CardView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="test.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="Views\CardViewAuthor.xaml.cs">
+    <Compile Update="CardViews\CardViewAuthor.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>

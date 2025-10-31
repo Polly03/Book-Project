@@ -1,0 +1,61 @@
+﻿<Window x:Class="BookDatabase.Windows.AddAuthorForm"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BookDatabase.Windows"
+        mc:Ignorable="d"
+        Title="AddAuthorForm" Height="600" Width="1000"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize">
+    <Grid Margin="20">
+        <!-- Definice sloupců -->
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <!-- levý sloupec pro popisky -->
+            <ColumnDefinition Width="3*"/>
+            <!-- pravý sloupec pro vstupy -->
+        </Grid.ColumnDefinitions>
+
+        <!-- Definice řádků -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" MinHeight="80"/>
+            <!-- tlačítka -->
+            <RowDefinition Height="Auto" MinHeight="80"/>
+            <!-- jméno autora -->
+            <RowDefinition Height="Auto" MinHeight="80"/>
+            <!-- země původu -->
+            <RowDefinition Height="Auto" MinHeight="80"/>
+            <!-- datum narození -->
+            <RowDefinition Height="Auto" MinHeight="120"/>
+            <!-- popis autora -->
+        </Grid.RowDefinitions>
+
+        <!-- Tlačítka -->
+        <Button Grid.Row="0" Grid.Column="0" FontSize="32" Click="Return" HorizontalAlignment="Left" Width="200" Margin="0,0,0,20">Zrušit</Button>
+        <Button Grid.Row="0" Grid.Column="1" FontSize="32" HorizontalAlignment="Right" Width="200" Margin="0,0,0,20">Potvrdit</Button>
+
+        <!-- Jméno autora -->
+        <TextBlock Grid.Row="1" Grid.Column="0" FontSize="20" VerticalAlignment="Center">Zadejte jméno autora</TextBlock>
+        <TextBox Grid.Row="1" Grid.Column="1" FontSize="20"/>
+
+        <!-- Země původu -->
+        <TextBlock Grid.Row="2" Grid.Column="0" FontSize="20" VerticalAlignment="Center">Zadejte zemi původu</TextBlock>
+        <ComboBox Grid.Row="2" Grid.Column="1" ItemsSource="{Binding Authors}" FontSize="20">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Country}" />
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+
+        <!-- Datum narození -->
+        <TextBlock Grid.Row="3" Grid.Column="0" FontSize="20" VerticalAlignment="Center">Zadejte datum narození</TextBlock>
+        <DatePicker Grid.Row="3" Grid.Column="1" FontSize="20" DateValidationError="DatePicker_DateValidationError"/>
+
+        <!-- Popis autora -->
+        <TextBlock Grid.Row="4" Grid.Column="0" FontSize="20" VerticalAlignment="Top" Margin="0,10,0,0">Zadejte popis autora</TextBlock>
+        <TextBox Grid.Row="4" Grid.Column="1" FontSize="20" Height="150" TextWrapping="Wrap" AcceptsReturn="True"/>
+    </Grid>
+
+</Window>
