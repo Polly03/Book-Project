@@ -47,7 +47,7 @@ namespace BookDatabase.Windows
 
         private void DatePicker_DateValidationError(object sender, DatePickerDateValidationErrorEventArgs e)
         {
-            MessageBox.Show("test");
+            MessageBox.Show("NEPLATNĚ ZADANÉ DATUM");
             DateAuthor.Background = Brushes.Red;
         }
 
@@ -56,8 +56,34 @@ namespace BookDatabase.Windows
             DateAuthor.Background = Brushes.White;
         }
 
+        private void Accept(object sender, RoutedEventArgs e)
+        {
+            if (DateAuthor.Background == Brushes.Red)
+            {
+                MessageBox.Show("nesprávně zadané datum");
+                return;
+            }
+            if (String.IsNullOrWhiteSpace(AboutAuthor.Text))
+            {
+                MessageBox.Show("vyplňte pole o autorovi");
+                return;
+            }
+            if (String.IsNullOrWhiteSpace(NameOfAuthor.Text))
+            {
+                MessageBox.Show("vyplňte autorovo jméno");
+                return;
+            }
+            if (CountriesBox.SelectedItem == null)
+            {
+                MessageBox.Show("vyberte zemi původu");
+                return;
+            }
+
+            Database db = new Database();
+            db.InsertAuthor(NameOfAuthor.Text, CountriesBox.SelectedItem.ToString(), (DateTime)DateAuthor.SelectedDate, AboutAuthor.Text);
+            this.Close();
 
 
-
+        }
     }
 }

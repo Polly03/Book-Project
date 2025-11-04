@@ -84,6 +84,28 @@ namespace BookDatabase
             }
         }
 
+        public void InsertAuthor(string name, string country, DateTime dateOfBirth, string aboutAuthor)
+        {
+            using (FbConnection con = new FbConnection(connString))
+            {
+                con.Open();
+
+                using (FbCommand cmd = new FbCommand("INSERT_AUTHOR", con))
+                {
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("ABOUTAUTHOR", (object?)aboutAuthor ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("COUNTRY", (object?)country ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("DATEOFBIRTH", dateOfBirth);
+                    cmd.Parameters.AddWithValue("NAME", (object?)name ?? DBNull.Value);
+
+                    cmd.ExecuteNonQuery();
+                }
+
+                con.Close();
+            }
+        }
+
         public void SelectAuthorsByFilers(string? Names, string? Countries)
         {
 

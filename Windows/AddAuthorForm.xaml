@@ -33,11 +33,11 @@
 
         <!-- Tlačítka -->
         <Button Grid.Row="0" Grid.Column="0" FontSize="32" Click="Return" HorizontalAlignment="Left" Width="200" Margin="0,0,0,20">Zrušit</Button>
-        <Button Grid.Row="0" Grid.Column="1" FontSize="32" HorizontalAlignment="Right" Width="200" Margin="0,0,0,20">Potvrdit</Button>
+        <Button Grid.Row="0" Grid.Column="1" FontSize="32" HorizontalAlignment="Right" Width="200" Margin="0,0,0,20" Click="Accept">Potvrdit</Button>
 
         <!-- Jméno autora -->
         <TextBlock Grid.Row="1" Grid.Column="0" FontSize="20" VerticalAlignment="Center">Zadejte jméno autora</TextBlock>
-        <TextBox Grid.Row="1" Grid.Column="1" FontSize="20"/>
+        <TextBox Grid.Row="1" Grid.Column="1" FontSize="20" x:Name="NameOfAuthor"/>
 
         <!-- Země původu -->
         <TextBlock Grid.Row="2" Grid.Column="0" FontSize="20" VerticalAlignment="Center">Zadejte zemi původu</TextBlock>
@@ -55,7 +55,7 @@
 
         <!-- Popis autora -->
         <TextBlock Grid.Row="4" Grid.Column="0" FontSize="20" VerticalAlignment="Top" Margin="0,10,0,0">Zadejte popis autora</TextBlock>
-        <TextBox Grid.Row="4" Grid.Column="1" FontSize="20" Height="150" TextWrapping="Wrap" AcceptsReturn="True"/>
+        <TextBox Grid.Row="4" Grid.Column="1" FontSize="20" Height="150" TextWrapping="Wrap" AcceptsReturn="True" x:Name="AboutAuthor"/>
     </Grid>
 
 </Window>
