@@ -39,7 +39,7 @@ namespace BookDatabase
             OrderBooks("books.name", "asc");
 
         }
-        public List<Tuple<string, string, string>> SelectAllAuthors()
+        public List<Tuple<string, DateTime, string>> SelectAllAuthors()
         {
             return SelectAuthorWithSearch("");
         }
@@ -69,12 +69,13 @@ namespace BookDatabase
 
                         while (reader.Read())
                         {
-                            var photo = reader["Photo"] == DBNull.Value ? null : (byte[])reader["Photo"];
+                            var photo = reader["Photo"];
+                            byte[]? photoByte = photo as byte[];
                             var names = (string)reader["Name"];
                             var authors = (string)reader["Author"];
                             var genre = (string)reader["Genre"];
 
-                            Tuple<byte[], string, string, string> tup = new Tuple<byte[], string, string, string>(photo, names, authors, genre);
+                            Tuple<byte[], string, string, string> tup = new Tuple<byte[], string, string, string>(photoByte!, names, authors, genre);
                             list.Add(tup);
                         }
                         con.Close();
@@ -149,12 +150,13 @@ namespace BookDatabase
 
                         while (reader.Read())
                         {
-                            var photo = reader["Photo"] == DBNull.Value ? null : (byte[])reader["Photo"];
+                            var photo = reader["Photo"];
+                            byte[]? photoByte = photo as byte[];
                             var names = (string)reader["Name"];
                             var authors = (string)reader["Author"];
                             var genre = (string)reader["Genre"];
 
-                            Tuple<Byte[], string, string, string> tup = new Tuple<byte[], string, string, string>(photo, names, authors, genre);
+                            Tuple<Byte[], string, string, string> tup = new Tuple<byte[], string, string, string>(photoByte!, names, authors, genre);
                             list.Add(tup);
 
 
@@ -166,7 +168,7 @@ namespace BookDatabase
             }
         }
 
-        public List<Tuple<string, string, string>> SelectAuthorWithSearch(string search)
+        public List<Tuple<string, DateTime, string>> SelectAuthorWithSearch(string search)
         {
             using (FbConnection con = new FbConnection(connString))
             {
@@ -178,14 +180,14 @@ namespace BookDatabase
 
                     using (var reader = cmd.ExecuteReader())
                     {
-                        List<Tuple<string, string, string>> list = new List<Tuple<string, string, string>> { };
+                        List<Tuple<string, DateTime, string>> list = new List<Tuple<string, DateTime, string>> { };
                         while (reader.Read())
                         {
                             var name = (string)reader["Name"];
                             var dateOfBirth = (DateTime)reader["DateOfBirth"];
                             var country = (string)reader["Country"];
 
-                            Tuple<string, string, string> tup = new Tuple<string, string, string> ( name, dateOfBirth.ToString(), country );
+                            Tuple<string, DateTime, string> tup = new Tuple<string, DateTime, string> ( name, dateOfBirth, country );
                             list.Add(tup);
                             
                         }
@@ -282,12 +284,13 @@ namespace BookDatabase
                         List<Tuple<byte[], string, string, string>> list = new List<Tuple<byte[], string, string, string>>();
                         while (reader.Read())
                         {
-                            var photo = reader["Photo"] == DBNull.Value ? null : (byte[])reader["Photo"];
+                            var photo = reader["Photo"];
+                            byte[]? photoByte = photo as byte[];
                             var name = (string)reader["Name"];
                             var author = (string)reader["author"];
                             var genre = (string)reader["genre"];
 
-                            Tuple<byte[], string, string, string> tup = new Tuple<byte[], string, string, string>(photo, name, author, genre);
+                            Tuple<byte[], string, string, string> tup = new Tuple<byte[], string, string, string>(photoByte!, name, author, genre);
                             list.Add(tup);
                         }
                         con.Close();
@@ -315,8 +318,8 @@ namespace BookDatabase
 
                         while (reader.Read())
                         {
-                            string? name = reader["Name"].ToString();
-                            list.Add(name);
+                            var name = reader["Name"];
+                            list.Add(name?.ToString() ?? "");
                         }
                         con.Close();
                         return list;

@@ -16,9 +16,7 @@ using System.Windows.Shapes;
 
 namespace BookDatabase
 {
-    /// <summary>
-    /// Interaction logic for AddBookForm.xaml
-    /// </summary>
+
     public partial class AddBookForm : Window
     {
         public AddBookForm()

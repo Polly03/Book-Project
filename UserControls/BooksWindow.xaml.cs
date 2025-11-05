@@ -5,8 +5,6 @@ using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using static System.Net.WebRequestMethods;
-using static BookDatabase.Models.BooksData;
 
 namespace BookDatabase
 {
@@ -20,10 +18,10 @@ namespace BookDatabase
         public ObservableCollection<FilterOption> Languages { get; set; }
         public ObservableCollection<FilterOption> Publishers { get; set; }
 
-        private string _searchTextAuthor;
-        private string _searchTextGenre;
-        private string _searchTextPublisher;
-        private string _searchTextLanguages;
+        private string _searchTextAuthor = string.Empty;
+        private string _searchTextGenre = string.Empty;
+        private string _searchTextPublisher = string.Empty;
+        private string _searchTextLanguages = string.Empty;
 
         /* 
          * vlastnosti pro 
@@ -31,7 +29,7 @@ namespace BookDatabase
          * 2. veřejné nastavení autorů na tu interní se kteoru pracujeme (užviatel zadá "K" a interní vlastno s "_" se nastaví na veřejnou
          * 3. nastavení metody applyfilters pro filtry, aby při změně vyhledávání filtru se zobrazily jen ty, co mají v názvu podstring
          */
-        private ObservableCollection<FilterOption> _filteredAuthors;
+        private ObservableCollection<FilterOption> _filteredAuthors = new ObservableCollection<FilterOption>();
         public ObservableCollection<FilterOption> FilteredAuthors
         {
             get => _filteredAuthors;
@@ -54,7 +52,7 @@ namespace BookDatabase
 
         /* stejné co u autorů ale pro žánry a všecny ostatní filtry */
 
-        private ObservableCollection<FilterOption> _filteredGenres;
+        private ObservableCollection<FilterOption> _filteredGenres = new ObservableCollection<FilterOption>();
         public ObservableCollection<FilterOption> FilteredGenres
         {
             get => _filteredGenres;
@@ -75,7 +73,7 @@ namespace BookDatabase
 
 
 
-        private ObservableCollection<FilterOption> _filteredLanguages;
+        private ObservableCollection<FilterOption> _filteredLanguages = new ObservableCollection<FilterOption>();
         public ObservableCollection<FilterOption> FilteredLanguages
         {
             get => _filteredLanguages;
@@ -96,7 +94,7 @@ namespace BookDatabase
 
 
 
-        private ObservableCollection<FilterOption> _filteredPublishers;
+        private ObservableCollection<FilterOption> _filteredPublishers = new ObservableCollection<FilterOption>();
         public ObservableCollection<FilterOption> FilteredPublishers
         {
             get => _filteredPublishers;
@@ -130,7 +128,7 @@ namespace BookDatabase
 
             foreach (var item in list)
             {
-                MyItems.Add(new BooksData(150, 200, item.Item2, item.Item3, item.Item4));
+                MyItems.Add(new BooksData(item.Item2, item.Item3, item.Item4));
 
             }
 
@@ -246,7 +244,7 @@ namespace BookDatabase
             MyItems.Clear();
             foreach (var elem in list)
             {
-                MyItems.Add(new BooksData(150, 200, elem.Item2, elem.Item3, elem.Item4));
+                MyItems.Add(new BooksData(elem.Item2, elem.Item3, elem.Item4));
             }
         }
 
@@ -254,22 +252,22 @@ namespace BookDatabase
         // metody pro vrácení filtrů, které byly vybrány
         private List<string> GetSelectedAuthors()
         {
-            return Authors.Where(a => a.IsSelected).Select(a => a.Name).ToList();
+            return Authors.Where(a => a.IsSelected).Select(a => a.Name).ToList() as List<string>;
         }
 
         private List<string> GetSelectedGenres()
         {
-            return Genres.Where(a => a.IsSelected).Select(a => a.Name).ToList();
+            return Genres.Where(a => a.IsSelected).Select(a => a.Name).ToList() as List<string>;
         }
 
         private List<string> GetSelectedLanguages()
         {
-            return Languages.Where(a => a.IsSelected).Select(a => a.Name).ToList();
+            return Languages.Where(a => a.IsSelected).Select(a => a.Name).ToList() as List<string>;
         }
 
         private List<string> GetSelectedPublishers()
         {
-            return Publishers.Where(a => a.IsSelected).Select(a => a.Name).ToList();
+            return Publishers.Where(a => a.IsSelected).Select(a => a.Name).ToList() as List<string>;
         }
 
 
@@ -292,7 +290,7 @@ namespace BookDatabase
             MyItems.Clear();
             foreach (var elem in list)
             {
-                MyItems.Add(new BooksData(150, 200, elem.Item2, elem.Item3, elem.Item4));
+                MyItems.Add(new BooksData(elem.Item2, elem.Item3, elem.Item4));
             }
         }
 
@@ -304,7 +302,7 @@ namespace BookDatabase
             MyItems.Clear();
             foreach (var elem in list)
             {
-                MyItems.Add(new BooksData(150, 200, elem.Item2, elem.Item3, elem.Item4));
+                MyItems.Add(new BooksData(elem.Item2, elem.Item3, elem.Item4));
             }
 
         }
@@ -319,7 +317,7 @@ namespace BookDatabase
             else
             {
                 FilteredAuthors = new ObservableCollection<FilterOption>
-                                  (Authors.Where(a => a.Name.ToLower().Contains(SearchTextAuthor.ToLower())));
+                                  (Authors.Where(a => a.Name!.ToLower().Contains(SearchTextAuthor.ToLower())));
             }
         }
 
@@ -332,7 +330,7 @@ namespace BookDatabase
             else
             {
                 FilteredGenres = new ObservableCollection<FilterOption>(
-                                 Genres.Where(g => g.Name.ToLower().Contains(SearchTextGenre.ToLower())));
+                                 Genres.Where(g => g.Name!.ToLower().Contains(SearchTextGenre.ToLower())));
             }    
         }
 
@@ -345,7 +343,7 @@ namespace BookDatabase
             else
             {
                 FilteredLanguages = new ObservableCollection<FilterOption>(
-                                    Languages.Where(l => l.Name.ToLower().Contains(SearchTextLanguages.ToLower())));
+                                    Languages.Where(l => l.Name!.ToLower().Contains(SearchTextLanguages.ToLower())));
             }
                
         }
@@ -359,7 +357,7 @@ namespace BookDatabase
             else
             {
                 FilteredPublishers = new ObservableCollection<FilterOption>(
-                                     Publishers.Where(p => p.Name.ToLower().Contains(SearchTextPublisher.ToLower())));
+                                     Publishers.Where(p => p.Name!.ToLower().Contains(SearchTextPublisher.ToLower())));
             }
                 
         }

@@ -10,7 +10,7 @@ namespace BookDatabase.Models
 {
     public class FilterOption : INotifyPropertyChanged
     {
-        public string Name { get; set; }
+        public string? Name { get; set; }
 
         private bool _isSelected;
         public bool IsSelected
@@ -19,8 +19,8 @@ namespace BookDatabase.Models
             set { _isSelected = value; OnPropertyChanged(); }
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        public event PropertyChangedEventHandler? PropertyChanged;
+        protected void OnPropertyChanged([CallerMemberName] string? propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }

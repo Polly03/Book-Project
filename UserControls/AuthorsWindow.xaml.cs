@@ -6,26 +6,25 @@ using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
 
+
 using System.Windows.Input;
 
 
 namespace BookDatabase
 {
-    /// <summary>
-    /// Interaction logic for AuthorsWindow.xaml
-    /// </summary>
+
     public partial class AuthorsWindow : UserControl
     {
 
         public ObservableCollection<Authors> MyItemsAuthors { get; set; }
-        public ObservableCollection<FilterOption> Countries { get; set; }
+        public ObservableCollection<FilterOption> Countries { get; set; } = new ObservableCollection<FilterOption>();
 
 
-        private string _searchTextCountry;
+        private string? _searchTextCountry;
 
 
-        private ObservableCollection<FilterOption> _filteredCountries;
-        public ObservableCollection<FilterOption> FilteredCountries
+        private ObservableCollection<FilterOption>? _filteredCountries;
+        public ObservableCollection<FilterOption>? FilteredCountries
         {
             get => _filteredCountries;
             set
@@ -34,7 +33,7 @@ namespace BookDatabase
                 OnPropertyChanged();
             }
         }
-        public string SearchTextAuthor
+        public string? SearchTextAuthor
         {
             get => _searchTextCountry;
             set
@@ -55,11 +54,10 @@ namespace BookDatabase
             else
             {
                 FilteredCountries = new ObservableCollection<FilterOption>
-                                  (Countries.Where(a => a.Name.ToLower().Contains(SearchTextAuthor.ToLower())));
+                                  (Countries.Where(a => a.Name!.ToLower().Contains(SearchTextAuthor.ToLower())));
             }
 
         }
-
 
 
         public AuthorsWindow()
@@ -67,17 +65,24 @@ namespace BookDatabase
             InitializeComponent();
 
             DataContext = this;
+            MyItemsAuthors = new ObservableCollection<Authors>();
+            SelectCard();
+
+        }
+
+        private void SelectCard()
+        {
+
             Database db = new Database();
 
-            MyItemsAuthors = new ObservableCollection<Authors>();
 
-            List<Tuple<string, string, string>> list = db.SelectAllAuthors();
 
+            List<Tuple<string, DateTime, string>> list = db.SelectAllAuthors();
+            MyItemsAuthors.Clear();
             foreach (var item in list)
             {
-                MyItemsAuthors.Add(new Authors(150, 200, item.Item1, item.Item2, item.Item3));
+                MyItemsAuthors.Add(new Authors(item.Item1, item.Item2.ToString(), item.Item3));
             }
-
         }
 
         private void Order_MouseDown(object sender, MouseButtonEventArgs e)
@@ -90,6 +95,7 @@ namespace BookDatabase
         private void AddAuthor(object sender, RoutedEventArgs e)
         {
             AddAuthorForm win = new AddAuthorForm("Authors");
+            win.AuthorAdded += SelectCard;
             win.ShowDialog();
         }
 
@@ -107,8 +113,8 @@ namespace BookDatabase
             ((MainWindow)Application.Current.MainWindow).Main.Content = new BooksWindow();
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        public event PropertyChangedEventHandler? PropertyChanged;
+        protected void OnPropertyChanged([CallerMemberName] string? propertyName = null)
             => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 }

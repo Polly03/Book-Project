@@ -50,7 +50,7 @@
                         </ScrollViewer>
                     </StackPanel>
 
-                    <!-- Filtr: Název -->
+
                     <StackPanel Margin="0,0,0,20">
                         <TextBlock Text="Vyber žánr:" FontWeight="Bold" Margin="0,0,0,5" Width="200"/>
                         <TextBox Width="200" Margin="0,0,0,5" Text="{Binding SearchTextGenre, UpdateSourceTrigger=PropertyChanged}"/>
@@ -112,9 +112,8 @@
                     </ItemsControl.ItemsPanel>
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <!-- Define how each item should look -->
                             <Border Margin="5" Padding="10">
-                                <local:CardView Title="{Binding Title}" Author="{Binding Author}" Height="{Binding Height}" Width="{Binding Width}" Genre ="{Binding Genre}"/>
+                                <local:CardView Title="{Binding Title}" Author="{Binding Author}" Genre ="{Binding Genre}"/>
                             </Border>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
@@ -122,8 +121,5 @@
             </ScrollViewer>
         </Grid>
     </Grid>
-
-
-
 
 </UserControl>

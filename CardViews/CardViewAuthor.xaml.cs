@@ -13,11 +13,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace BookDatabase.Views
+namespace BookDatabase
 {
-    /// <summary>
-    /// Interaction logic for CardViewAuthor.xaml
-    /// </summary>
+
     public partial class CardViewAuthor : UserControl
     {
         public CardViewAuthor()
@@ -34,13 +32,13 @@ namespace BookDatabase.Views
             set => SetValue(NameOfProperty, value);
         }
 
-        public static readonly DependencyProperty DateProperty =
-            DependencyProperty.Register("Date", typeof(DateTime), typeof(CardViewAuthor), new PropertyMetadata(""));
+        public static readonly DependencyProperty DateOfBirthProperty =
+            DependencyProperty.Register("DateOfBirth", typeof(string), typeof(CardViewAuthor), new PropertyMetadata(""));
 
-        public DateTime Date
+        public string DateOfBirth
         {
-            get => (DateTime)GetValue(DateProperty);
-            set => SetValue(DateProperty, value);
+            get => (string)GetValue(DateOfBirthProperty);
+            set => SetValue(DateOfBirthProperty, value);
         }
 
         public static readonly DependencyProperty CountryProperty =

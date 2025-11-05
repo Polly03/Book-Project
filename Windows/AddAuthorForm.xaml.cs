@@ -1,4 +1,5 @@
 ﻿using BookDatabase.Models;
+using Microsoft.EntityFrameworkCore.Metadata;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,14 +16,14 @@ using System.Windows.Shapes;
 
 namespace BookDatabase.Windows
 {
-    /// <summary>
-    /// Interaction logic for AddAuthorForm.xaml
-    /// </summary>
+
     public partial class AddAuthorForm : Window
     {
         public List<Authors> Authors { get; set; }
-        private List<Authors> _authors;
+        private List<Authors> _authors = new List<Authors>();
         private string _win;
+        public event Action? AuthorAdded;
+
         public AddAuthorForm(string win)
         {
 
@@ -33,10 +34,11 @@ namespace BookDatabase.Windows
 
             Database database = new Database();
             List<string> list = database.SelectTableByName("Countries");
+   
 
             foreach (string item in list)
             {
-                Authors.Add(new Authors(150, 150, item, item, item));
+                Authors.Add(new Authors(item, item, item));
             }
         }
 
@@ -80,7 +82,18 @@ namespace BookDatabase.Windows
             }
 
             Database db = new Database();
-            db.InsertAuthor(NameOfAuthor.Text, CountriesBox.SelectedItem.ToString(), (DateTime)DateAuthor.SelectedDate, AboutAuthor.Text);
+            List<Tuple<string, DateTime, string>> list = db.SelectAuthorWithSearch(NameOfAuthor.Text);
+            if (list.Count > 0)
+            {
+                MessageBox.Show("Tento Autor již existuje!");
+                return;
+            }
+
+
+
+
+            db.InsertAuthor(NameOfAuthor.Text, ((Authors)CountriesBox.SelectedItem).Country, (DateTime)DateAuthor.SelectedDate!, AboutAuthor.Text);
+            AuthorAdded?.Invoke();
             this.Close();
 
 

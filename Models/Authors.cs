@@ -8,18 +8,14 @@ namespace BookDatabase.Models
 {
     public class Authors
     {
-        public int Width { get; set; }
-        public int Height { get; set; }
         public string NameOf {  get; set; }
-        public string Date { get; set; }
+        public string DateOfBirth { get; set; }
         public string Country { get; set; }
 
-        public Authors (int Width, int Height, string NameOf, string Date, string Country)
+        public Authors (string NameOf, string Date, string Country)
         {
-            this.Height = Height;
-            this.Width = Width;
             this.NameOf = NameOf;
-            this.Date = Date;
+            this.DateOfBirth = Date;
             this.Country = Country;
         }
     }
