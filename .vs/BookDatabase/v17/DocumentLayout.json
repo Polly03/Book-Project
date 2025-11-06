@@ -3,6 +3,14 @@
   "WorkspaceRootPath": "C:\\Users\\jakpo\\Desktop\\prace\\Book-Project\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{B75EE1A7-9543-6C9E-35E1-A14C8035594D}|BookDatabase.csproj|c:\\users\\jakpo\\desktop\\prace\\book-project\\windows\\addauthorform.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B75EE1A7-9543-6C9E-35E1-A14C8035594D}|BookDatabase.csproj|solutionrelative:windows\\addauthorform.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B75EE1A7-9543-6C9E-35E1-A14C8035594D}|BookDatabase.csproj|c:\\users\\jakpo\\desktop\\prace\\book-project\\windows\\addauthorform.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{B75EE1A7-9543-6C9E-35E1-A14C8035594D}|BookDatabase.csproj|solutionrelative:windows\\addauthorform.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{B75EE1A7-9543-6C9E-35E1-A14C8035594D}|BookDatabase.csproj|c:\\users\\jakpo\\desktop\\prace\\book-project\\windows\\addbookform.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B75EE1A7-9543-6C9E-35E1-A14C8035594D}|BookDatabase.csproj|solutionrelative:windows\\addbookform.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -31,6 +39,31 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "AddAuthorForm.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\jakpo\\Desktop\\prace\\Book-Project\\Windows\\AddAuthorForm.xaml.cs",
+              "RelativeDocumentMoniker": "Windows\\AddAuthorForm.xaml.cs",
+              "ToolTip": "C:\\Users\\jakpo\\Desktop\\prace\\Book-Project\\Windows\\AddAuthorForm.xaml.cs",
+              "RelativeToolTip": "Windows\\AddAuthorForm.xaml.cs",
+              "ViewState": "AgIAAE0AAAAAAAAAAAAswGgAAAAZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-06T19:12:44.834Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "AddAuthorForm.xaml",
+              "DocumentMoniker": "C:\\Users\\jakpo\\Desktop\\prace\\Book-Project\\Windows\\AddAuthorForm.xaml",
+              "RelativeDocumentMoniker": "Windows\\AddAuthorForm.xaml",
+              "ToolTip": "C:\\Users\\jakpo\\Desktop\\prace\\Book-Project\\Windows\\AddAuthorForm.xaml",
+              "RelativeToolTip": "Windows\\AddAuthorForm.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-11-06T19:12:35.193Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
               "Title": "AddBookForm.xaml.cs",
               "DocumentMoniker": "C:\\Users\\jakpo\\Desktop\\prace\\Book-Project\\Windows\\AddBookForm.xaml.cs",
               "RelativeDocumentMoniker": "Windows\\AddBookForm.xaml.cs",
@@ -43,7 +76,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 3,
               "Title": "BooksWindow.xaml.cs",
               "DocumentMoniker": "C:\\Users\\jakpo\\Desktop\\prace\\Book-Project\\UserControls\\BooksWindow.xaml.cs",
               "RelativeDocumentMoniker": "UserControls\\BooksWindow.xaml.cs",
@@ -51,20 +84,18 @@
               "RelativeToolTip": "UserControls\\BooksWindow.xaml.cs",
               "ViewState": "AgIAALoAAAAAAAAAAAAAAM0AAAA9AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-06T16:52:05.99Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-06T16:52:05.99Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 4,
               "Title": "CardView.xaml",
               "DocumentMoniker": "C:\\Users\\jakpo\\Desktop\\prace\\Book-Project\\CardViews\\CardView.xaml",
               "RelativeDocumentMoniker": "CardViews\\CardView.xaml",
               "ToolTip": "C:\\Users\\jakpo\\Desktop\\prace\\Book-Project\\CardViews\\CardView.xaml",
               "RelativeToolTip": "CardViews\\CardView.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-11-06T16:39:44.949Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-06T16:39:44.949Z"
             }
           ]
         }

@@ -48,7 +48,7 @@ namespace BookDatabase.Windows
 
         private void DatePicker_DateValidationError(object sender, DatePickerDateValidationErrorEventArgs e)
         {
-            MessageBox.Show("NEPLATNĚ ZADANÉ DATUM");
+            MessageBox.Show("nesprávně zadané datum");
             DateAuthor.Background = Brushes.Red;
         }
 
@@ -59,9 +59,10 @@ namespace BookDatabase.Windows
 
         private void Accept(object sender, RoutedEventArgs e)
         {
-            if (DateAuthor.Background == Brushes.Red)
+            if (DateAuthor.SelectedDate == null)
             {
                 MessageBox.Show("nesprávně zadané datum");
+                DateAuthor.Background = Brushes.Red;
                 return;
             }
             if (String.IsNullOrWhiteSpace(AboutAuthor.Text))
@@ -84,9 +85,12 @@ namespace BookDatabase.Windows
                 MessageBox.Show("vyberte zemi původu");
                 return;
             }
+            
+
+ 
 
             Database db = new Database();
-            List<Tuple<string, DateTime, string>> list = db.SelectAuthorWithSearch(NameOfAuthor.Text);
+            List<Tuple<string, DateTime, string>> list = db.SelectAuthorWithSearch(NameOfAuthor.Text + SurnameOfAuthor.Text);
             if (list.Count > 0)
             {
                 MessageBox.Show("Tento Autor již existuje!");
