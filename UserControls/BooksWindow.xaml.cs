@@ -46,7 +46,8 @@ namespace BookDatabase
             {
                 _searchTextAuthor = value;
                 OnPropertyChanged();
-                ApplyFilterAuthors();
+                FilteredAuthors = new ObservableCollection<FilterOption>(
+                    Authors.Where(p => p.Name!.ToLower().Contains(SearchTextAuthor.ToLower())));
             }
         }
 
@@ -57,18 +58,19 @@ namespace BookDatabase
         {
             get => _filteredGenres;
             set {
-                    _filteredGenres = value;
-                    OnPropertyChanged();
-                }
+                _filteredGenres = value;
+                OnPropertyChanged();
+            }
         }
         public string SearchTextGenre
         {
             get => _searchTextGenre;
-            set { 
-                    _searchTextGenre = value; 
-                    OnPropertyChanged(); 
-                    ApplyFilterGenres(); 
-                }
+            set {
+                _searchTextGenre = value;
+                OnPropertyChanged();
+                FilteredGenres = new ObservableCollection<FilterOption>(
+                    Genres.Where(p => p.Name!.ToLower().Contains(SearchTextGenre.ToLower())));
+            }
         }
 
 
@@ -78,42 +80,41 @@ namespace BookDatabase
         {
             get => _filteredLanguages;
             set {
-                    _filteredLanguages = value;
-                    OnPropertyChanged();
-                }
+                _filteredLanguages = value;
+                OnPropertyChanged();
+            }
         }
         public string SearchTextLanguages
         {
             get => _searchTextLanguages;
-            set { 
-                    _searchTextLanguages = value; 
-                    OnPropertyChanged(); 
-                    ApplyFilterLanguages(); 
-                }
+            set {
+                _searchTextLanguages = value;
+                OnPropertyChanged();
+                FilteredLanguages = new ObservableCollection<FilterOption>(
+                    Languages.Where(p => p.Name!.ToLower().Contains(SearchTextLanguages.ToLower())));
+            }
         }
-
-
 
         private ObservableCollection<FilterOption> _filteredPublishers = new ObservableCollection<FilterOption>();
         public ObservableCollection<FilterOption> FilteredPublishers
         {
             get => _filteredPublishers;
             set {
-                    _filteredPublishers = value;
-                    OnPropertyChanged(); 
-                }
+                _filteredPublishers = value;
+                OnPropertyChanged();
+            }
         }
 
         public string SearchTextPublisher
         {
             get => _searchTextPublisher;
-            set { 
-                    _searchTextPublisher = value; 
-                    OnPropertyChanged(); 
-                    ApplyFilterPublishers(); 
-                }
+            set {
+                _searchTextPublisher = value;
+                OnPropertyChanged();
+                FilteredPublishers = new ObservableCollection<FilterOption>(
+                                    Publishers.Where(p => p.Name!.ToLower().Contains(SearchTextPublisher.ToLower())));
+            }
         }
-
 
         public BooksWindow()
         {
@@ -122,54 +123,14 @@ namespace BookDatabase
 
             DataContext = this;
             Database db = new Database();
-            MyItems = new ObservableCollection<BooksData>();
-
-            List<Tuple<Byte[], string, string, string>> list = db.SelectAllBooks(); 
-
-            foreach (var item in list)
-            {
-                MyItems.Add(new BooksData(item.Item2, item.Item3, item.Item4));
-
-            }
+            SelectCards();
 
             // přidání autorů, žánrů atd do filtrů jako klikací checkbox
 
-            Authors = new ObservableCollection<FilterOption> { };
-
-            List<string> listOfAuthors = db.SelectTableByName("Authors");
-            foreach (string elem in listOfAuthors)
-            {
-                FilterOption option = new FilterOption();
-                option.Name = elem;
-                Authors.Add(option);
-            }
-
-            Genres = new ObservableCollection<FilterOption> { };
-            List<string> listOfGenres = db.SelectTableByName("Genres");
-            foreach (string elem in listOfGenres)
-            {
-                FilterOption option = new FilterOption();
-                option.Name = elem;
-                Genres.Add(option);
-            }
-
-            Languages = new ObservableCollection<FilterOption> { };
-            List<string> listOfLanguages = db.SelectTableByName("Languages");
-            foreach (string elem in listOfLanguages)
-            {
-                FilterOption option = new FilterOption();
-                option.Name = elem;
-                Languages.Add(option);
-            }
-
-            Publishers = new ObservableCollection<FilterOption> { };
-            List<string> listOfPublishers = db.SelectTableByName("Publishers");
-            foreach (string elem in listOfPublishers)
-            {
-                FilterOption option = new FilterOption();
-                option.Name = elem;
-                Publishers.Add(option);
-            }
+            Authors = FillCheckBoxes("Authors");
+            Genres = FillCheckBoxes("Genres");
+            Languages = FillCheckBoxes("Languages");
+            Publishers = FillCheckBoxes("Publishers");
 
             FilteredAuthors = new ObservableCollection<FilterOption>(Authors);
             FilteredGenres = new ObservableCollection<FilterOption>(Genres);
@@ -200,11 +161,43 @@ namespace BookDatabase
 
         }
 
+        private ObservableCollection<FilterOption> FillCheckBoxes(string txt)
+        {
+            ObservableCollection<FilterOption> filters = new ObservableCollection<FilterOption>();
+            Database db = new Database();
+            List<string> list = db.SelectTableByName(txt);
+            foreach (string elem in list)
+            {
+                FilterOption option = new FilterOption();
+                option.Name = elem;
+                filters.Add(option);
+            }
+
+            return filters;
+        }
+
+        private void SelectCards()
+        {
+
+            Database db = new Database();
+            MyItems = new ObservableCollection<BooksData>();
+
+            List<Tuple<byte[], string, string, string>> list = db.SelectAllBooks();
+
+
+
+            foreach (var item in list)
+            {
+                MyItems.Add(new BooksData(item.Item1, item.Item2, item.Item3, item.Item4));
+
+            }
+        }
+
         // metoda pro tlačítko na smazání všech filtrů
         private void DeleteFilters(object sender, RoutedEventArgs e)
         {
 
-            foreach(var author in Authors)
+            foreach (var author in Authors)
             {
                 author.IsSelected = false;
             }
@@ -226,17 +219,13 @@ namespace BookDatabase
         // zároven jsou stringu přidány jednoduché uvozovky aby se mohl reprezentovat jako list v SQL
         private void ApplyFilter()
         {
-            var authors = GetSelectedAuthors().Count == 0 ? "" : 
-                string.Join(",", GetSelectedAuthors().Select(a => $"'{a.Replace("'", "''")}'"));
+            var authors = DoFilter(Authors);
 
-            var genres = GetSelectedGenres().Count == 0 ? "" : 
-                string.Join(",",  GetSelectedGenres().Select(a => $"'{a.Replace("'", "''")}'"));
+            var genres = DoFilter(Genres);
 
-            var languages = GetSelectedLanguages().Count == 0 ? "" : 
-                string.Join(",", GetSelectedLanguages().Select(a => $"'{a.Replace("'", "''")}'"));
+            var languages = DoFilter(Languages);
 
-            var publishers = GetSelectedPublishers().Count == 0 ? "" : 
-                string.Join(",", GetSelectedPublishers().Select(a => $"'{a.Replace("'", "''")}'"));
+            var publishers = DoFilter(Publishers);
 
             Database db = new Database();
             List<Tuple<byte[], string, string, string>> list = db.SelectBooksByFilters(authors, genres, languages, publishers);
@@ -248,28 +237,16 @@ namespace BookDatabase
             }
         }
 
-
-        // metody pro vrácení filtrů, které byly vybrány
-        private List<string> GetSelectedAuthors()
+        private string DoFilter(ObservableCollection<FilterOption> list)
         {
-            return Authors.Where(a => a.IsSelected).Select(a => a.Name).ToList() as List<string>;
+            return GetSelected(list).Count == 0 ? "" :
+                string.Join(",", GetSelected(list).Select(a => $"'{a.Replace("'", "''")}'"));
         }
 
-        private List<string> GetSelectedGenres()
+        private List<string> GetSelected(ObservableCollection<FilterOption> list)
         {
-            return Genres.Where(a => a.IsSelected).Select(a => a.Name).ToList() as List<string>;
+            return list.Where(a => a.IsSelected).Select(a => a.Name).ToList() as List<string>;
         }
-
-        private List<string> GetSelectedLanguages()
-        {
-            return Languages.Where(a => a.IsSelected).Select(a => a.Name).ToList() as List<string>;
-        }
-
-        private List<string> GetSelectedPublishers()
-        {
-            return Publishers.Where(a => a.IsSelected).Select(a => a.Name).ToList() as List<string>;
-        }
-
 
 
         // metoda pro volání sql procedury která vrátí knihy ORDER BY určitého elementu
@@ -285,7 +262,7 @@ namespace BookDatabase
             if (s == "LENasc") { column = "books.length"; way = "asc"; }
             if (s == "LENdsc") { column = "books.length"; way = "desc"; }
 
-            
+
             List<Tuple<byte[], string, string, string>> list = db.OrderBooks(column, way);
             MyItems.Clear();
             foreach (var elem in list)
@@ -298,68 +275,13 @@ namespace BookDatabase
         private void StartSearchBook(object sender, EventArgs e)
         {
             Database db = new Database();
-            List <Tuple<Byte[], string, string, string>> list = db.SelectBooksWithSearch(searchBar.Text);
+            List<Tuple<Byte[], string, string, string>> list = db.SelectBooksWithSearch(searchBar.Text);
             MyItems.Clear();
             foreach (var elem in list)
             {
                 MyItems.Add(new BooksData(elem.Item2, elem.Item3, elem.Item4));
             }
 
-        }
-
-        // metody, které zobrazí filtry podle toho jaký je v search baru string
-        private void ApplyFilterAuthors()
-        {
-            if (string.IsNullOrWhiteSpace(SearchTextAuthor))
-            {
-                FilteredAuthors = new ObservableCollection<FilterOption>(Authors);
-            }
-            else
-            {
-                FilteredAuthors = new ObservableCollection<FilterOption>
-                                  (Authors.Where(a => a.Name!.ToLower().Contains(SearchTextAuthor.ToLower())));
-            }
-        }
-
-        private void ApplyFilterGenres()
-        {
-            if (string.IsNullOrWhiteSpace(SearchTextGenre))
-            {
-                FilteredGenres = new ObservableCollection<FilterOption>(Genres);
-            }
-            else
-            {
-                FilteredGenres = new ObservableCollection<FilterOption>(
-                                 Genres.Where(g => g.Name!.ToLower().Contains(SearchTextGenre.ToLower())));
-            }    
-        }
-
-        private void ApplyFilterLanguages()
-        {
-            if (string.IsNullOrWhiteSpace(SearchTextLanguages))
-            {
-                FilteredLanguages = new ObservableCollection<FilterOption>(Languages);
-            }
-            else
-            {
-                FilteredLanguages = new ObservableCollection<FilterOption>(
-                                    Languages.Where(l => l.Name!.ToLower().Contains(SearchTextLanguages.ToLower())));
-            }
-               
-        }
-
-        private void ApplyFilterPublishers()
-        {
-            if (string.IsNullOrWhiteSpace(SearchTextPublisher))
-            {
-                FilteredPublishers = new ObservableCollection<FilterOption>(Publishers);
-            }
-            else
-            {
-                FilteredPublishers = new ObservableCollection<FilterOption>(
-                                     Publishers.Where(p => p.Name!.ToLower().Contains(SearchTextPublisher.ToLower())));
-            }
-                
         }
 
         // eventy pro poslouchání změny prvků

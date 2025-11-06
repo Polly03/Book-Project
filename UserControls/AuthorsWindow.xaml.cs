@@ -66,11 +66,11 @@ namespace BookDatabase
 
             DataContext = this;
             MyItemsAuthors = new ObservableCollection<Authors>();
-            SelectCard();
+            SelectCards();
 
         }
 
-        private void SelectCard()
+        private void SelectCards()
         {
 
             Database db = new Database();
@@ -95,7 +95,7 @@ namespace BookDatabase
         private void AddAuthor(object sender, RoutedEventArgs e)
         {
             AddAuthorForm win = new AddAuthorForm("Authors");
-            win.AuthorAdded += SelectCard;
+            win.AuthorAdded += SelectCards;
             win.ShowDialog();
         }
 

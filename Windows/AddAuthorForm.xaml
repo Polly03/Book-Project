@@ -19,6 +19,7 @@
             <RowDefinition Height="Auto" MinHeight="80"/>
             <RowDefinition Height="Auto" MinHeight="80"/>
             <RowDefinition Height="Auto" MinHeight="80"/>
+            <RowDefinition Height="Auto" MinHeight="80"/>
             <RowDefinition Height="Auto" MinHeight="120"/>
         </Grid.RowDefinitions>
 
@@ -26,10 +27,13 @@
         <Button Grid.Row="0" Grid.Column="1" FontSize="32" HorizontalAlignment="Right" Width="200" Margin="0,0,0,20" Click="Accept">Potvrdit</Button>
 
         <TextBlock Grid.Row="1" Grid.Column="0" FontSize="20" VerticalAlignment="Center">Zadejte jméno autora</TextBlock>
-        <TextBox Grid.Row="1" Grid.Column="1" FontSize="20" x:Name="NameOfAuthor"/>
+        <TextBox Grid.Row="1" Grid.Column="1" FontSize="20" MaxLength="64" x:Name="NameOfAuthor"/>
 
-        <TextBlock Grid.Row="2" Grid.Column="0" FontSize="20" VerticalAlignment="Center">Zadejte zemi původu</TextBlock>
-        <ComboBox Grid.Row="2" Grid.Column="1" ItemsSource="{Binding Authors}" x:Name="CountriesBox" FontSize="20">
+        <TextBlock Grid.Row="2" Grid.Column="0" FontSize="20" VerticalAlignment="Center">Zadejte přijímení autora</TextBlock>
+        <TextBox Grid.Row="2" Grid.Column="1" FontSize="20" MaxLength="64" x:Name="SurnameOfAuthor"/>
+
+        <TextBlock Grid.Row="3" Grid.Column="0" FontSize="20" VerticalAlignment="Center">Zadejte zemi původu</TextBlock>
+        <ComboBox Grid.Row="3" Grid.Column="1" ItemsSource="{Binding Authors}" x:Name="CountriesBox" FontSize="20">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding Country}" />
@@ -37,11 +41,11 @@
             </ComboBox.ItemTemplate>
         </ComboBox>
 
-        <TextBlock Grid.Row="3" Grid.Column="0" FontSize="20" VerticalAlignment="Center">Zadejte datum narození</TextBlock>
-        <DatePicker Grid.Row="3" Grid.Column="1" FontSize="20" DateValidationError="DatePicker_DateValidationError" SelectedDateChanged="MyDatePicker_SelectedDateChanged" x:Name="DateAuthor"/>
+        <TextBlock Grid.Row="4" Grid.Column="0" FontSize="20" VerticalAlignment="Center">Zadejte datum narození</TextBlock>
+        <DatePicker Grid.Row="4" Grid.Column="1" FontSize="20" DateValidationError="DatePicker_DateValidationError" SelectedDateChanged="MyDatePicker_SelectedDateChanged" x:Name="DateAuthor"/>
 
-        <TextBlock Grid.Row="4" Grid.Column="0" FontSize="20" VerticalAlignment="Top" Margin="0,10,0,0">Zadejte popis autora</TextBlock>
-        <TextBox Grid.Row="4" Grid.Column="1" FontSize="20" Height="150" TextWrapping="Wrap" AcceptsReturn="True" x:Name="AboutAuthor"/>
+        <TextBlock Grid.Row="5" Grid.Column="0" FontSize="20" VerticalAlignment="Top" Margin="0,10,0,0">Zadejte popis autora</TextBlock>
+        <TextBox Grid.Row="5" Grid.Column="1" FontSize="20" Height="150" TextWrapping="Wrap" AcceptsReturn="True" x:Name="AboutAuthor"/>
     </Grid>
 
 </Window>

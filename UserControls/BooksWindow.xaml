@@ -113,7 +113,7 @@
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <Border Margin="5" Padding="10">
-                                <local:CardView Title="{Binding Title}" Author="{Binding Author}" Genre ="{Binding Genre}"/>
+                                <local:CardView ImageSource="{Binding ImageSource}"  Title="{Binding Title}" Author="{Binding Author}" Genre ="{Binding Genre}"/>
                             </Border>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>

@@ -24,6 +24,16 @@ namespace BookDatabase
             InitializeComponent();
         }
 
+        public static readonly DependencyProperty ImageSourceProperty =
+                DependencyProperty.Register("ImageSource", typeof(ImageSource), typeof(CardView), new PropertyMetadata(null));
+
+        public ImageSource ImageSource
+        {
+            get => (ImageSource)GetValue(ImageSourceProperty);
+            set => SetValue(ImageSourceProperty, value);
+        }
+
+
         public static readonly DependencyProperty TitleProperty =
             DependencyProperty.Register("Title", typeof(string), typeof(CardView), new PropertyMetadata(""));
 

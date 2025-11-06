@@ -44,7 +44,7 @@ namespace BookDatabase
             return SelectAuthorWithSearch("");
         }
 
-        public List<Tuple<Byte[], string, string, string>> SelectAllBooks()
+        public List<Tuple<byte[], string, string, string>> SelectAllBooks()
         {
            return SelectBooksWithSearch("");
         }
@@ -85,7 +85,7 @@ namespace BookDatabase
             }
         }
 
-        public void InsertAuthor(string name, string country, DateTime dateOfBirth, string aboutAuthor)
+        public void InsertAuthor(string name,string surname, string country, DateTime dateOfBirth, string aboutAuthor)
         {
             using (FbConnection con = new FbConnection(connString))
             {
@@ -98,6 +98,7 @@ namespace BookDatabase
                     cmd.Parameters.AddWithValue("ABOUTAUTHOR", (object?)aboutAuthor ?? DBNull.Value);
                     cmd.Parameters.AddWithValue("COUNTRY", (object?)country ?? DBNull.Value);
                     cmd.Parameters.AddWithValue("DATEOFBIRTH", dateOfBirth);
+                    cmd.Parameters.AddWithValue("SURNAME", (object?)surname ?? DBNull.Value);
                     cmd.Parameters.AddWithValue("NAME", (object?)name ?? DBNull.Value);
 
                     cmd.ExecuteNonQuery();
@@ -124,6 +125,7 @@ namespace BookDatabase
                         while (reader.Read())
                         {
                             var name = reader["Name"];
+                            var surname = reader["Surname"];
                             var dateOfBirth = reader["DateOfBirth"];
                             var country = reader["Country"];
 
@@ -134,7 +136,7 @@ namespace BookDatabase
             }
         }
 
-        public List<Tuple<Byte[], string, string, string>> SelectBooksWithSearch(string search)
+        public List<Tuple<byte[], string, string, string>> SelectBooksWithSearch(string search)
         {
             using (FbConnection con = new FbConnection(connString))
             {
@@ -146,7 +148,7 @@ namespace BookDatabase
 
                     using(var reader = cmd.ExecuteReader())
                     {
-                        List < Tuple<Byte[], string, string, string> > list = new List<Tuple<Byte[], string, string, string>> { };
+                        List < Tuple<byte[], string, string, string> > list = new List<Tuple<byte[], string, string, string>> { };
 
                         while (reader.Read())
                         {
@@ -156,7 +158,7 @@ namespace BookDatabase
                             var authors = (string)reader["Author"];
                             var genre = (string)reader["Genre"];
 
-                            Tuple<Byte[], string, string, string> tup = new Tuple<byte[], string, string, string>(photoByte!, names, authors, genre);
+                            Tuple<byte[], string, string, string> tup = new Tuple<byte[], string, string, string>(photoByte!, names, authors, genre);
                             list.Add(tup);
 
 
@@ -183,7 +185,9 @@ namespace BookDatabase
                         List<Tuple<string, DateTime, string>> list = new List<Tuple<string, DateTime, string>> { };
                         while (reader.Read())
                         {
-                            var name = (string)reader["Name"];
+                            var names = (string)reader["Name"];
+                            var surname = (string)reader["Surname"];
+                            string name = names + " " + surname;
                             var dateOfBirth = (DateTime)reader["DateOfBirth"];
                             var country = (string)reader["Country"];
 
@@ -243,14 +247,14 @@ namespace BookDatabase
             }
         }
 
-        public void SelectAuthor(string name)
+        public void SelectAuthor(string authorName)
         {
             using (FbConnection con = new FbConnection(connString))
             {
                 con.Open();
                 using (var cmd = new FbCommand("select * from select_author(@Name_input)", con))
                 {
-                    cmd.Parameters.AddWithValue("@Name_input", (object?)name ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("@Name_input", (object?)authorName ?? DBNull.Value);
 
                     using ( var reader = cmd.ExecuteReader())
                     {
@@ -258,10 +262,12 @@ namespace BookDatabase
                         while (reader.Read())
                         {
                             var names = reader["Name"];
+                            var surname = reader["Surname"];
+                            string name = names + " " + surname;
                             var dateOfBirth = reader["DATE_OF_BIRTH"];
                             var country = reader["Country"];
                             var aboutAuthor = reader["About_Author"];
-                            Console.WriteLine("tohle je autor: " + names + " " + dateOfBirth + " " + country + " " + aboutAuthor + "\n");
+                            Console.WriteLine("tohle je autor: " + name + " " + dateOfBirth + " " + country + " " + aboutAuthor + "\n");
                         }
                     }
                 }
@@ -308,29 +314,100 @@ namespace BookDatabase
             {
                 con.Open();
 
-                using (var cmd = new FbCommand("SELECT * FROM SELECT_TABLE_BY_NAME(@tableName)", con))
+                if (tableName != "Authors")
                 {
-                    cmd.Parameters.AddWithValue("@tableName", (object?)tableName ?? DBNull.Value);
-
-                    using (var reader = cmd.ExecuteReader())
+                    using (var cmd = new FbCommand("SELECT * FROM SELECT_TABLE_BY_NAME(@tableName)", con))
                     {
-                        List<string> list = new List<string>();
+                        cmd.Parameters.AddWithValue("@tableName", (object?)tableName ?? DBNull.Value);
 
-                        while (reader.Read())
+                        using (var reader = cmd.ExecuteReader())
                         {
-                            var name = reader["Name"];
-                            list.Add(name?.ToString() ?? "");
-                        }
-                        con.Close();
-                        return list;
-                    }
+                            List<string> list = new List<string>();
 
+                            while (reader.Read())
+                            {
+                                var name = reader["Name"];
+                                list.Add(name?.ToString() ?? "");
+                            }
+                            con.Close();
+                            return list;
+                        }
+
+                    }
                 }
+                else
+                {
+                    using (var cmd = new FbCommand("SELECT * FROM SELECT_TABLE_BY_NAME_AUTHORS", con))
+                    { 
+                        using (var reader = cmd.ExecuteReader())
+                        {
+                            List<string> list = new List<string>();
+
+                            while (reader.Read())
+                            {
+                                var name = reader["Name"];
+                                var surname = reader["Surname"];
+                                var fullname = name + " " + surname;
+                                list.Add(fullname?.ToString() ?? "");
+                            }
+                            con.Close();
+                            return list;
+                        }
+
+                    }
+                }
+
                 
-                
+
+
+
 
             }
             
+        }
+
+        public void InsertBookOldAuthor(
+            byte[]? photo,
+            string? typeOfBook,
+            short? lengthOfBook,
+            string? ean,
+            string? isbn,
+            string? publisher,
+            string? language,
+            string? rating,
+            string? description,
+            string? genre,
+            string? bookName,
+            string? authorName)
+        {
+            string newName = authorName.Split(" ")[0];
+
+            using (FbConnection con = new FbConnection(connString))
+            {
+                con.Open();
+
+                using (FbCommand cmd = new FbCommand("INSERT_BOOK_OLD_AUTHOR", con))
+                {
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("PHOTO", (object?)photo ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("TYPE_OF_BOOK", (object?)typeOfBook ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("LENGTH_OF_BOOK", (object?)lengthOfBook ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("EAN", (object?)ean ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("ISBN", (object?)isbn ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("PUBLISHER", (object?)publisher ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("LANGUAGE", (object?)language ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("RATING", (object?)rating ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("DESCRIPTION", (object?)description ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("GENRE", (object?)genre ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("BOOK_NAME", (object?)bookName ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("AUTHOR_NAME", (object?)newName ?? DBNull.Value);
+
+                    cmd.ExecuteNonQuery();
+                }
+
+                con.Close();
+            }
         }
     }
     

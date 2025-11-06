@@ -49,18 +49,18 @@
                 <RowDefinition Height="Auto" MinHeight="80"/>
                 <RowDefinition Height="Auto" MinHeight="80"/>
                 <RowDefinition Height="Auto" MinHeight="80"/>
-                <RowDefinition Height="Auto" MinHeight="120"/>
-                <RowDefinition Height="Auto" MinHeight="160"/>
                 <RowDefinition Height="Auto" MinHeight="80"/>
+                <RowDefinition Height="Auto" MinHeight="160"/>
+                <RowDefinition Height="Auto" MinHeight="200"/>
                 <RowDefinition Height="Auto" MinHeight="80"/>
             </Grid.RowDefinitions>
 
             <Button Grid.Row="0" Grid.Column="0" FontSize="32" Click="Return" Margin="0,0,250,60">Zrušit</Button>
-            <Button Grid.Row="0" Grid.Column="1" FontSize="32" Margin="250,0,0,60">Potvrdit</Button>
+            <Button Grid.Row="0" Grid.Column="1" FontSize="32" Margin="250,0,0,60" Click="ControlBeforeSave">Potvrdit</Button>
             <Button Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" FontSize="25" Margin="350,0,350,70" Click="AddAuthorButton">Přidat nového autora</Button>
 
             <TextBlock Grid.Row="1" Grid.Column="0">Vybrat Autora</TextBlock>
-            <ComboBox Grid.Row="1" Grid.Column="1" ItemsSource="{Binding Authors}">
+            <ComboBox Grid.Row="1" Grid.Column="1" FontSize="22" ItemsSource="{Binding Authors}" x:Name="AuthorsBox">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Name}" />
@@ -69,7 +69,7 @@
             </ComboBox>
 
             <TextBlock Grid.Row="2" Grid.Column="0">Vyberte žánr</TextBlock>
-            <ComboBox Grid.Row="2" Grid.Column="1" ItemsSource="{Binding Genres}">
+            <ComboBox Grid.Row="2" Grid.Column="1" ItemsSource="{Binding Genres}" FontSize="22" x:Name="GenresBox">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Name}" />
@@ -78,16 +78,16 @@
             </ComboBox>
 
             <TextBlock Grid.Row="3" Grid.Column="0">Zadejte počet stran</TextBlock>
-            <TextBox Grid.Row="3" Grid.Column="1" PreviewTextInput="Length_PreviewTextInput"/>
+            <TextBox Grid.Row="3" Grid.Column="1" PreviewTextInput="Length_PreviewTextInput" MaxLength="6" FontSize="22" x:Name="LengthBox"/>
 
             <TextBlock Grid.Row="4" Grid.Column="0">Zadejte EAN</TextBlock>
-            <TextBox Grid.Row="4" Grid.Column="1" MaxLength="13"/>
+            <TextBox Grid.Row="4" Grid.Column="1" MaxLength="13" FontSize="22" x:Name="EANBox"/>
 
             <TextBlock Grid.Row="5" Grid.Column="0">Zadejte ISBN</TextBlock>
-            <TextBox Grid.Row="5" Grid.Column="1" MaxLength="13"/>
+            <TextBox Grid.Row="5" Grid.Column="1" MaxLength="13" FontSize="22" x:Name="ISBNBox"/>
 
             <TextBlock Grid.Row="6" Grid.Column="0">Vyberte Vydavatele</TextBlock>
-            <ComboBox Grid.Row="6" Grid.Column="1" ItemsSource="{Binding Publishers}">
+            <ComboBox Grid.Row="6" Grid.Column="1" ItemsSource="{Binding Publishers}" FontSize="22" x:Name="PublishersBox">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Name}" />
@@ -96,7 +96,7 @@
             </ComboBox>
 
             <TextBlock Grid.Row="7" Grid.Column="0">Vyberte Jazyk</TextBlock>
-            <ComboBox Grid.Row="7" Grid.Column="1" ItemsSource="{Binding Languages}">
+            <ComboBox Grid.Row="7" Grid.Column="1" ItemsSource="{Binding Languages}" FontSize="22" x:Name="LanguageBox">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Name}" />
@@ -104,11 +104,11 @@
                 </ComboBox.ItemTemplate>
             </ComboBox>
 
-            <TextBlock Grid.Row="8" Grid.Column="0">Zadejte název knihy</TextBlock>
-            <TextBox Grid.Row="8" Grid.Column="1" MaxLength="64"/>
+            <TextBlock Grid.Row="8" Grid.Column="0" TextWrapping="WrapWithOverflow">Zadejte název knihy</TextBlock>
+            <TextBox Grid.Row="8" Grid.Column="1" MaxLength="64" FontSize="22" x:Name="NameBox"/>
 
             <TextBlock Grid.Row="9" Grid.Column="0">Vyberte Typ knihy</TextBlock>
-            <ComboBox Grid.Row="9" Grid.Column="1" ItemsSource="{Binding Type}">
+            <ComboBox Grid.Row="9" Grid.Column="1" ItemsSource="{Binding Types}" FontSize="22" x:Name="TypesBox">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Name}" />
@@ -116,14 +116,14 @@
                 </ComboBox.ItemTemplate>
             </ComboBox>
 
-            <TextBlock Grid.Row="10" Grid.Column="0">Zhodnocení</TextBlock>
-            <TextBox Grid.Row="10" Grid.Column="1"/>
+            <TextBlock Grid.Row="10" Grid.Column="0" >Zhodnocení</TextBlock>
+            <TextBox Grid.Row="10" Grid.Column="1" x:Name="RatingBox"/>
 
-            <TextBlock Grid.Row="11" Grid.Column="0">Popis Knihy</TextBlock>
-            <TextBox Grid.Row="11" Grid.Column="1"/>
+            <TextBlock Grid.Row="11" Grid.Column="0"  TextWrapping="WrapWithOverflow">Popis Knihy</TextBlock>
+            <TextBox Grid.Row="11" Grid.Column="1"  x:Name="DescriptionBox"/>
 
-            <Button Grid.Row="12" Grid.Column="0" FontSize="32" Margin="250,0,50,20">Vybrat fotku</Button>
-            <TextBox Grid.Row="12" Grid.Column="1" IsReadOnly="True"/>
+            <Button Grid.Row="12" Grid.Column="0" FontSize="32" Margin="250,0,50,20" Click="ChoosePhoto">Vybrat fotku</Button>
+            <TextBox Grid.Row="12" Grid.Column="1" IsReadOnly="True" x:Name="PhotoBox"/>
         </Grid>
     </ScrollViewer>
 </Window>

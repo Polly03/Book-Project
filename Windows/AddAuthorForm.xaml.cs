@@ -20,7 +20,6 @@ namespace BookDatabase.Windows
     public partial class AddAuthorForm : Window
     {
         public List<Authors> Authors { get; set; }
-        private List<Authors> _authors = new List<Authors>();
         private string _win;
         public event Action? AuthorAdded;
 
@@ -75,6 +74,11 @@ namespace BookDatabase.Windows
                 MessageBox.Show("vyplňte autorovo jméno");
                 return;
             }
+            if (String.IsNullOrWhiteSpace(SurnameOfAuthor.Text))
+            {
+                MessageBox.Show("vyplňte autorovo přijímení");
+                return;
+            }
             if (CountriesBox.SelectedItem == null)
             {
                 MessageBox.Show("vyberte zemi původu");
@@ -92,7 +96,7 @@ namespace BookDatabase.Windows
 
 
 
-            db.InsertAuthor(NameOfAuthor.Text, ((Authors)CountriesBox.SelectedItem).Country, (DateTime)DateAuthor.SelectedDate!, AboutAuthor.Text);
+            db.InsertAuthor(NameOfAuthor.Text ,SurnameOfAuthor.Text, ((Authors)CountriesBox.SelectedItem).Country, (DateTime)DateAuthor.SelectedDate!, AboutAuthor.Text);
             AuthorAdded?.Invoke();
             this.Close();
 
