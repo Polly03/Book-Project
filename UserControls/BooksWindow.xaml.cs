@@ -1,10 +1,12 @@
 ﻿using BookDatabase.Models;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media.Imaging;
 
 namespace BookDatabase
 {
@@ -184,13 +186,27 @@ namespace BookDatabase
 
             List<Tuple<byte[], string, string, string>> list = db.SelectAllBooks();
 
-
+           
 
             foreach (var item in list)
             {
-                MyItems.Add(new BooksData(item.Item1, item.Item2, item.Item3, item.Item4));
+         
+                MyItems.Add(new BooksData(GetBM(item.Item1), item.Item2, item.Item3, item.Item4));
 
             }
+        }
+
+        private BitmapImage GetBM(byte[] data)
+        {
+            var bitmap = new BitmapImage();
+            using (var ms = new MemoryStream(data))
+            {
+                bitmap.BeginInit();
+                bitmap.CacheOption = BitmapCacheOption.OnLoad;
+                bitmap.StreamSource = ms;
+                bitmap.EndInit();
+            }
+            return bitmap;
         }
 
         // metoda pro tlačítko na smazání všech filtrů
@@ -233,7 +249,7 @@ namespace BookDatabase
             MyItems.Clear();
             foreach (var elem in list)
             {
-                MyItems.Add(new BooksData(elem.Item2, elem.Item3, elem.Item4));
+                MyItems.Add(new BooksData(GetBM(elem.Item1), elem.Item2, elem.Item3, elem.Item4));
             }
         }
 
@@ -267,7 +283,7 @@ namespace BookDatabase
             MyItems.Clear();
             foreach (var elem in list)
             {
-                MyItems.Add(new BooksData(elem.Item2, elem.Item3, elem.Item4));
+                MyItems.Add(new BooksData(GetBM(elem.Item1), elem.Item2, elem.Item3, elem.Item4));
             }
         }
 
@@ -279,7 +295,7 @@ namespace BookDatabase
             MyItems.Clear();
             foreach (var elem in list)
             {
-                MyItems.Add(new BooksData(elem.Item2, elem.Item3, elem.Item4));
+                MyItems.Add(new BooksData(GetBM(elem.Item1), elem.Item2, elem.Item3, elem.Item4));
             }
 
         }

@@ -145,7 +145,7 @@ namespace BookDatabase
             image.Source = bitmap;
 
             byte[] data;
-            PngBitmapEncoder encoder = new PngBitmapEncoder();
+            JpegBitmapEncoder encoder = new JpegBitmapEncoder();
             encoder.Frames.Add(BitmapFrame.Create(bitmap));
 
             using(MemoryStream stream = new MemoryStream())

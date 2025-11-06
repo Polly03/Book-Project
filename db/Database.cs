@@ -72,7 +72,7 @@ namespace BookDatabase
                             var photo = reader["Photo"];
                             byte[]? photoByte = photo as byte[];
                             var names = (string)reader["Name"];
-                            var authors = (string)reader["Author"];
+                            var authors = (string)reader["Fullname"];
                             var genre = (string)reader["Genre"];
 
                             Tuple<byte[], string, string, string> tup = new Tuple<byte[], string, string, string>(photoByte!, names, authors, genre);
@@ -155,7 +155,7 @@ namespace BookDatabase
                             var photo = reader["Photo"];
                             byte[]? photoByte = photo as byte[];
                             var names = (string)reader["Name"];
-                            var authors = (string)reader["Author"];
+                            var authors = (string)reader["Fullname"];
                             var genre = (string)reader["Genre"];
 
                             Tuple<byte[], string, string, string> tup = new Tuple<byte[], string, string, string>(photoByte!, names, authors, genre);
