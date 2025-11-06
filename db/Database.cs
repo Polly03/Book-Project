@@ -293,7 +293,7 @@ namespace BookDatabase
                             var photo = reader["Photo"];
                             byte[]? photoByte = photo as byte[];
                             var name = (string)reader["Name"];
-                            var author = (string)reader["author"];
+                            var author = (string)reader["Fullname"];
                             var genre = (string)reader["genre"];
 
                             Tuple<byte[], string, string, string> tup = new Tuple<byte[], string, string, string>(photoByte!, name, author, genre);

@@ -137,25 +137,27 @@ namespace BookDatabase
 
         private byte[] GetPhotoByPath(string path)
         {
-            Image image = new Image();
+            // Načti obrázek s omezeným rozlišením už při dekódování
             BitmapImage bitmap = new BitmapImage();
             bitmap.BeginInit();
             bitmap.UriSource = new Uri(path, UriKind.Absolute);
-            bitmap.EndInit();
-            image.Source = bitmap;
+            bitmap.CacheOption = BitmapCacheOption.OnLoad;
 
-            byte[] data;
+            bitmap.DecodePixelWidth = 125;
+            bitmap.DecodePixelHeight = 150;                           
+
+            bitmap.EndInit();
+            bitmap.Freeze();
+
             JpegBitmapEncoder encoder = new JpegBitmapEncoder();
+            encoder.QualityLevel = 85; 
             encoder.Frames.Add(BitmapFrame.Create(bitmap));
 
-            using(MemoryStream stream = new MemoryStream())
+            using (MemoryStream stream = new MemoryStream())
             {
                 encoder.Save(stream);
-                data = stream.ToArray();
+                return stream.ToArray();
             }
-
-            return data;
-
         }
 
 

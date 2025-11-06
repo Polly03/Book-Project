@@ -203,9 +203,16 @@ namespace BookDatabase
             {
                 bitmap.BeginInit();
                 bitmap.CacheOption = BitmapCacheOption.OnLoad;
+                bitmap.CreateOptions = BitmapCreateOptions.IgnoreColorProfile;
+
+                bitmap.DecodePixelWidth = 125; 
+                bitmap.DecodePixelHeight = 150; 
+
                 bitmap.StreamSource = ms;
                 bitmap.EndInit();
             }
+
+            bitmap.Freeze(); 
             return bitmap;
         }
 
