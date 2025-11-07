@@ -96,6 +96,26 @@ namespace BookDatabase
                 }
         }
 
+        private void Order_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            var item = ((ComboBoxItem)sender);
+            var s = item.Name;
+            string column = "";
+            string way = "";
+            if (s == "ABCasc") { column = "Authors.name"; way = "asc"; }
+            if (s == "ABCdsc") { column = "Authors.name"; way = "desc"; }
+            if (s == "Birthasc") { column = "Authors.DateOfBirth"; way = "asc"; }
+            if (s == "Birthdsc") { column = "Authors.DateOfBirth"; way = "desc"; }
+
+
+            List<Tuple<byte[], string, string, string>> list = db.OrderBooks(column, way);
+            p.MyItems.Clear();
+            foreach (var elem in list)
+            {
+                p.MyItems.Add(new BooksData(GetBM(elem.Item1), elem.Item2, elem.Item3, elem.Item4));
+            }
+        }
+
         private string DoFilter(ObservableCollection<FilterOption> list)
         {
             List<string> selected = GetSelected(list);
