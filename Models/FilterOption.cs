@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace BookDatabase.Models
 {
+    // class for event handle and sending event when object of this class had changed its values
     public class FilterOption : INotifyPropertyChanged
     {
         public string? Name { get; set; }

@@ -9,6 +9,7 @@ namespace BookDatabase.Models
 {
     public class BooksData
     {
+        // Model of Book Card
         public BitmapImage ImageSource {  get; set; } 
         public string Title { get; set; }
         public string Genre { get; set; }

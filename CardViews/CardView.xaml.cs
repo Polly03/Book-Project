@@ -24,6 +24,7 @@ namespace BookDatabase
             InitializeComponent();
         }
 
+        // properties for correctly working input when CardView class will be used as element in other xaml file
         public static readonly DependencyProperty ImageSourceProperty =
                 DependencyProperty.Register("ImageSource", typeof(ImageSource), typeof(CardView), new PropertyMetadata(null));
 
@@ -61,6 +62,7 @@ namespace BookDatabase
             set => SetValue(GenreProperty, value);
         }
 
+        // methods ready for showing details of book and author
         public void ShowBook(object sender, MouseEventArgs e)
         {
             MessageBox.Show("Getting book");

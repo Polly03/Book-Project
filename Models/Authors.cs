@@ -8,6 +8,7 @@ namespace BookDatabase.Models
 {
     public class Authors
     {
+        // Model of Author Card
         public string NameOf {  get; set; }
         public string DateOfBirth { get; set; }
         public string Country { get; set; }

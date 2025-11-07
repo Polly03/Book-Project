@@ -29,6 +29,8 @@ namespace BookDatabase
         public List<GeneralModel> Publishers { get; set; }
         public List<GeneralModel> Types { get; set; }
 
+        Database db = Database.Instance;
+
         public AddBookForm()
         {
             InitializeComponent();
@@ -45,8 +47,6 @@ namespace BookDatabase
         private List<GeneralModel> GetProperties(string name)
         {
             List<GeneralModel> list = new List<GeneralModel>();
-
-            Database db = new Database();
             List<string> lists = db.SelectTableByName(name);
             foreach (string item in lists)
             {
@@ -117,7 +117,6 @@ namespace BookDatabase
             string? bookName = NameBox.Text;
             string? authorName = ((GeneralModel)AuthorsBox.SelectedItem).Name;
 
-            Database db = new Database();
             db.InsertBookOldAuthor(
                 photo,
                 typeOfBook,

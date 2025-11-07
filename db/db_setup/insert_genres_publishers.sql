@@ -1,3 +1,5 @@
+-- inserts for Genres and Publishers
+
 INSERT INTO Genres(name) VALUES('Akční');
 INSERT INTO Genres(name) VALUES('Dobrodružný');
 INSERT INTO Genres(name) VALUES('Komedie');

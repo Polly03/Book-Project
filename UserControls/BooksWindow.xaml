@@ -8,6 +8,7 @@
         Height="720" Width="1280">
 
     <Grid>
+        <!-- Main Control menu-->
         <Button Margin="0,0,1055,641" Width="225" FontSize="32" IsEnabled="false">Knihy</Button>
         <Button Margin="225,0,830,641" Width="225" FontSize="32" Click="OpenAuthors">Autoři</Button>
         <Button Margin="131,92,965,569" FontSize="32" Click="AddBookButton" >
@@ -17,7 +18,7 @@
 
         <Button Margin="515,10,572,647" FontSize="25" Click="StartSearchBook">Vyhledat</Button>
         <TextBox Margin="515,92,572,595" FontSize="20" x:Name="searchBar"></TextBox>
-
+        <!-- Ordering element for book cards -->
         <TextBlock VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="25" Margin="766,26,0,0">Seřadit podle:</TextBlock>
         <ComboBox Margin="937,27,127,660">
             <ComboBoxItem PreviewMouseLeftButtonDown="Order_MouseDown" x:Name="ABCasc">Abecedně (od A)</ComboBoxItem>
@@ -28,6 +29,7 @@
 
 
         <Grid Margin="0,180,1018,10">
+            <!-- GRID for filters panel-->
             <ScrollViewer VerticalScrollBarVisibility="Auto" >
                 <StackPanel Margin="0,0,0,25">
 
@@ -101,7 +103,7 @@
 
         </Grid>
 
-
+        <!-- GRID for showing cards -->
         <Grid Margin="284,180,0,10">
             <Grid.RowDefinitions>
                 <RowDefinition Height="5*"/>

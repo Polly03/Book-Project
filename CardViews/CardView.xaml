@@ -16,8 +16,8 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-
-            <StackPanel Grid.Row="1" Margin="10,10,10,10">
+        <!-- Stack Panel with data elements and binding dataSource -->
+        <StackPanel Grid.Row="1" Margin="10,10,10,10">
                 <Image MouseDown="ShowBook" Height="150" Width="125" Source="{Binding ImageSource, RelativeSource={RelativeSource AncestorType=UserControl}}" />
                 <Border Height="50">
                     <TextBlock Text="{Binding Title, RelativeSource={RelativeSource AncestorType=UserControl}}" VerticalAlignment="Center"

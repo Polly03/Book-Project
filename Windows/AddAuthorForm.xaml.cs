@@ -22,6 +22,7 @@ namespace BookDatabase.Windows
         public List<Authors> Authors { get; set; }
         private string _win;
         public event Action? AuthorAdded;
+        Database db = Database.Instance;
 
         public AddAuthorForm(string win)
         {
@@ -31,8 +32,8 @@ namespace BookDatabase.Windows
             DataContext = this;
             Authors = new List<Authors>();
 
-            Database database = new Database();
-            List<string> list = database.SelectTableByName("Countries");
+
+            List<string> list = db.SelectTableByName("Countries");
    
 
             foreach (string item in list)
@@ -86,10 +87,6 @@ namespace BookDatabase.Windows
                 return;
             }
             
-
- 
-
-            Database db = new Database();
             List<Tuple<string, DateTime, string>> list = db.SelectAuthorWithSearch(NameOfAuthor.Text + SurnameOfAuthor.Text);
             if (list.Count > 0)
             {

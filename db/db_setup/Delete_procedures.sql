@@ -1,6 +1,7 @@
+-- DELETE PROCEDURES
 
+-- deleting author based on his name, only if he didnt wrote any book
 SET TERM ^ ;
-
 CREATE OR ALTER PROCEDURE DELETE_AUTHOR (AUTHOR_NAME VARCHAR(64))
 RETURNS (
 	STATUS INTEGER
@@ -26,8 +27,25 @@ begin
             status = 0;
             suspend;
         end
-end
+end;
+^
 SET TERM ; ^
 
+
+-- deleting book base on its name
+SET TERM ^ ;
+
+create or alter procedure DELETE_BOOK (
+    NAME_OF_BOOK varchar(64))
+as
+begin
+    DELETE FROM books
+    where name = :name_of_book;
+end;
+^
+
+
+
+SET TERM ; ^
 
 COMMIT;

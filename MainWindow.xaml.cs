@@ -1,14 +1,6 @@
-﻿using System.Text;
+﻿using System.Diagnostics;
+using System.IO;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-
 
 
 namespace BookDatabase
@@ -19,9 +11,32 @@ namespace BookDatabase
         {
             InitializeComponent();
 
+            SetupDatabase();
+
             Main.Content = new BooksWindow();
+        }
 
+        // executing bat file to setup database
+        public void SetupDatabase()
+        {
+            string path = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", ".."));
+            string batPath = Path.Combine(path, "db", "db_setup", "buildDB.bat");
+            Process process = new Process();
+            process.StartInfo.FileName = "cmd.exe";
+            process.StartInfo.Arguments = $"/c \"{batPath}\"";
+            process.StartInfo.WorkingDirectory = Path.GetDirectoryName(batPath);
+            process.StartInfo.UseShellExecute = false;
+            process.StartInfo.RedirectStandardOutput = true;
+            process.StartInfo.RedirectStandardError = true;
 
+            process.Start();
+            process.WaitForExit();
+
+            string output = process.StandardOutput.ReadToEnd();
+            string error = process.StandardError.ReadToEnd();
+
+            Console.WriteLine(output);
+            Console.WriteLine(error);
         }
     }
 }

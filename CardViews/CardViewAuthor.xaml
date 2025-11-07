@@ -16,7 +16,7 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-
+            <!-- stack panel for data binding in elements -->
             <StackPanel Grid.Row="1" Margin="10,10,10,10">
                 <TextBlock Text="{Binding NameOf, RelativeSource={RelativeSource AncestorType=UserControl}}"
                FontSize="18" FontWeight="Bold" TextWrapping="Wrap" Margin="0,0,0,5" Height="53"/>

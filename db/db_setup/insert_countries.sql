@@ -1,3 +1,4 @@
+-- countries inserts
 
 INSERT INTO Countries(name) VALUES('Afghánistán');
 INSERT INTO Countries(name) VALUES('Albánie');

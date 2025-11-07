@@ -23,6 +23,7 @@ namespace BookDatabase
             InitializeComponent();
         }
 
+        // properties for working card when used as element in other xaml
         public static readonly DependencyProperty NameOfProperty =
             DependencyProperty.Register("NameOf", typeof(string), typeof(CardViewAuthor), new PropertyMetadata(""));
 

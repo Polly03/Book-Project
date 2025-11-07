@@ -19,20 +19,20 @@
         <TextBox Margin="515,92,572,595" FontSize="20"></TextBox>
 
         <TextBlock VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="25" Margin="766,26,0,0">Seřadit podle:</TextBlock>
-        <ComboBox Margin="937,27,127,660" SelectionChanged="ComboBox_SelectionChanged">
-            <ComboBoxItem PreviewMouseLeftButtonDown="Order_MouseDown" x:Name="ABCasc">Abecedně (od A)</ComboBoxItem>
-            <ComboBoxItem PreviewMouseLeftButtonDown="Order_MouseDown" x:Name="ABCdsc">Abecedně (od Z)</ComboBoxItem>
-            <ComboBoxItem PreviewMouseLeftButtonDown="Order_MouseDown" x:Name="Birthasc">Rok narození (od nejstaršího)</ComboBoxItem>
-            <ComboBoxItem PreviewMouseLeftButtonDown="Order_MouseDown" x:Name="Birthdsc">Rok narození (od nejmladšího)</ComboBoxItem>
+        <ComboBox Margin="937,27,127,660">
+            <ComboBoxItem PreviewMouseLeftButtonDown="OrderMouseDown" x:Name="ABCasc">Abecedně (od A)</ComboBoxItem>
+            <ComboBoxItem PreviewMouseLeftButtonDown="OrderMouseDown" x:Name="ABCdsc">Abecedně (od Z)</ComboBoxItem>
+            <ComboBoxItem PreviewMouseLeftButtonDown="OrderMouseDown" x:Name="Birthasc">Rok narození (od nejstaršího)</ComboBoxItem>
+            <ComboBoxItem PreviewMouseLeftButtonDown="OrderMouseDown" x:Name="Birthdsc">Rok narození (od nejmladšího)</ComboBoxItem>
         </ComboBox>
 
 
-        <Grid Margin="0,176,1018,10">
-            <TextBlock Text="Vyber Zemi původu:" FontWeight="Bold" Margin="0,0,0,5" Width="200" HorizontalAlignment="Center"/>
-                <TextBox Width="200" Margin="31,28,31,480" Text="{Binding SearchTextCountry, UpdateSourceTrigger=PropertyChanged}"/>
+        <StackPanel Margin="0,176,1018,10">
+            <TextBlock Text="Vyber Zemi původu:" FontWeight="Bold" Width="200" Margin="0,20,0,0"/>
+            <TextBox Width="200" Margin="0,15,0,30" Text="{Binding SearchTextCountries, UpdateSourceTrigger=PropertyChanged}"/>
 
-            <ScrollViewer Margin="10,0,0,0" VerticalScrollBarVisibility="Visible">
-                <ItemsControl ItemsSource="{Binding FilteredCountries}" Height="332" RenderTransformOrigin="0.548,0.342">
+            <ScrollViewer Margin="10,0,0,20" VerticalScrollBarVisibility="Visible" Height="400" Width="252">
+                <ItemsControl ItemsSource="{Binding FilteredCountries}" Margin="0,0,0,20">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <CheckBox Content="{Binding Name}" IsChecked="{Binding IsSelected, Mode=TwoWay}" Margin="0,2"/>
@@ -40,7 +40,7 @@
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
             </ScrollViewer>
-        </Grid>
+        </StackPanel>
 
 
         <Grid Margin="284,176,0,0">

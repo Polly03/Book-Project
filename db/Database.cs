@@ -1,44 +1,39 @@
 ﻿using FirebirdSql.Data.FirebirdClient;
-using System.Data;
 using System.IO;
-using System.Runtime.InteropServices;
-using System.Windows;
+
 
 
 
 namespace BookDatabase
 {
 
-    public class Database
+    public sealed class Database
     {
-        private string connString {  get; set; }
+        // string for connection
+        private string connString { get; set; }
 
-        [DllImport("kernel32.dll", SetLastError = true)]
-        static extern bool AttachConsole(uint dwProcessId);
-
-        const uint ATTACH_PARENT_PROCESS = 0x0ffffffff;
-
-
-
-        public Database()
+        private static Database instance = null;
+        public static Database Instance
         {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new Database();
+                }
+                return instance;
+            }
+        }
+        private Database()
+        {
+            // getting path to database file
             string path = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", ".."));
             string dbPath = Path.Combine(path, "db", "Book_db.fdb");
-
             this.connString = $"User=SYSDBA;Password=masterkey;Database={dbPath};DataSource=localhost;Port=3050;Dialect=3;Charset=UTF8;";
-            AttachConsole(ATTACH_PARENT_PROCESS);
-
-            SelectAuthorsByFilers(null, null);
-            SelectBooksByFilters(null, null, null, null);
-            SelectBooksWithSearch("");
-            SelectAuthorWithSearch("");
-            SelectBook("1984");
-            SelectAuthor("Franz Kafka");
-            SelectAllAuthors();
-            SelectAllBooks();
-            OrderBooks("books.name", "asc");
 
         }
+
+        // Methods for selecting procedures in SQL
         public List<Tuple<string, DateTime, string>> SelectAllAuthors()
         {
             return SelectAuthorWithSearch("");
@@ -108,29 +103,32 @@ namespace BookDatabase
             }
         }
 
-        public void SelectAuthorsByFilers(string? Names, string? Countries)
+        public List<Tuple<string, DateTime, string>> SelectAuthorsByFilters(string? Countries)
         {
 
             using (FbConnection con = new FbConnection(connString))
             {
                 con.Open();
 
-                using (var cmd = new FbCommand("select * from select_authors_with_filters(@Name_list, @Countries_list)", con))
+                using (var cmd = new FbCommand("select * from select_authors_with_filters(@Countries_list)", con))
                 {
-                    cmd.Parameters.AddWithValue("@Name_list", (object?)Names ?? DBNull.Value);
+
                     cmd.Parameters.AddWithValue("@Countries_list", (object?)Countries ?? DBNull.Value);
 
                     using (var reader = cmd.ExecuteReader())
                     {
+                        List<Tuple<string, DateTime, string>> list = new List<Tuple<string, DateTime, string>>();
                         while (reader.Read())
                         {
-                            var name = reader["Name"];
-                            var surname = reader["Surname"];
-                            var dateOfBirth = reader["DateOfBirth"];
-                            var country = reader["Country"];
+                            var name = (string)reader["Name"];
+                            var surname = (string)reader["Surname"];
+                            var dateOfBirth = (DateTime)reader["DateOfBirth"];
+                            var country = (string)reader["Country"];
 
-                            Console.WriteLine("autoři: " + name + " " + dateOfBirth + " " + country + "\n");
+                            Tuple<string, DateTime, string> tup = new Tuple<string, DateTime, string>( name + surname, dateOfBirth, country );
+                            list.Add(tup);
                         }
+                        return list;
                     }
                 }
             }
@@ -345,8 +343,8 @@ namespace BookDatabase
 
                             while (reader.Read())
                             {
-                                var name = reader["Name"];
-                                var surname = reader["Surname"];
+                                var name = reader["Authors_Name"];
+                                var surname = reader["Authors_Surname"];
                                 var fullname = name + " " + surname;
                                 list.Add(fullname?.ToString() ?? "");
                             }
@@ -356,10 +354,6 @@ namespace BookDatabase
 
                     }
                 }
-
-                
-
-
 
 
             }

@@ -1,3 +1,4 @@
+-- insert for languages
 
 INSERT INTO Languages(name) VALUES('Afrikánština');
 INSERT INTO Languages(name) VALUES('Albánština');
