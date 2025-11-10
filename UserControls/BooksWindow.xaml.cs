@@ -75,18 +75,22 @@ namespace BookDatabase
             return filters;
         }
 
+        private void FillItems(List<Tuple<byte[], string, string, string>> list)
+        {
+            p.MyItems.Clear();
+            foreach (var elem in list)
+            {
+                p.MyItems.Add(new BooksData(GetBM(elem.Item1), elem.Item2, elem.Item3, elem.Item4));
+            }
+        }
+
         // start method for showing all books or refresh books
         private void SelectCards()
         {
             p.MyItems = new ObservableCollection<BooksData>();
             List<Tuple<byte[], string, string, string>> list = db.SelectAllBooks();
 
-            foreach (var item in list)
-            {
-
-                p.MyItems.Add(new BooksData(GetBM(item.Item1), item.Item2, item.Item3, item.Item4));
-
-            }
+           FillItems(list);
         }
 
         // decoding byte[] data of image to BitmapImage to show it in Cards
@@ -137,11 +141,7 @@ namespace BookDatabase
 
             List<Tuple<byte[], string, string, string>> list = db.SelectBooksByFilters(authors, genres, languages, publishers);
 
-            p.MyItems.Clear();
-            foreach (var elem in list)
-            {
-                p.MyItems.Add(new BooksData(GetBM(elem.Item1), elem.Item2, elem.Item3, elem.Item4));
-            }
+            FillItems(list);
         }
 
         // getting filters in correct order to work like a list
@@ -173,23 +173,14 @@ namespace BookDatabase
 
 
             List<Tuple<byte[], string, string, string>> list = db.OrderBooks(column, way);
-            p.MyItems.Clear();
-            foreach (var elem in list)
-            {
-                p.MyItems.Add(new BooksData(GetBM(elem.Item1), elem.Item2, elem.Item3, elem.Item4));
-            }
+            FillItems(list);
         }
 
         // click method for button which start searching if substring in searchbar is in some book names or author names
         private void StartSearchBook(object sender, EventArgs e)
         {
             List<Tuple<Byte[], string, string, string>> list = db.SelectBooksWithSearch(searchBar.Text);
-            p.MyItems.Clear();
-            foreach (var elem in list)
-            {
-                p.MyItems.Add(new BooksData(GetBM(elem.Item1), elem.Item2, elem.Item3, elem.Item4));
-            }
-
+            FillItems(list);
         }
 
         // metod for opening form for adding book
