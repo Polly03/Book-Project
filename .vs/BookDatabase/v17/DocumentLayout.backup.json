@@ -3,32 +3,72 @@
   "WorkspaceRootPath": "C:\\Users\\jakpo\\Desktop\\prace\\Book-Project\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{B75EE1A7-9543-6C9E-35E1-A14C8035594D}|BookDatabase.csproj|c:\\users\\jakpo\\desktop\\prace\\book-project\\usercontrols\\observableproperties.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B75EE1A7-9543-6C9E-35E1-A14C8035594D}|BookDatabase.csproj|solutionrelative:usercontrols\\observableproperties.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{B75EE1A7-9543-6C9E-35E1-A14C8035594D}|BookDatabase.csproj|c:\\users\\jakpo\\desktop\\prace\\book-project\\usercontrols\\bookswindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B75EE1A7-9543-6C9E-35E1-A14C8035594D}|BookDatabase.csproj|solutionrelative:usercontrols\\bookswindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B75EE1A7-9543-6C9E-35E1-A14C8035594D}|BookDatabase.csproj|c:\\users\\jakpo\\desktop\\prace\\book-project\\usercontrols\\authorswindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{B75EE1A7-9543-6C9E-35E1-A14C8035594D}|BookDatabase.csproj|solutionrelative:usercontrols\\authorswindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+      "AbsoluteMoniker": "D:0:0:{B75EE1A7-9543-6C9E-35E1-A14C8035594D}|BookDatabase.csproj|c:\\users\\jakpo\\desktop\\prace\\book-project\\usercontrols\\authorswindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B75EE1A7-9543-6C9E-35E1-A14C8035594D}|BookDatabase.csproj|solutionrelative:usercontrols\\authorswindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B75EE1A7-9543-6C9E-35E1-A14C8035594D}|BookDatabase.csproj|c:\\users\\jakpo\\desktop\\prace\\book-project\\windows\\addauthorform.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B75EE1A7-9543-6C9E-35E1-A14C8035594D}|BookDatabase.csproj|solutionrelative:windows\\addauthorform.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{B75EE1A7-9543-6C9E-35E1-A14C8035594D}|BookDatabase.csproj|c:\\users\\jakpo\\desktop\\prace\\book-project\\usercontrols\\bookswindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{B75EE1A7-9543-6C9E-35E1-A14C8035594D}|BookDatabase.csproj|solutionrelative:usercontrols\\bookswindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B75EE1A7-9543-6C9E-35E1-A14C8035594D}|BookDatabase.csproj|c:\\users\\jakpo\\desktop\\prace\\book-project\\windows\\addauthorform.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{B75EE1A7-9543-6C9E-35E1-A14C8035594D}|BookDatabase.csproj|solutionrelative:windows\\addauthorform.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+      "AbsoluteMoniker": "D:0:0:{B75EE1A7-9543-6C9E-35E1-A14C8035594D}|BookDatabase.csproj|c:\\users\\jakpo\\desktop\\prace\\book-project\\usercontrols\\observableproperties.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B75EE1A7-9543-6C9E-35E1-A14C8035594D}|BookDatabase.csproj|solutionrelative:usercontrols\\observableproperties.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B75EE1A7-9543-6C9E-35E1-A14C8035594D}|BookDatabase.csproj|c:\\users\\jakpo\\desktop\\prace\\book-project\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B75EE1A7-9543-6C9E-35E1-A14C8035594D}|BookDatabase.csproj|solutionrelative:mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{B75EE1A7-9543-6C9E-35E1-A14C8035594D}|BookDatabase.csproj|c:\\users\\jakpo\\desktop\\prace\\book-project\\windows\\addbookform.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B75EE1A7-9543-6C9E-35E1-A14C8035594D}|BookDatabase.csproj|solutionrelative:windows\\addbookform.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{B75EE1A7-9543-6C9E-35E1-A14C8035594D}|BookDatabase.csproj|c:\\users\\jakpo\\desktop\\prace\\book-project\\windows\\addauthorform.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B75EE1A7-9543-6C9E-35E1-A14C8035594D}|BookDatabase.csproj|solutionrelative:windows\\addauthorform.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B75EE1A7-9543-6C9E-35E1-A14C8035594D}|BookDatabase.csproj|c:\\users\\jakpo\\desktop\\prace\\book-project\\models\\booksdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B75EE1A7-9543-6C9E-35E1-A14C8035594D}|BookDatabase.csproj|solutionrelative:models\\booksdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B75EE1A7-9543-6C9E-35E1-A14C8035594D}|BookDatabase.csproj|c:\\users\\jakpo\\desktop\\prace\\book-project\\models\\generalmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B75EE1A7-9543-6C9E-35E1-A14C8035594D}|BookDatabase.csproj|solutionrelative:models\\generalmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B75EE1A7-9543-6C9E-35E1-A14C8035594D}|BookDatabase.csproj|c:\\users\\jakpo\\desktop\\prace\\book-project\\models\\filteroption.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B75EE1A7-9543-6C9E-35E1-A14C8035594D}|BookDatabase.csproj|solutionrelative:models\\filteroption.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{B75EE1A7-9543-6C9E-35E1-A14C8035594D}|BookDatabase.csproj|c:\\users\\jakpo\\desktop\\prace\\book-project\\cardviews\\cardview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{B75EE1A7-9543-6C9E-35E1-A14C8035594D}|BookDatabase.csproj|solutionrelative:cardviews\\cardview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B75EE1A7-9543-6C9E-35E1-A14C8035594D}|BookDatabase.csproj|c:\\users\\jakpo\\desktop\\prace\\book-project\\cardviews\\cardviewauthor.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{B75EE1A7-9543-6C9E-35E1-A14C8035594D}|BookDatabase.csproj|solutionrelative:cardviews\\cardviewauthor.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B75EE1A7-9543-6C9E-35E1-A14C8035594D}|BookDatabase.csproj|c:\\users\\jakpo\\desktop\\prace\\book-project\\models\\authors.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B75EE1A7-9543-6C9E-35E1-A14C8035594D}|BookDatabase.csproj|solutionrelative:models\\authors.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B75EE1A7-9543-6C9E-35E1-A14C8035594D}|BookDatabase.csproj|c:\\users\\jakpo\\desktop\\prace\\book-project\\assemblyinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B75EE1A7-9543-6C9E-35E1-A14C8035594D}|BookDatabase.csproj|solutionrelative:assemblyinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B75EE1A7-9543-6C9E-35E1-A14C8035594D}|BookDatabase.csproj|c:\\users\\jakpo\\desktop\\prace\\book-project\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{B75EE1A7-9543-6C9E-35E1-A14C8035594D}|BookDatabase.csproj|solutionrelative:mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B75EE1A7-9543-6C9E-35E1-A14C8035594D}|BookDatabase.csproj|c:\\users\\jakpo\\desktop\\prace\\book-project\\usercontrols\\authorswindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{B75EE1A7-9543-6C9E-35E1-A14C8035594D}|BookDatabase.csproj|solutionrelative:usercontrols\\authorswindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B75EE1A7-9543-6C9E-35E1-A14C8035594D}|BookDatabase.csproj|c:\\users\\jakpo\\desktop\\prace\\book-project\\windows\\addauthorform.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{B75EE1A7-9543-6C9E-35E1-A14C8035594D}|BookDatabase.csproj|solutionrelative:windows\\addauthorform.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     }
   ],
   "DocumentGroupContainers": [
@@ -38,7 +78,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Bookmark",
@@ -47,42 +87,197 @@
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "AuthorsWindow.xaml",
-              "DocumentMoniker": "C:\\Users\\jakpo\\Desktop\\prace\\Book-Project\\UserControls\\AuthorsWindow.xaml",
-              "RelativeDocumentMoniker": "UserControls\\AuthorsWindow.xaml",
-              "ToolTip": "C:\\Users\\jakpo\\Desktop\\prace\\Book-Project\\UserControls\\AuthorsWindow.xaml",
-              "RelativeToolTip": "UserControls\\AuthorsWindow.xaml",
+              "Title": "BooksWindow.xaml",
+              "DocumentMoniker": "C:\\Users\\jakpo\\Desktop\\prace\\Book-Project\\UserControls\\BooksWindow.xaml",
+              "RelativeDocumentMoniker": "UserControls\\BooksWindow.xaml",
+              "ToolTip": "C:\\Users\\jakpo\\Desktop\\prace\\Book-Project\\UserControls\\BooksWindow.xaml",
+              "RelativeToolTip": "UserControls\\BooksWindow.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-11-07T21:52:18.961Z"
+              "WhenOpened": "2025-11-11T12:21:39.612Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "AuthorsWindow.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\jakpo\\Desktop\\prace\\Book-Project\\UserControls\\AuthorsWindow.xaml.cs",
+              "RelativeDocumentMoniker": "UserControls\\AuthorsWindow.xaml.cs",
+              "ToolTip": "C:\\Users\\jakpo\\Desktop\\prace\\Book-Project\\UserControls\\AuthorsWindow.xaml.cs",
+              "RelativeToolTip": "UserControls\\AuthorsWindow.xaml.cs",
+              "ViewState": "AgIAACIAAAAAAAAAAAAQwG4AAAASAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-11T12:00:26.256Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "BooksWindow.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\jakpo\\Desktop\\prace\\Book-Project\\UserControls\\BooksWindow.xaml.cs",
+              "RelativeDocumentMoniker": "UserControls\\BooksWindow.xaml.cs",
+              "ToolTip": "C:\\Users\\jakpo\\Desktop\\prace\\Book-Project\\UserControls\\BooksWindow.xaml.cs",
+              "RelativeToolTip": "UserControls\\BooksWindow.xaml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-06T16:52:05.99Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "AddAuthorForm.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\jakpo\\Desktop\\prace\\Book-Project\\Windows\\AddAuthorForm.xaml.cs",
+              "RelativeDocumentMoniker": "Windows\\AddAuthorForm.xaml.cs",
+              "ToolTip": "C:\\Users\\jakpo\\Desktop\\prace\\Book-Project\\Windows\\AddAuthorForm.xaml.cs",
+              "RelativeToolTip": "Windows\\AddAuthorForm.xaml.cs",
+              "ViewState": "AgIAAFMAAAAAAAAAAAAswGgAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-06T19:12:44.834Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "AddBookForm.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\jakpo\\Desktop\\prace\\Book-Project\\Windows\\AddBookForm.xaml.cs",
+              "RelativeDocumentMoniker": "Windows\\AddBookForm.xaml.cs",
+              "ToolTip": "C:\\Users\\jakpo\\Desktop\\prace\\Book-Project\\Windows\\AddBookForm.xaml.cs",
+              "RelativeToolTip": "Windows\\AddBookForm.xaml.cs",
+              "ViewState": "AgIAABIAAAAAAAAAAAAAAJUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-06T18:22:23.92Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "MainWindow.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\jakpo\\Desktop\\prace\\Book-Project\\MainWindow.xaml.cs",
+              "RelativeDocumentMoniker": "MainWindow.xaml.cs",
+              "ToolTip": "C:\\Users\\jakpo\\Desktop\\prace\\Book-Project\\MainWindow.xaml.cs",
+              "RelativeToolTip": "MainWindow.xaml.cs",
+              "ViewState": "AgIAABUAAAAAAAAAAAAYwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-11T12:08:51.92Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "ObservableProperties.cs",
               "DocumentMoniker": "C:\\Users\\jakpo\\Desktop\\prace\\Book-Project\\UserControls\\ObservableProperties.cs",
               "RelativeDocumentMoniker": "UserControls\\ObservableProperties.cs",
               "ToolTip": "C:\\Users\\jakpo\\Desktop\\prace\\Book-Project\\UserControls\\ObservableProperties.cs",
               "RelativeToolTip": "UserControls\\ObservableProperties.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACUAAAAeAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-11-07T21:46:54.264Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "AddAuthorForm.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\jakpo\\Desktop\\prace\\Book-Project\\Windows\\AddAuthorForm.xaml.cs",
-              "RelativeDocumentMoniker": "Windows\\AddAuthorForm.xaml.cs",
-              "ToolTip": "C:\\Users\\jakpo\\Desktop\\prace\\Book-Project\\Windows\\AddAuthorForm.xaml.cs",
-              "RelativeToolTip": "Windows\\AddAuthorForm.xaml.cs",
-              "ViewState": "AgIAAE0AAAAAAAAAAAAswGgAAAAJAAAAAAAAAA==",
+              "DocumentIndex": 7,
+              "Title": "BooksData.cs",
+              "DocumentMoniker": "C:\\Users\\jakpo\\Desktop\\prace\\Book-Project\\Models\\BooksData.cs",
+              "RelativeDocumentMoniker": "Models\\BooksData.cs",
+              "ToolTip": "C:\\Users\\jakpo\\Desktop\\prace\\Book-Project\\Models\\BooksData.cs",
+              "RelativeToolTip": "Models\\BooksData.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-06T19:12:44.834Z"
+              "WhenOpened": "2025-11-11T12:09:07.832Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 8,
+              "Title": "GeneralModel.cs",
+              "DocumentMoniker": "C:\\Users\\jakpo\\Desktop\\prace\\Book-Project\\Models\\GeneralModel.cs",
+              "RelativeDocumentMoniker": "Models\\GeneralModel.cs",
+              "ToolTip": "C:\\Users\\jakpo\\Desktop\\prace\\Book-Project\\Models\\GeneralModel.cs",
+              "RelativeToolTip": "Models\\GeneralModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-11T12:09:06.617Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "FilterOption.cs",
+              "DocumentMoniker": "C:\\Users\\jakpo\\Desktop\\prace\\Book-Project\\Models\\FilterOption.cs",
+              "RelativeDocumentMoniker": "Models\\FilterOption.cs",
+              "ToolTip": "C:\\Users\\jakpo\\Desktop\\prace\\Book-Project\\Models\\FilterOption.cs",
+              "RelativeToolTip": "Models\\FilterOption.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-11T12:09:12.297Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "CardView.xaml",
+              "DocumentMoniker": "C:\\Users\\jakpo\\Desktop\\prace\\Book-Project\\CardViews\\CardView.xaml",
+              "RelativeDocumentMoniker": "CardViews\\CardView.xaml",
+              "ToolTip": "C:\\Users\\jakpo\\Desktop\\prace\\Book-Project\\CardViews\\CardView.xaml",
+              "RelativeToolTip": "CardViews\\CardView.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-11-06T16:39:44.949Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "CardViewAuthor.xaml",
+              "DocumentMoniker": "C:\\Users\\jakpo\\Desktop\\prace\\Book-Project\\CardViews\\CardViewAuthor.xaml",
+              "RelativeDocumentMoniker": "CardViews\\CardViewAuthor.xaml",
+              "ToolTip": "C:\\Users\\jakpo\\Desktop\\prace\\Book-Project\\CardViews\\CardViewAuthor.xaml",
+              "RelativeToolTip": "CardViews\\CardViewAuthor.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-11-11T12:09:23.734Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "Authors.cs",
+              "DocumentMoniker": "C:\\Users\\jakpo\\Desktop\\prace\\Book-Project\\Models\\Authors.cs",
+              "RelativeDocumentMoniker": "Models\\Authors.cs",
+              "ToolTip": "C:\\Users\\jakpo\\Desktop\\prace\\Book-Project\\Models\\Authors.cs",
+              "RelativeToolTip": "Models\\Authors.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-11T12:09:10.233Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "AssemblyInfo.cs",
+              "DocumentMoniker": "C:\\Users\\jakpo\\Desktop\\prace\\Book-Project\\AssemblyInfo.cs",
+              "RelativeDocumentMoniker": "AssemblyInfo.cs",
+              "ToolTip": "C:\\Users\\jakpo\\Desktop\\prace\\Book-Project\\AssemblyInfo.cs",
+              "RelativeToolTip": "AssemblyInfo.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-11T12:08:48.873Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "MainWindow.xaml",
+              "DocumentMoniker": "C:\\Users\\jakpo\\Desktop\\prace\\Book-Project\\MainWindow.xaml",
+              "RelativeDocumentMoniker": "MainWindow.xaml",
+              "ToolTip": "C:\\Users\\jakpo\\Desktop\\prace\\Book-Project\\MainWindow.xaml",
+              "RelativeToolTip": "MainWindow.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-11-11T12:08:47.164Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
               "Title": "AddAuthorForm.xaml",
               "DocumentMoniker": "C:\\Users\\jakpo\\Desktop\\prace\\Book-Project\\Windows\\AddAuthorForm.xaml",
               "RelativeDocumentMoniker": "Windows\\AddAuthorForm.xaml",
@@ -93,39 +288,15 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "AddBookForm.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\jakpo\\Desktop\\prace\\Book-Project\\Windows\\AddBookForm.xaml.cs",
-              "RelativeDocumentMoniker": "Windows\\AddBookForm.xaml.cs",
-              "ToolTip": "C:\\Users\\jakpo\\Desktop\\prace\\Book-Project\\Windows\\AddBookForm.xaml.cs",
-              "RelativeToolTip": "Windows\\AddBookForm.xaml.cs",
-              "ViewState": "AgIAAIMAAAAAAAAAAAAUwJUAAAAcAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-06T18:22:23.92Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "BooksWindow.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\jakpo\\Desktop\\prace\\Book-Project\\UserControls\\BooksWindow.xaml.cs",
-              "RelativeDocumentMoniker": "UserControls\\BooksWindow.xaml.cs",
-              "ToolTip": "C:\\Users\\jakpo\\Desktop\\prace\\Book-Project\\UserControls\\BooksWindow.xaml.cs",
-              "RelativeToolTip": "UserControls\\BooksWindow.xaml.cs",
-              "ViewState": "AgIAAKUAAAAAAAAAAAAiwLYAAAAcAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-06T16:52:05.99Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "CardView.xaml",
-              "DocumentMoniker": "C:\\Users\\jakpo\\Desktop\\prace\\Book-Project\\CardViews\\CardView.xaml",
-              "RelativeDocumentMoniker": "CardViews\\CardView.xaml",
-              "ToolTip": "C:\\Users\\jakpo\\Desktop\\prace\\Book-Project\\CardViews\\CardView.xaml",
-              "RelativeToolTip": "CardViews\\CardView.xaml",
+              "DocumentIndex": 15,
+              "Title": "AuthorsWindow.xaml",
+              "DocumentMoniker": "C:\\Users\\jakpo\\Desktop\\prace\\Book-Project\\UserControls\\AuthorsWindow.xaml",
+              "RelativeDocumentMoniker": "UserControls\\AuthorsWindow.xaml",
+              "ToolTip": "C:\\Users\\jakpo\\Desktop\\prace\\Book-Project\\UserControls\\AuthorsWindow.xaml",
+              "RelativeToolTip": "UserControls\\AuthorsWindow.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-11-06T16:39:44.949Z"
+              "WhenOpened": "2025-11-07T21:52:18.961Z",
+              "EditorCaption": ""
             }
           ]
         }

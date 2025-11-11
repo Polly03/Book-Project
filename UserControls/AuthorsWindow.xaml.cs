@@ -108,12 +108,7 @@ namespace BookDatabase
             if (s == "Birthdsc") { column = "Authors.DateOfBirth"; way = "desc"; }
 
 
-            List<Tuple<byte[], string, string, string>> list = db.OrderBooks(column, way);
-            p.MyItems.Clear();
-            foreach (var elem in list)
-            {
-                p.MyItems.Add(new BooksData(GetBM(elem.Item1), elem.Item2, elem.Item3, elem.Item4));
-            }
+        // in work
         }
 
         private string DoFilter(ObservableCollection<FilterOption> list)

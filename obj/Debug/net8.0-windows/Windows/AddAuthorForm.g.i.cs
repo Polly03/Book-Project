@@ -93,7 +93,7 @@ namespace BookDatabase.Windows {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/BookDatabase;V1.0.0.0;component/windows/addauthorform.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/BookDatabase;component/windows/addauthorform.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\Windows\AddAuthorForm.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

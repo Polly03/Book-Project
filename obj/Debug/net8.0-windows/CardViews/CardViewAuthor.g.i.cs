@@ -53,7 +53,7 @@ namespace BookDatabase {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/BookDatabase;V1.0.0.0;component/cardviews/cardviewauthor.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/BookDatabase;component/cardviews/cardviewauthor.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\CardViews\CardViewAuthor.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);
