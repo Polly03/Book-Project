@@ -47,10 +47,10 @@ namespace BookDatabase
         private List<GeneralModel> GetProperties(string name)
         {
             List<GeneralModel> list = new List<GeneralModel>();
-            List<string> lists = db.SelectTableByName(name);
-            foreach (string item in lists)
+            List<GeneralModel> lists = db.SelectNameByTableName(name);
+            foreach (GeneralModel item in lists)
             {
-                list.Add(new GeneralModel(item));
+                list.Add(item);
             }
 
             return list;

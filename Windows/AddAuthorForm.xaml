@@ -33,10 +33,10 @@
         <TextBox Grid.Row="2" Grid.Column="1" FontSize="20" MaxLength="64" x:Name="SurnameOfAuthor"/>
 
         <TextBlock Grid.Row="3" Grid.Column="0" FontSize="20" VerticalAlignment="Center">Zadejte zemi původu</TextBlock>
-        <ComboBox Grid.Row="3" Grid.Column="1" ItemsSource="{Binding Authors}" x:Name="CountriesBox" FontSize="20">
+        <ComboBox Grid.Row="3" Grid.Column="1" ItemsSource="{Binding Countries}" x:Name="CountriesBox" FontSize="20">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
-                    <TextBlock Text="{Binding Country}" />
+                    <TextBlock Text="{Binding Name}" />
                 </DataTemplate>
             </ComboBox.ItemTemplate>
         </ComboBox>

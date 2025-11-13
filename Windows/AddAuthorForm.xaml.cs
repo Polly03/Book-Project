@@ -19,7 +19,7 @@ namespace BookDatabase.Windows
 
     public partial class AddAuthorForm : Window
     {
-        public List<Authors> Authors { get; set; }
+        public List<GeneralModel> Countries { get; set; }
         private string _win;
         public event Action? AuthorAdded;
         Database db = Database.Instance;
@@ -30,15 +30,13 @@ namespace BookDatabase.Windows
             _win = win;
             InitializeComponent();
             DataContext = this;
-            Authors = new List<Authors>();
+            Countries = new List<GeneralModel>();
 
+            List<GeneralModel> list = db.SelectNameByTableName("Countries");
 
-            List<string> list = db.SelectTableByName("Countries");
-   
-
-            foreach (string item in list)
+            foreach (GeneralModel item in list)
             {
-                Authors.Add(new Authors(item, item, item));
+                Countries.Add(item);
             }
         }
 
@@ -87,7 +85,7 @@ namespace BookDatabase.Windows
                 return;
             }
             
-            List<Tuple<string, DateTime, string>> list = db.SelectAuthorWithSearch(NameOfAuthor.Text + SurnameOfAuthor.Text);
+            List<Authors> list = db.SelectAuthorWithSearch(NameOfAuthor.Text + SurnameOfAuthor.Text);
             if (list.Count > 0)
             {
                 MessageBox.Show("Tento Autor již existuje!");
@@ -97,7 +95,7 @@ namespace BookDatabase.Windows
 
 
 
-            db.InsertAuthor(NameOfAuthor.Text ,SurnameOfAuthor.Text, ((Authors)CountriesBox.SelectedItem).Country, (DateTime)DateAuthor.SelectedDate!, AboutAuthor.Text);
+            db.InsertAuthor(NameOfAuthor.Text ,SurnameOfAuthor.Text, ((GeneralModel)CountriesBox.SelectedItem).Name, (DateTime)DateAuthor.SelectedDate!, AboutAuthor.Text);
             AuthorAdded?.Invoke();
             this.Close();
 

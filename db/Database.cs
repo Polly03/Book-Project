@@ -1,5 +1,11 @@
-﻿using FirebirdSql.Data.FirebirdClient;
+﻿using BookDatabase.Models;
+using FirebirdSql.Data.FirebirdClient;
+using System.Collections.Generic;
+using System.Diagnostics.Metrics;
 using System.IO;
+using System.Windows.Controls;
+using System.Windows.Media.Imaging;
+
 
 
 
@@ -34,17 +40,17 @@ namespace BookDatabase
         }
 
         // Methods for selecting procedures in SQL
-        public List<Tuple<string, DateTime, string>> SelectAllAuthors()
+        public List<Authors> SelectAllAuthors()
         {
             return SelectAuthorWithSearch("");
         }
 
-        public List<Tuple<byte[], string, string, string>> SelectAllBooks()
+        public List<BooksData> SelectAllBooks()
         {
-           return SelectBooksWithSearch("");
+            return SelectBooksWithSearch("");
         }
 
-        public List<Tuple<byte[], string, string, string>> SelectBooksByFilters(string? author, string? genres, string? languages, string? publishers)
+        public List<BooksData> SelectBooksByFilters(string? author, string? genres, string? languages, string? publishers)
         {
 
             using (FbConnection con = new FbConnection(connString))
@@ -60,7 +66,7 @@ namespace BookDatabase
 
                     using (var reader = cmd.ExecuteReader())
                     {
-                        List<Tuple<byte[], string, string, string>> list = new List<Tuple<byte[], string, string, string>> { };
+                        List<BooksData> list = new List<BooksData> { };
 
                         while (reader.Read())
                         {
@@ -70,8 +76,8 @@ namespace BookDatabase
                             var authors = (string)reader["Fullname"];
                             var genre = (string)reader["Genre"];
 
-                            Tuple<byte[], string, string, string> tup = new Tuple<byte[], string, string, string>(photoByte!, names, authors, genre);
-                            list.Add(tup);
+                            list.Add(new BooksData(GetBM((byte[])photo), names, authors, genre));
+
                         }
                         con.Close();
                         return list;
@@ -80,7 +86,7 @@ namespace BookDatabase
             }
         }
 
-        public void InsertAuthor(string name,string surname, string country, DateTime dateOfBirth, string aboutAuthor)
+        public void InsertAuthor(string name, string surname, string country, DateTime dateOfBirth, string aboutAuthor)
         {
             using (FbConnection con = new FbConnection(connString))
             {
@@ -103,7 +109,7 @@ namespace BookDatabase
             }
         }
 
-        public List<Tuple<string, DateTime, string>> SelectAuthorsByFilters(string? Countries)
+        public List<Authors> SelectAuthorsByFilters(string? Countries)
         {
 
             using (FbConnection con = new FbConnection(connString))
@@ -117,24 +123,26 @@ namespace BookDatabase
 
                     using (var reader = cmd.ExecuteReader())
                     {
-                        List<Tuple<string, DateTime, string>> list = new List<Tuple<string, DateTime, string>>();
+                        List<Authors> list = new List<Authors>();
+
                         while (reader.Read())
                         {
-                            var name = (string)reader["Name"];
-                            var surname = (string)reader["Surname"];
-                            var dateOfBirth = (DateTime)reader["DateOfBirth"];
-                            var country = (string)reader["Country"];
+                            var nameT = (string)reader["Name"];
+                            var surnameT = (string)reader["Surname"];
+                            var dateOfBirthT = (DateTime)reader["DateOfBirth"];
+                            var countryT = (string)reader["Country"];
 
-                            Tuple<string, DateTime, string> tup = new Tuple<string, DateTime, string>( name + surname, dateOfBirth, country );
-                            list.Add(tup);
+                            list.Add(new Authors(nameT + surnameT, dateOfBirthT.ToString(), countryT));
+
                         }
+
                         return list;
                     }
                 }
             }
         }
 
-        public List<Tuple<byte[], string, string, string>> SelectBooksWithSearch(string search)
+        public List<BooksData> SelectBooksWithSearch(string search)
         {
             using (FbConnection con = new FbConnection(connString))
             {
@@ -142,11 +150,11 @@ namespace BookDatabase
 
                 using (var cmd = new FbCommand("select * from select_book_with_search(@search)", con))
                 {
-                    cmd.Parameters.AddWithValue("@search", (object?) search ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("@search", (object?)search ?? DBNull.Value);
 
-                    using(var reader = cmd.ExecuteReader())
+                    using (var reader = cmd.ExecuteReader())
                     {
-                        List < Tuple<byte[], string, string, string> > list = new List<Tuple<byte[], string, string, string>> { };
+                        List<BooksData> list = new List<BooksData> { };
 
                         while (reader.Read())
                         {
@@ -156,8 +164,8 @@ namespace BookDatabase
                             var authors = (string)reader["Fullname"];
                             var genre = (string)reader["Genre"];
 
-                            Tuple<byte[], string, string, string> tup = new Tuple<byte[], string, string, string>(photoByte!, names, authors, genre);
-                            list.Add(tup);
+
+                            list.Add(new BooksData(GetBM((byte[])photo), names, authors, genre));
 
 
                         }
@@ -168,7 +176,7 @@ namespace BookDatabase
             }
         }
 
-        public List<Tuple<string, DateTime, string>> SelectAuthorWithSearch(string search)
+        public List<Authors> SelectAuthorWithSearch(string search)
         {
             using (FbConnection con = new FbConnection(connString))
             {
@@ -180,7 +188,7 @@ namespace BookDatabase
 
                     using (var reader = cmd.ExecuteReader())
                     {
-                        List<Tuple<string, DateTime, string>> list = new List<Tuple<string, DateTime, string>> { };
+                        List<Authors> list = new List<Authors> { };
                         while (reader.Read())
                         {
                             var names = (string)reader["Name"];
@@ -189,9 +197,8 @@ namespace BookDatabase
                             var dateOfBirth = (DateTime)reader["DateOfBirth"];
                             var country = (string)reader["Country"];
 
-                            Tuple<string, DateTime, string> tup = new Tuple<string, DateTime, string> ( name, dateOfBirth, country );
-                            list.Add(tup);
-                            
+                            list.Add(new Authors(name, dateOfBirth.ToString(), country));
+
                         }
                         con.Close();
                         return list;
@@ -254,7 +261,7 @@ namespace BookDatabase
                 {
                     cmd.Parameters.AddWithValue("@Name_input", (object?)authorName ?? DBNull.Value);
 
-                    using ( var reader = cmd.ExecuteReader())
+                    using (var reader = cmd.ExecuteReader())
                     {
 
                         while (reader.Read())
@@ -272,7 +279,7 @@ namespace BookDatabase
             }
         }
 
-        public List<Tuple<byte[], string, string, string>> OrderBooks(string argument, string way)
+        public List<BooksData> OrderBooks(string argument, string way)
         {
             using (FbConnection con = new FbConnection(connString))
             {
@@ -283,9 +290,9 @@ namespace BookDatabase
                     cmd.Parameters.AddWithValue("@argument", (object?)argument ?? DBNull.Value);
                     cmd.Parameters.AddWithValue("@way", (object?)way ?? DBNull.Value);
 
-                    using( var reader = cmd.ExecuteReader())
+                    using (var reader = cmd.ExecuteReader())
                     {
-                        List<Tuple<byte[], string, string, string>> list = new List<Tuple<byte[], string, string, string>>();
+                        List<BooksData> list = new List<BooksData>();
                         while (reader.Read())
                         {
                             var photo = reader["Photo"];
@@ -294,70 +301,44 @@ namespace BookDatabase
                             var author = (string)reader["Fullname"];
                             var genre = (string)reader["genre"];
 
-                            Tuple<byte[], string, string, string> tup = new Tuple<byte[], string, string, string>(photoByte!, name, author, genre);
-                            list.Add(tup);
+                            list.Add(new BooksData(GetBM((byte[])photo), name, author, genre));
                         }
                         con.Close();
                         return list;
                     }
 
                 }
-                
+
             }
         }
 
-        public List<string> SelectTableByName(string tableName)
+        public List<GeneralModel> SelectNameByTableName(string tableName)
         {
             using (FbConnection con = new FbConnection(connString))
             {
                 con.Open();
 
-                if (tableName != "Authors")
+              
+                using (var cmd = new FbCommand("SELECT * FROM SELECT_NAME_BY_TABLE_NAME(@tableName)", con))
                 {
-                    using (var cmd = new FbCommand("SELECT * FROM SELECT_TABLE_BY_NAME(@tableName)", con))
+                    cmd.Parameters.AddWithValue("@tableName", (object?)tableName ?? DBNull.Value);
+
+                    using (var reader = cmd.ExecuteReader())
                     {
-                        cmd.Parameters.AddWithValue("@tableName", (object?)tableName ?? DBNull.Value);
+                        List<GeneralModel> list = new List<GeneralModel>();
 
-                        using (var reader = cmd.ExecuteReader())
+                        while (reader.Read())
                         {
-                            List<string> list = new List<string>();
-
-                            while (reader.Read())
-                            {
-                                var name = reader["Name"];
-                                list.Add(name?.ToString() ?? "");
-                            }
-                            con.Close();
-                            return list;
+                            var name = (string)reader["Name"];
+                            list.Add(new GeneralModel(name));
                         }
-
+                        con.Close();
+                        return list;
                     }
+
                 }
-                else
-                {
-                    using (var cmd = new FbCommand("SELECT * FROM SELECT_TABLE_BY_NAME_AUTHORS", con))
-                    { 
-                        using (var reader = cmd.ExecuteReader())
-                        {
-                            List<string> list = new List<string>();
-
-                            while (reader.Read())
-                            {
-                                var name = reader["Authors_Name"];
-                                var surname = reader["Authors_Surname"];
-                                var fullname = name + " " + surname;
-                                list.Add(fullname?.ToString() ?? "");
-                            }
-                            con.Close();
-                            return list;
-                        }
-
-                    }
-                }
-
-
             }
-            
+      
         }
 
         public void InsertBookOldAuthor(
@@ -403,7 +384,27 @@ namespace BookDatabase
                 con.Close();
             }
         }
+
+
+        private BitmapImage GetBM(byte[] data)
+        {
+            var bitmap = new BitmapImage();
+            using (var ms = new MemoryStream(data))
+            {
+                bitmap.BeginInit();
+                bitmap.CacheOption = BitmapCacheOption.OnLoad;
+                bitmap.CreateOptions = BitmapCreateOptions.IgnoreColorProfile;
+
+                bitmap.DecodePixelWidth = 125;
+                bitmap.DecodePixelHeight = 150;
+
+                bitmap.StreamSource = ms;
+                bitmap.EndInit();
+            }
+
+            bitmap.Freeze();
+            return bitmap;
+        }
     }
-    
 }
 

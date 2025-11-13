@@ -39,10 +39,10 @@
 
                     <StackPanel Margin="0,0,0,20">
                         <TextBlock Text="Vyber autora:" FontWeight="Bold" Margin="0,0,0,5" Width="200"/>
-                        <TextBox Width="200" Margin="0,0,0,5" Text="{Binding SearchTextAuthor, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox Width="200" Margin="0,0,0,5"  Text="{Binding SearchAuthorFilter, UpdateSourceTrigger=PropertyChanged}"/>
 
                         <ScrollViewer Margin="10,0,0,0" Height="150" VerticalScrollBarVisibility="Hidden">
-                            <ItemsControl ItemsSource="{Binding FilteredAuthors}">
+                            <ItemsControl ItemsSource="{Binding AuthorFilters}">
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
                                         <CheckBox Content="{Binding Name}" IsChecked="{Binding IsSelected, Mode=TwoWay}" Margin="0,2"/>
@@ -55,7 +55,7 @@
 
                     <StackPanel Margin="0,0,0,20">
                         <TextBlock Text="Vyber žánr:" FontWeight="Bold" Margin="0,0,0,5" Width="200"/>
-                        <TextBox Width="200" Margin="0,0,0,5" Text="{Binding SearchTextGenre, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox Width="200" Margin="0,0,0,5" x:Name="genrees"  Text="{Binding SearchTextGenre, UpdateSourceTrigger=PropertyChanged}"/>
 
                         <ScrollViewer Margin="10,0,0,0" Height="150" VerticalScrollBarVisibility="Hidden">
                             <ItemsControl ItemsSource="{Binding FilteredGenres}">
@@ -110,7 +110,7 @@
                 <RowDefinition Height="84*"/>
             </Grid.RowDefinitions>
             <ScrollViewer VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Disabled" Margin="0,0,31,20" Grid.RowSpan="2">
-                <ItemsControl ItemsSource="{Binding MyItems}">
+                <ItemsControl ItemsSource="{Binding BookCards}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
                             <WrapPanel x:Name="MyPanel"/>

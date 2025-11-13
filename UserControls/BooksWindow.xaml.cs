@@ -1,50 +1,131 @@
 ﻿using BookDatabase.Models;
-using BookDatabase.UserControls;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.IO;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media.Imaging;
+
 
 namespace BookDatabase
 {
 
-    public partial class BooksWindow : UserControl
+    public partial class BooksWindow : UserControl, INotifyPropertyChanged
     {
     // class for showing and filtering books
 
-        ObservableProperties p = ObservableProperties.Instance;
-        // getting properties used for binding data in xaml and getting Irremovalbe repetetive code out of this class
-
         Database db = Database.Instance;
         // class for working with database
+
+        // collection for BookCards
+
+
+        public ObservableCollection<BooksData> BookCards { get; set; }
+
+        /* NOVE POJMENOVANI */
+        public ObservableCollection<FilterOption> AuthorFilters { get; set; }
+        private string fSearchAuthorFilter = string.Empty;
+        public string SearchAuthorFilter
+        {
+            get => fSearchAuthorFilter;
+            set
+            {
+                fSearchAuthorFilter = value;
+                AuthorFilters.Clear();
+                AuthorFilters = filter("Authors", value);
+                OnPropertyChanged(nameof(AuthorFilters));
+            }
+        }
+        /* NOVE POJMENOVANI*/
+
+        public ObservableCollection<FilterOption> FilteredGenres { get; set; }
+        private string fSearchTextGenre = string.Empty;
+        public string SearchTextGenre
+        {
+            get => fSearchTextGenre;
+            set
+            {
+                fSearchTextGenre = value;
+                FilteredGenres.Clear();
+                FilteredGenres = filter("Genres", value);
+                OnPropertyChanged(nameof(FilteredGenres));
+            }
+        }
+
+
+        public ObservableCollection<FilterOption> FilteredLanguages { get; set; }
+        private string fSearchTextLanguage = string.Empty;
+        public string SearchTextLanguage
+        {
+            get => fSearchTextLanguage;
+            set
+            {
+                fSearchTextGenre = value;
+                FilteredLanguages.Clear();
+                FilteredLanguages = filter("Languages", value);
+                OnPropertyChanged(nameof(FilteredLanguages));
+            }
+        }
+
+        public ObservableCollection<FilterOption> FilteredPublishers { get; set; }
+        private string fSearchTextPublisher = string.Empty;
+        public string SearchTextPublisher
+        {
+            get => fSearchTextPublisher;
+            set
+            {
+                fSearchTextGenre = value;
+                FilteredPublishers.Clear();
+                FilteredPublishers = filter("Publishers", value);
+                OnPropertyChanged(nameof(FilteredPublishers));
+            }
+        }
+
+        private ObservableCollection<FilterOption> filter(string table, string txt)
+        {
+            return new ObservableCollection<FilterOption>(
+                db.SelectNameByTableName(table).Where(elem => elem.Name.ToLower().Contains(txt.ToLower()))
+                                               .Select(elem => new FilterOption { Name = elem.Name })
+            );
+        }
+
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+        protected void OnPropertyChanged([CallerMemberName] string? propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+          
+
+
+    
 
         public BooksWindow()
         {
             InitializeComponent();
 
-            DataContext = p;
+            DataContext = this;
             SelectCards();
 
 
-            p.Authors = FillCheckBoxes("Authors");
-            p.Genres = FillCheckBoxes("Genres");
-            p.Languages = FillCheckBoxes("Languages");
-            p.Publishers = FillCheckBoxes("Publishers");
+            AuthorFilters = FillCheckBoxes("Authors");
 
-            p.FilteredAuthors = new ObservableCollection<FilterOption>(p.Authors);
-            p.FilteredGenres = new ObservableCollection<FilterOption>(p.Genres);
-            p.FilteredLanguages = new ObservableCollection<FilterOption>(p.Languages);
-            p.FilteredPublishers = new ObservableCollection<FilterOption>(p.Publishers);
+            FilteredGenres = FillCheckBoxes("Genres");
+            FilteredLanguages = FillCheckBoxes("Languages");
+            FilteredPublishers = FillCheckBoxes("Publishers");
+
+            AuthorFilters = new ObservableCollection<FilterOption>(AuthorFilters);
+            FilteredGenres = new ObservableCollection<FilterOption>(FilteredGenres);
+            FilteredLanguages = new ObservableCollection<FilterOption>(FilteredLanguages);
+            FilteredPublishers = new ObservableCollection<FilterOption>(FilteredPublishers);
             // filling properties
 
-            p.Authors = SetPropertyChange(p.Authors);
-            p.Publishers = SetPropertyChange(p.Publishers);
-            p.Genres = SetPropertyChange(p.Genres);
-            p.Languages = SetPropertyChange(p.Languages);
+            
+
+            AuthorFilters = SetPropertyChange(AuthorFilters);
+            FilteredPublishers = SetPropertyChange(FilteredPublishers);
+            FilteredGenres = SetPropertyChange(FilteredGenres);
+            FilteredLanguages = SetPropertyChange(FilteredLanguages);
             // adding event method when filter is checked or unchecked
 
         }
@@ -63,64 +144,46 @@ namespace BookDatabase
         private ObservableCollection<FilterOption> FillCheckBoxes(string txt)
         {
             ObservableCollection<FilterOption> filters = new ObservableCollection<FilterOption>();
+            List<GeneralModel> list = db.SelectNameByTableName(txt);
 
-            List<string> list = db.SelectTableByName(txt);
-            foreach (string elem in list)
+            foreach (GeneralModel elem in list)
             {
                 FilterOption option = new FilterOption();
-                option.Name = elem;
+                option.Name = elem.Name;
                 filters.Add(option);
             }
 
             return filters;
         }
 
-        private void FillItems(List<Tuple<byte[], string, string, string>> list)
+        private void FillItems(List<BooksData> list)
         {
-            p.MyItems.Clear();
+            BookCards.Clear();
             foreach (var elem in list)
             {
-                p.MyItems.Add(new BooksData(GetBM(elem.Item1), elem.Item2, elem.Item3, elem.Item4));
+                BookCards.Add(elem);
             }
         }
 
         // start method for showing all books or refresh books
         private void SelectCards()
         {
-            p.MyItems = new ObservableCollection<BooksData>();
-            List<Tuple<byte[], string, string, string>> list = db.SelectAllBooks();
+            BookCards = new ObservableCollection<BooksData>();
+            List<BooksData> list = db.SelectAllBooks();
 
            FillItems(list);
         }
 
         // decoding byte[] data of image to BitmapImage to show it in Cards
-        private BitmapImage GetBM(byte[] data)
-        {
-            var bitmap = new BitmapImage();
-            using (var ms = new MemoryStream(data))
-            {
-                bitmap.BeginInit();
-                bitmap.CacheOption = BitmapCacheOption.OnLoad;
-                bitmap.CreateOptions = BitmapCreateOptions.IgnoreColorProfile;
-
-                bitmap.DecodePixelWidth = 125; 
-                bitmap.DecodePixelHeight = 150; 
-
-                bitmap.StreamSource = ms;
-                bitmap.EndInit();
-            }
-
-            bitmap.Freeze(); 
-            return bitmap;
-        }
+        
 
         // Method for reseting filters
         private void DeleteFilters(object sender, RoutedEventArgs e)
         {
-            DelFilters(p.Authors);
-            DelFilters(p.FilteredGenres);
-            DelFilters(p.FilteredPublishers);
-            DelFilters(p.FilteredAuthors);
+            DelFilters(AuthorFilters);
+            DelFilters(FilteredGenres);
+            DelFilters(FilteredPublishers);
+            DelFilters(AuthorFilters);
         }
 
         private void DelFilters(ObservableCollection<FilterOption> list)
@@ -134,12 +197,12 @@ namespace BookDatabase
         // Method called when someone check the filter
         private void ApplyFilter()
         {
-            var authors = DoFilter(p.Authors);
-            var genres = DoFilter(p.Genres);
-            var languages = DoFilter(p.Languages);
-            var publishers = DoFilter(p.Publishers);
+            var authors = DoFilter(AuthorFilters);
+            var genre = DoFilter(FilteredGenres);
+            var languages = DoFilter(FilteredLanguages);
+            var publishers = DoFilter(FilteredPublishers);
 
-            List<Tuple<byte[], string, string, string>> list = db.SelectBooksByFilters(authors, genres, languages, publishers);
+            List<BooksData> list = db.SelectBooksByFilters(authors, genre, languages, publishers);
 
             FillItems(list);
         }
@@ -172,14 +235,14 @@ namespace BookDatabase
             if (s == "LENdsc") { column = "books.length"; way = "desc"; }
 
 
-            List<Tuple<byte[], string, string, string>> list = db.OrderBooks(column, way);
+            List<BooksData> list = db.OrderBooks(column, way);
             FillItems(list);
         }
 
         // click method for button which start searching if substring in searchbar is in some book names or author names
         private void StartSearchBook(object sender, EventArgs e)
         {
-            List<Tuple<Byte[], string, string, string>> list = db.SelectBooksWithSearch(searchBar.Text);
+            List<BooksData> list = db.SelectBooksWithSearch(searchBar.Text);
             FillItems(list);
         }
 

@@ -196,43 +196,34 @@ SET TERM ; ^
 
 SET TERM ^ ;
 
--- selecting Name column in table by name of the table
 
-create or alter procedure SELECT_TABLE_BY_NAME (
+
+
+
+-- selecting column "Name" from table by Name of table
+
+create or alter procedure SELECT_NAME_BY_TABLE_NAME (
     TABLE_NAME varchar(64))
 returns (
-    NAME varchar(64))
+    Name varchar(128))
 as
 declare variable SQL_QUERY varchar(8000);
-begin
-  SQL_QUERY =
-        'SELECT Name FROM ' || TABLE_NAME;
-
-  FOR EXECUTE STATEMENT sql_query INTO :Name
-  DO
-  SUSPEND;
-end;
-^
-SET TERM ; ^
-
-SET TERM ^ ;
-
--- same thing but also surname for author
-create or alter procedure SELECT_TABLE_BY_NAME_AUTHORS
-returns (
-    Authors_Surname varchar(64),
-    Authors_Name varchar(64))
-as
 BEGIN
-  FOR
-    SELECT Authors.Name, Authors.Surname
-    FROM Authors
-    INTO :Authors_Name, :Authors_Surname
-  DO
-  BEGIN
+    if (TABLE_NAME = 'Authors') then
+    BEGIN
+        SQL_QUERY = 'SELECT (Authors.Name || '' ''  || Authors.surname) AS Name FROM ' || TABLE_NAME;
+    END
+
+    else
+    BEGIN
+    SQL_QUERY = 'SELECT Name FROM ' || TABLE_NAME;
+    END
+
+    FOR EXECUTE STATEMENT sql_query INTO :Name
+    DO
     SUSPEND;
-  END
-end;
+END;
+    
 ^
 SET TERM ; ^
 

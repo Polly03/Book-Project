@@ -45,7 +45,7 @@
 
         <Grid Margin="284,176,0,0">
             <ScrollViewer VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Disabled" Margin="0,10,31,0">
-                <ItemsControl ItemsSource="{Binding MyItemsAuthors}">
+                <ItemsControl ItemsSource="{Binding AuthorCards}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
                             <WrapPanel x:Name="MyPanel"/>
