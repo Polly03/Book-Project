@@ -94,3 +94,5 @@ C:\Users\polasekj\source\repos\Book-Project\BookDatabase\BookDatabase\obj\Debug\
 C:\Users\polasekj\source\repos\Book-Project\BookDatabase\BookDatabase\obj\Debug\net8.0-windows\BookDatabase.pdb
 C:\Users\polasekj\source\repos\Book-Project\BookDatabase\BookDatabase\obj\Debug\net8.0-windows\BookDatabase.genruntimeconfig.cache
 C:\Users\polasekj\source\repos\Book-Project\BookDatabase\BookDatabase\obj\Debug\net8.0-windows\ref\BookDatabase.dll
+C:\Users\polasekj\source\repos\Book-Project\BookDatabase\BookDatabase\obj\Debug\net8.0-windows\Details\BookDetail.g.cs
+C:\Users\polasekj\source\repos\Book-Project\BookDatabase\BookDatabase\obj\Debug\net8.0-windows\Details\BookDetail.baml

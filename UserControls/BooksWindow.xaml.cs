@@ -23,17 +23,17 @@ namespace BookDatabase
         public ObservableCollection<BooksData> BookCards { get; set; }
 
         /* NOVE POJMENOVANI */
-        public ObservableCollection<FilterOption> AuthorFilters { get; set; }
-        private string fSearchAuthorFilter = string.Empty;
-        public string SearchAuthorFilter
+        public ObservableCollection<FilterOption> AuthorsFilter { get; set; }
+        private string fSearchAuthorsFilter = string.Empty;
+        public string SearchAuthorsFilter
         {
-            get => fSearchAuthorFilter;
+            get => fSearchAuthorsFilter;
             set
             {
-                fSearchAuthorFilter = value;
-                AuthorFilters.Clear();
-                AuthorFilters = filter("Authors", value);
-                OnPropertyChanged(nameof(AuthorFilters));
+                fSearchAuthorsFilter = value;
+                AuthorsFilter.Clear();
+                AuthorsFilter = filter("Authors", value);
+                OnPropertyChanged(nameof(AuthorsFilter));
             }
         }
         /* NOVE POJMENOVANI*/
@@ -108,13 +108,12 @@ namespace BookDatabase
             SelectCards();
 
 
-            AuthorFilters = FillCheckBoxes("Authors");
-
+            AuthorsFilter = FillCheckBoxes("Authors");
             FilteredGenres = FillCheckBoxes("Genres");
             FilteredLanguages = FillCheckBoxes("Languages");
             FilteredPublishers = FillCheckBoxes("Publishers");
 
-            AuthorFilters = new ObservableCollection<FilterOption>(AuthorFilters);
+            AuthorsFilter = new ObservableCollection<FilterOption>(AuthorsFilter);
             FilteredGenres = new ObservableCollection<FilterOption>(FilteredGenres);
             FilteredLanguages = new ObservableCollection<FilterOption>(FilteredLanguages);
             FilteredPublishers = new ObservableCollection<FilterOption>(FilteredPublishers);
@@ -122,7 +121,7 @@ namespace BookDatabase
 
             
 
-            AuthorFilters = SetPropertyChange(AuthorFilters);
+            AuthorsFilter = SetPropertyChange(AuthorsFilter);
             FilteredPublishers = SetPropertyChange(FilteredPublishers);
             FilteredGenres = SetPropertyChange(FilteredGenres);
             FilteredLanguages = SetPropertyChange(FilteredLanguages);
@@ -180,10 +179,10 @@ namespace BookDatabase
         // Method for reseting filters
         private void DeleteFilters(object sender, RoutedEventArgs e)
         {
-            DelFilters(AuthorFilters);
+            DelFilters(AuthorsFilter);
             DelFilters(FilteredGenres);
             DelFilters(FilteredPublishers);
-            DelFilters(AuthorFilters);
+            DelFilters(AuthorsFilter);
         }
 
         private void DelFilters(ObservableCollection<FilterOption> list)
@@ -197,7 +196,7 @@ namespace BookDatabase
         // Method called when someone check the filter
         private void ApplyFilter()
         {
-            var authors = DoFilter(AuthorFilters);
+            var authors = DoFilter(AuthorsFilter);
             var genre = DoFilter(FilteredGenres);
             var languages = DoFilter(FilteredLanguages);
             var publishers = DoFilter(FilteredPublishers);
@@ -230,9 +229,9 @@ namespace BookDatabase
             string column = "";
             string way = "";
             if (s == "ABCasc") { column = "books.name"; way = "asc"; }
-            if (s == "ABCdsc") { column = "books.name"; way = "desc"; }
-            if (s == "LENasc") { column = "books.length"; way = "asc"; }
-            if (s == "LENdsc") { column = "books.length"; way = "desc"; }
+            else if (s == "ABCdsc") { column = "books.name"; way = "desc"; }
+            else if (s == "LENasc") { column = "books.length"; way = "asc"; }
+            else if (s == "LENdsc") { column = "books.length"; way = "desc"; }
 
 
             List<BooksData> list = db.OrderBooks(column, way);

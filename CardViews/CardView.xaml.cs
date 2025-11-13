@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BookDatabase.Details;
+using BookDatabase.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -63,9 +65,19 @@ namespace BookDatabase
         }
 
         // methods ready for showing details of book and author
-        public void ShowBook(object sender, MouseEventArgs e)
+        private void ShowBook(object sender, MouseButtonEventArgs e)
         {
-            MessageBox.Show("Getting book");
+
+            if (sender is FrameworkElement fe && fe.DataContext != null)
+            {
+       
+                var book = fe.DataContext as BooksData; 
+                if (book != null)
+                {
+                    MessageBox.Show($"Klikl jsi na knihu: {book.Title}");
+                    ((MainWindow)Application.Current.MainWindow).Main.Content = new BookDetail(book.Title);
+                }
+            }
         }
 
         public void ShowAuthor(object sender, MouseEventArgs e)

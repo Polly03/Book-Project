@@ -117,26 +117,31 @@ namespace BookDatabase
 
 
             }
-                AuthorCards.Clear();
-                foreach (var elem in list)
-                {
-                    AuthorCards.Add(elem);
-                }
+                FillItems(list);
         }
 
-        private void Order_MouseDown(object sender, MouseButtonEventArgs e)
+        private void OrderMouseDown(object sender, MouseButtonEventArgs e)
         {
             var item = ((ComboBoxItem)sender);
             var s = item.Name;
             string column = "";
             string way = "";
-            if (s == "ABCasc") { column = "Authors.name"; way = "asc"; }
-            else if (s == "ABCdsc") { column = "Authors.name"; way = "desc"; }
-            else if (s == "Birthasc") { column = "Authors.DateOfBirth"; way = "asc"; }
-            else if (s == "Birthdsc") { column = "Authors.DateOfBirth"; way = "desc"; }
+            if (s == "ABCasc") { column = "Authors.Name"; way = "asc";  }
+            else if (s == "ABCdsc") { column = "Authors.Name"; way = "desc";  }
+            else if (s == "Birthasc") { column = "Authors.DateOfBirth"; way = "asc";  }
+            else if (s == "Birthdsc") { column = "Authors.DateOfBirth"; way = "desc";  }
 
+            List<Authors> authors = db.OrderAuthors(column, way);
+            FillItems(authors);
+        }
 
-        // in work
+        private void FillItems(List<Authors> list)
+        {
+            AuthorCards.Clear();
+            foreach (var elem in list)
+            {
+                AuthorCards.Add(elem);
+            }
         }
 
         private string DoFilter(ObservableCollection<FilterOption> list)
@@ -158,10 +163,6 @@ namespace BookDatabase
             ((MainWindow)Application.Current.MainWindow).Main.Content = new BooksWindow();
         }
 
-        private void OrderMouseDown(object sender, MouseButtonEventArgs e)
-        {
-
-        }
         private void OpenBooks(object sender, RoutedEventArgs e)
         {
             ((MainWindow)Application.Current.MainWindow).Main.Content = new BooksWindow();
@@ -170,6 +171,12 @@ namespace BookDatabase
         {
             AddAuthorForm win = new AddAuthorForm("Author");
             win.ShowDialog();
+        }
+
+        private void StartSearchAuthor(object sender, RoutedEventArgs e)
+        {
+            List<Authors> authors = db.SelectAuthorWithSearch(SearchBar.Text);
+            FillItems(authors);
         }
     }
 }

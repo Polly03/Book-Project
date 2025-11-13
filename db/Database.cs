@@ -132,7 +132,7 @@ namespace BookDatabase
                             var dateOfBirthT = (DateTime)reader["DateOfBirth"];
                             var countryT = (string)reader["Country"];
 
-                            list.Add(new Authors(nameT + surnameT, dateOfBirthT.ToString(), countryT));
+                            list.Add(new Authors(nameT + " " + surnameT, dateOfBirthT.ToString(), countryT));
 
                         }
 
@@ -207,8 +207,9 @@ namespace BookDatabase
             }
         }
 
-        public void SelectBook(string name)
+        public Book SelectBook(string name)
         {
+
             using (FbConnection con = new FbConnection(connString))
             {
                 con.Open();
@@ -221,35 +222,29 @@ namespace BookDatabase
                     {
                         while (reader.Read())
                         {
-                            var rating = reader["rating"];
-                            var type = reader["BOOK_type"];
-                            var publisher = reader["publisher"];
-                            var genre = reader["Genre"];
-                            var author = reader["author"];
-                            var language = reader["language"];
-                            var ean = reader["ean"];
-                            var isbn = reader["isbn"];
-                            var photo = reader["photo"];
-                            var description = reader["Description"];
-                            var names = reader["Name"];
-
-                            Console.WriteLine(
-                                    $"Book info:\n" +
-                                    $"Name: {names}\n" +
-                                    $"Author: {author}\n" +
-                                    $"Genre: {genre}\n" +
-                                    $"Type: {type}\n" +
-                                    $"Language: {language}\n " +
-                                    $"Publisher: {publisher}\n" +
-                                    $"EAN: {ean}\n" +
-                                    $"ISBN: {isbn}\n" +
-                                    $"Rating: {rating}\n" +
-                                    $"Description: {description}\n" +
-                                    $"Photo: {photo}\n");
+                            Book book = new Book
+                            {
+                                Name = reader["Name"] as string,
+                                Author = reader["author"] as string,
+                                Genre = reader["Genre"] as string,
+                                Type = reader["BOOK_type"] as string,
+                                Langueage = reader["language"] as string,
+                                Length = (short)reader["length_OF_BOOK"],
+                                Publisher = reader["publisher"] as string,
+                                Description = reader["Description"] as string,
+                                EAN = reader["ean"] as string,
+                                ISBN = reader["isbn"] as string,
+                                Rating = reader["rating"] as string,
+                                Image = GetBM((byte[])reader["Photo"])
+                            };
+                            return book;
                         }
+                     
                     }
                 }
             }
+            return null;
+ 
         }
 
         public void SelectAuthor(string authorName)
@@ -276,6 +271,37 @@ namespace BookDatabase
                         }
                     }
                 }
+            }
+        }
+
+        public List<Authors> OrderAuthors(string argument, string way)
+        {
+            using (FbConnection con = new FbConnection(connString))
+            {
+                con.Open();
+
+                using (var cmd = new FbCommand("select * from order_Authors(@way, @argument)", con))
+                {
+                    cmd.Parameters.AddWithValue("@argument", (object?)argument ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("@way", (object?)way ?? DBNull.Value);
+
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        List<Authors> list = new List<Authors>();
+                        while (reader.Read())
+                        {
+                            var fullname = (string)reader["Fullname"];
+                            var DateOfBirth = (DateTime)reader["DateOfBirth"];
+                            var Country = (string)reader["Country"];
+
+                            list.Add(new Authors(fullname, DateOfBirth.ToString(), Country));
+                        }
+                        con.Close();
+                        return list;
+                    }
+
+                }
+
             }
         }
 

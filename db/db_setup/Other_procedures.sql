@@ -38,20 +38,20 @@ create or alter procedure ORDER_AUTHORS (
     WAY varchar(64),
     ARGUMENT varchar(64))
 returns (
-
     Fullname varchar(128),
-    DateOfBirth varchar(64),
+    DateOfBirth date,
     Country varchar(64)
     )
 as
 declare variable SQL_QUERY varchar(8000);
 begin
     sql_query = 
-        'SELECT Authors.DateOfBirth, Countries.Name , (Authors.Name || '' '' || Authors.Surname) as Fullname ' ||
+        'SELECT (Authors.Name || '' '' || Authors.Surname) as Fullname, Authors.DateOfBirth, Countries.Name ' ||
+        'FROM Authors ' ||
         'JOIN Countries ON Authors.CountryId = Countries.ID ' ||
         'ORDER BY ' || argument || ' ' || way;
 
-    FOR EXECUTE STATEMENT sql_query INTO :Country, :DateOfBirth, :Country
+    FOR EXECUTE STATEMENT sql_query INTO :Fullname, :DateOfBirth, :Country
     DO
     SUSPEND;
 end;
