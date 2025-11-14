@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:BookDatabase"
              mc:Ignorable="d" 
              Height="350" Width="250">
-    
+
     <Border Background="AliceBlue"
             BorderThickness="1"
             CornerRadius="8">
@@ -16,22 +16,22 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-        <!-- Stack Panel with data elements and binding dataSource -->
-        <StackPanel Grid.Row="1" Margin="10,10,10,10">
-                <Image MouseDown="ShowBook" Height="150" Width="125" Source="{Binding ImageSource, RelativeSource={RelativeSource AncestorType=UserControl}}" />
-                <Border Height="50">
+            <!-- Stack Panel with data elements and binding dataSource -->
+            <StackPanel Grid.Row="1" Margin="10,10,10,10">
+                <Image MouseDown="ShowBook" Height="150" Width="125" Margin="10" Source="{Binding ImageSource, RelativeSource={RelativeSource AncestorType=UserControl}}" />
+                <Border Height="60">
                     <TextBlock Text="{Binding Title, RelativeSource={RelativeSource AncestorType=UserControl}}" VerticalAlignment="Center"
-                    FontSize="24" FontWeight="Bold" TextWrapping="Wrap" Margin="0,0,0,5" MouseDown="ShowBook" Padding="3"/>
+                    FontSize="20" FontWeight="Bold" TextWrapping="Wrap" MouseDown="ShowBook" Padding="3" Height="55"/>
                 </Border>
                 <Border Height="50">
                     <TextBlock Text="{Binding Author, RelativeSource={RelativeSource AncestorType=UserControl}}" VerticalAlignment="Center"
                      FontSize="18" FontWeight="Bold" TextWrapping="Wrap" MouseDown="ShowAuthor" Padding="3"/>
                 </Border>
                 <Border Height="40">
-                   <TextBlock Text="{Binding Genre, RelativeSource={RelativeSource AncestorType=UserControl}}" VerticalAlignment="Center"
+                    <TextBlock Text="{Binding Genre, RelativeSource={RelativeSource AncestorType=UserControl}}" VerticalAlignment="Center"
                    FontSize="18" FontWeight="Bold" TextWrapping="Wrap" Padding="3"/>
                 </Border>
-        </StackPanel>
+            </StackPanel>
         </Grid>
     </Border>
 </UserControl>

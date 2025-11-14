@@ -2,6 +2,7 @@
 using FirebirdSql.Data.FirebirdClient;
 using System.Collections.Generic;
 using System.Diagnostics.Metrics;
+using System.Drawing;
 using System.IO;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
@@ -207,7 +208,7 @@ namespace BookDatabase
             }
         }
 
-        public Book SelectBook(string name)
+        public Book SelectBook(string name, int size = 0)
         {
 
             using (FbConnection con = new FbConnection(connString))
@@ -224,6 +225,7 @@ namespace BookDatabase
                         {
                             Book book = new Book
                             {
+                                Id = (int)reader["Id"],
                                 Name = reader["Name"] as string,
                                 Author = reader["author"] as string,
                                 Genre = reader["Genre"] as string,
@@ -235,7 +237,7 @@ namespace BookDatabase
                                 EAN = reader["ean"] as string,
                                 ISBN = reader["isbn"] as string,
                                 Rating = reader["rating"] as string,
-                                Image = GetBM((byte[])reader["Photo"])
+                                Image = GetBM((byte[])reader["Photo"], size)
                             };
                             return book;
                         }
@@ -411,8 +413,49 @@ namespace BookDatabase
             }
         }
 
+        public int DeleteAuthor(string authorName)
+        {
+            using (FbConnection con = new FbConnection(connString))
+            {
+                con.Open();
 
-        private BitmapImage GetBM(byte[] data)
+                using (var cmd = new FbCommand("select * from delete_author(@AUTHOR_NAME)", con))
+                {
+                    cmd.Parameters.AddWithValue("@AUTHOR_NAME", (object?)authorName ?? DBNull.Value);
+
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        int status = -1;
+
+                        if (reader.Read())
+                        {
+                            status = Convert.ToInt32(reader["STATUS"]);
+                        }
+
+                        return status;
+                    }
+                }
+            }
+        }
+
+        public void DeleteBook(string bookName, int bookId)
+        {
+            using (FbConnection con = new FbConnection(connString))
+            {
+                con.Open();
+
+                using (var cmd = new FbCommand("execute procedure delete_book(@NAME_OF_BOOK, @ID_OF_BOOK)", con))
+                {
+                    cmd.Parameters.AddWithValue("@NAME_OF_BOOK", (object?)bookName ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("@ID_OF_BOOK", bookId);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+
+        private BitmapImage GetBM(byte[] data, int size = 0)
         {
             var bitmap = new BitmapImage();
             using (var ms = new MemoryStream(data))
@@ -421,8 +464,16 @@ namespace BookDatabase
                 bitmap.CacheOption = BitmapCacheOption.OnLoad;
                 bitmap.CreateOptions = BitmapCreateOptions.IgnoreColorProfile;
 
-                bitmap.DecodePixelWidth = 125;
-                bitmap.DecodePixelHeight = 150;
+                if (size == 0)
+                {
+                    bitmap.DecodePixelWidth = 125;
+                    bitmap.DecodePixelHeight = 150;
+                }
+                else if (size == 1)
+                {
+                    bitmap.DecodePixelWidth = 520;
+                    bitmap.DecodePixelHeight = 800;
+                }
 
                 bitmap.StreamSource = ms;
                 bitmap.EndInit();

@@ -36,11 +36,12 @@ SET TERM ; ^
 SET TERM ^ ;
 
 create or alter procedure DELETE_BOOK (
-    NAME_OF_BOOK varchar(64))
+    NAME_OF_BOOK varchar(64),
+    ID_OF_BOOK integer)
 as
 begin
     DELETE FROM books
-    where name = :name_of_book;
+    where name = :name_of_book AND ID = :ID_OF_BOOk;
 end;
 ^
 

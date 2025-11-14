@@ -18,11 +18,10 @@ namespace BookDatabase
         // class for working with database
 
         // collection for BookCards
-
-
         public ObservableCollection<BooksData> BookCards { get; set; }
 
-        /* NOVE POJMENOVANI */
+
+        // properties for setting, getting and updating automaticly filters for book cards AUTHORS
         public ObservableCollection<FilterOption> AuthorsFilter { get; set; }
         private string fSearchAuthorsFilter = string.Empty;
         public string SearchAuthorsFilter
@@ -36,51 +35,61 @@ namespace BookDatabase
                 OnPropertyChanged(nameof(AuthorsFilter));
             }
         }
-        /* NOVE POJMENOVANI*/
 
-        public ObservableCollection<FilterOption> FilteredGenres { get; set; }
-        private string fSearchTextGenre = string.Empty;
-        public string SearchTextGenre
+
+
+        // properties for setting, getting and updating automaticly filters for book cards GENRES
+        public ObservableCollection<FilterOption> GenresFilter { get; set; }
+        private string fSearchGenresFilter = string.Empty;
+        public string SearchGenresFilter
         {
-            get => fSearchTextGenre;
+            get => fSearchGenresFilter;
             set
             {
-                fSearchTextGenre = value;
-                FilteredGenres.Clear();
-                FilteredGenres = filter("Genres", value);
-                OnPropertyChanged(nameof(FilteredGenres));
+                fSearchGenresFilter = value;
+                GenresFilter.Clear();
+                GenresFilter = filter("Genres", value);
+                OnPropertyChanged(nameof(GenresFilter));
             }
         }
 
 
-        public ObservableCollection<FilterOption> FilteredLanguages { get; set; }
-        private string fSearchTextLanguage = string.Empty;
-        public string SearchTextLanguage
+
+        // properties for setting, getting and updating automaticly filters for book cards LANGUAGES
+        public ObservableCollection<FilterOption> LanguagesFilter { get; set; }
+        private string fSearchLanguagesFilter = string.Empty;
+        public string SearchLanguagesFilter
         {
-            get => fSearchTextLanguage;
+            get => fSearchLanguagesFilter;
             set
             {
-                fSearchTextGenre = value;
-                FilteredLanguages.Clear();
-                FilteredLanguages = filter("Languages", value);
-                OnPropertyChanged(nameof(FilteredLanguages));
+                fSearchGenresFilter = value;
+                LanguagesFilter.Clear();
+                LanguagesFilter = filter("Languages", value);
+                OnPropertyChanged(nameof(LanguagesFilter));
             }
         }
 
-        public ObservableCollection<FilterOption> FilteredPublishers { get; set; }
-        private string fSearchTextPublisher = string.Empty;
-        public string SearchTextPublisher
+
+
+
+        // properties for setting, getting and updating automaticly filters for book cards PUBLISHERS
+        public ObservableCollection<FilterOption> PublishersFilters { get; set; }
+        private string fSearchPublishersFilter = string.Empty;
+        public string SearchPublishersFilter
         {
-            get => fSearchTextPublisher;
+            get => fSearchPublishersFilter;
             set
             {
-                fSearchTextGenre = value;
-                FilteredPublishers.Clear();
-                FilteredPublishers = filter("Publishers", value);
-                OnPropertyChanged(nameof(FilteredPublishers));
+                fSearchGenresFilter = value;
+                PublishersFilters.Clear();
+                PublishersFilters = filter("Publishers", value);
+                OnPropertyChanged(nameof(PublishersFilters));
             }
         }
 
+
+        // method for selecting only filters in substring
         private ObservableCollection<FilterOption> filter(string table, string txt)
         {
             return new ObservableCollection<FilterOption>(
@@ -89,16 +98,13 @@ namespace BookDatabase
             );
         }
 
-
+        // evennt method for reacting on changed property
         public event PropertyChangedEventHandler? PropertyChanged;
         protected void OnPropertyChanged([CallerMemberName] string? propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
           
-
-
-    
 
         public BooksWindow()
         {
@@ -109,22 +115,22 @@ namespace BookDatabase
 
 
             AuthorsFilter = FillCheckBoxes("Authors");
-            FilteredGenres = FillCheckBoxes("Genres");
-            FilteredLanguages = FillCheckBoxes("Languages");
-            FilteredPublishers = FillCheckBoxes("Publishers");
+            GenresFilter = FillCheckBoxes("Genres");
+            LanguagesFilter = FillCheckBoxes("Languages");
+            PublishersFilters = FillCheckBoxes("Publishers");
 
             AuthorsFilter = new ObservableCollection<FilterOption>(AuthorsFilter);
-            FilteredGenres = new ObservableCollection<FilterOption>(FilteredGenres);
-            FilteredLanguages = new ObservableCollection<FilterOption>(FilteredLanguages);
-            FilteredPublishers = new ObservableCollection<FilterOption>(FilteredPublishers);
+            GenresFilter = new ObservableCollection<FilterOption>(GenresFilter);
+            LanguagesFilter = new ObservableCollection<FilterOption>(LanguagesFilter);
+            PublishersFilters = new ObservableCollection<FilterOption>(PublishersFilters);
             // filling properties
 
             
 
             AuthorsFilter = SetPropertyChange(AuthorsFilter);
-            FilteredPublishers = SetPropertyChange(FilteredPublishers);
-            FilteredGenres = SetPropertyChange(FilteredGenres);
-            FilteredLanguages = SetPropertyChange(FilteredLanguages);
+            PublishersFilters = SetPropertyChange(PublishersFilters);
+            GenresFilter = SetPropertyChange(GenresFilter);
+            LanguagesFilter = SetPropertyChange(LanguagesFilter);
             // adding event method when filter is checked or unchecked
 
         }
@@ -180,8 +186,8 @@ namespace BookDatabase
         private void DeleteFilters(object sender, RoutedEventArgs e)
         {
             DelFilters(AuthorsFilter);
-            DelFilters(FilteredGenres);
-            DelFilters(FilteredPublishers);
+            DelFilters(GenresFilter);
+            DelFilters(PublishersFilters);
             DelFilters(AuthorsFilter);
         }
 
@@ -197,9 +203,9 @@ namespace BookDatabase
         private void ApplyFilter()
         {
             var authors = DoFilter(AuthorsFilter);
-            var genre = DoFilter(FilteredGenres);
-            var languages = DoFilter(FilteredLanguages);
-            var publishers = DoFilter(FilteredPublishers);
+            var genre = DoFilter(GenresFilter);
+            var languages = DoFilter(LanguagesFilter);
+            var publishers = DoFilter(PublishersFilters);
 
             List<BooksData> list = db.SelectBooksByFilters(authors, genre, languages, publishers);
 

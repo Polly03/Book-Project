@@ -74,7 +74,6 @@ namespace BookDatabase
                 var book = fe.DataContext as BooksData; 
                 if (book != null)
                 {
-                    MessageBox.Show($"Klikl jsi na knihu: {book.Title}");
                     ((MainWindow)Application.Current.MainWindow).Main.Content = new BookDetail(book.Title);
                 }
             }

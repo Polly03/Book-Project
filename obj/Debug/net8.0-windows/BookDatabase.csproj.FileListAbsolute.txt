@@ -96,3 +96,5 @@ C:\Users\polasekj\source\repos\Book-Project\BookDatabase\BookDatabase\obj\Debug\
 C:\Users\polasekj\source\repos\Book-Project\BookDatabase\BookDatabase\obj\Debug\net8.0-windows\ref\BookDatabase.dll
 C:\Users\polasekj\source\repos\Book-Project\BookDatabase\BookDatabase\obj\Debug\net8.0-windows\Details\BookDetail.g.cs
 C:\Users\polasekj\source\repos\Book-Project\BookDatabase\BookDatabase\obj\Debug\net8.0-windows\Details\BookDetail.baml
+C:\Users\polasekj\source\repos\Book-Project\BookDatabase\BookDatabase\bin\Debug\net8.0-windows\DevExpress.Data.v25.1.dll
+C:\Users\polasekj\source\repos\Book-Project\BookDatabase\BookDatabase\bin\Debug\net8.0-windows\System.Drawing.Common.dll

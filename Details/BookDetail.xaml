@@ -8,27 +8,37 @@
              Height="720" Width="1280">
 
     <Grid>
-        <Image Width="260" Height="400" Margin="25,25,995,292" Source="{Binding ImageSource}"></Image>
-        <TextBlock Margin="320,25,320,620" FontSize="50" x:Name="BookTitleBox">Tady Bude Nazev Knihy</TextBlock>
+        <Image x:Name="BookImage" Width="260" Height="400" Margin="25,25,995,292" Source="{Binding ImageSource}"></Image>
+        <TextBlock Margin="320,25,275,620" FontSize="45" x:Name="BookTitleBox">Tady Bude Nazev Knihy</TextBlock>
+        <ScrollViewer Margin="320,252,320,292" VerticalScrollBarVisibility="Hidden">
+            <TextBlock FontSize="20" x:Name="DescriptionBox" TextWrapping="Wrap">Tady Bude popis</TextBlock>
+        </ScrollViewer>
         <TextBlock Margin="320,118,320,527" FontSize="35" x:Name="AuthorNameBox">Tady Bude jmeno Autora</TextBlock>
-        <TextBlock Margin="320,252,320,292" FontSize="35" x:Name="DescriptionBox">Tady Bude popis</TextBlock>
-        <TextBlock Margin="28,458,612,86" FontSize="35" x:Name="RatingBox">Tady Bude zhodnocení</TextBlock>
+        <ScrollViewer Margin="28,458,612,86" VerticalScrollBarVisibility="Hidden">
+            <TextBlock FontSize="20" TextWrapping="Wrap" x:Name="RatingBox">Tady Bude zhodnocení</TextBlock>
+        </ScrollViewer>
+       
+        <Button Margin="28,634,1078,34" Click="BackToBooksWindow">ZPĚT</Button>
+        <Button Margin="202,634,904,34" Click="EditBook">EDIT</Button>
+        <Button Margin="786,634,320,34" Click="DeleteBook">DELETE</Button>
 
 
 
         <StackPanel Margin="1010,0,0,0">
-            <TextBlock Height="50" FontSize="16" HorizontalAlignment="Center" Padding="10" Margin="0,30,0,0">ŽÁNR:</TextBlock>
-            <TextBlock Height="50" FontSize="16" HorizontalAlignment="Center" Padding="10" x:Name="GenreBox">tu bude žánr</TextBlock>
-            <TextBlock Height="50" FontSize="16" HorizontalAlignment="Center" Padding="10">TYP OBALU:</TextBlock>
-            <TextBlock Height="50" FontSize="16" HorizontalAlignment="Center" Padding="10" x:Name="TypeBox">tu bude typ obalu</TextBlock>
-            <TextBlock Height="50" FontSize="16" HorizontalAlignment="Center" Padding="10">JAZYK</TextBlock>
-            <TextBlock Height="50" FontSize="16" HorizontalAlignment="Center" Padding="10" x:Name="LanguageBox">tu bude jazyk</TextBlock>
-            <TextBlock Height="50" FontSize="16" HorizontalAlignment="Center" Padding="10">VYDAVATEL</TextBlock>
-            <TextBlock Height="50" FontSize="16" HorizontalAlignment="Center" Padding="10" x:Name="PublisherBox">tu bude vydavatel</TextBlock>
-            <TextBlock Height="50" FontSize="16" HorizontalAlignment="Center" Padding="10">EAN</TextBlock>
-            <TextBlock Height="50" FontSize="16" HorizontalAlignment="Center" Padding="10" x:Name="EANBox">tu bude ean</TextBlock>
-            <TextBlock Height="50" FontSize="16" HorizontalAlignment="Center" Padding="10">ISBN</TextBlock>
-            <TextBlock Height="50" FontSize="16" HorizontalAlignment="Center" Padding="10" x:Name="ISBNBox">tu bude isbn</TextBlock>
+            <TextBlock Height="40" FontSize="20" HorizontalAlignment="Center" Padding="10" Margin="0,20,0,0">ŽÁNR:</TextBlock>
+            <TextBlock Height="40" FontSize="20" HorizontalAlignment="Center" Padding="10" x:Name="GenreBox">tu bude žánr</TextBlock>
+            <TextBlock Height="40" FontSize="20" HorizontalAlignment="Center" Padding="10">TYP OBALU:</TextBlock>
+            <TextBlock Height="40" FontSize="20" HorizontalAlignment="Center" Padding="10" x:Name="TypeBox">tu bude typ obalu</TextBlock>
+            <TextBlock Height="40" FontSize="20" HorizontalAlignment="Center" Padding="10">JAZYK</TextBlock>
+            <TextBlock Height="40" FontSize="20" HorizontalAlignment="Center" Padding="10" x:Name="LanguageBox">tu bude jazyk</TextBlock>
+            <TextBlock Height="40" FontSize="20" HorizontalAlignment="Center" Padding="10">DÉLKA</TextBlock>
+            <TextBlock Height="40" FontSize="20" HorizontalAlignment="Center" Padding="10" x:Name="LengthBox">tu bude jazyk</TextBlock>
+            <TextBlock Height="40" FontSize="20" HorizontalAlignment="Center" Padding="10">VYDAVATEL</TextBlock>
+            <TextBlock Height="40" FontSize="20" HorizontalAlignment="Center" Padding="10" x:Name="PublisherBox">tu bude vydavatel</TextBlock>
+            <TextBlock Height="40" FontSize="20" HorizontalAlignment="Center" Padding="10">EAN</TextBlock>
+            <TextBlock Height="40" FontSize="20" HorizontalAlignment="Center" Padding="10" x:Name="EANBox">tu bude ean</TextBlock>
+            <TextBlock Height="40" FontSize="20" HorizontalAlignment="Center" Padding="10">ISBN</TextBlock>
+            <TextBlock Height="40" FontSize="20" HorizontalAlignment="Center" Padding="10" x:Name="ISBNBox">tu bude isbn</TextBlock>
         </StackPanel>
         
         

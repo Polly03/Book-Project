@@ -42,7 +42,7 @@
                         <TextBox Width="200" Margin="0,0,0,5"  Text="{Binding SearchAuthorsFilter, UpdateSourceTrigger=PropertyChanged}"/>
 
                         <ScrollViewer Margin="10,0,0,0" Height="150" VerticalScrollBarVisibility="Hidden">
-                            <ItemsControl ItemsSource="{Binding AuthorsFilters}">
+                            <ItemsControl ItemsSource="{Binding AuthorsFilter}">
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
                                         <CheckBox Content="{Binding Name}" IsChecked="{Binding IsSelected, Mode=TwoWay}" Margin="0,2"/>
@@ -55,10 +55,10 @@
 
                     <StackPanel Margin="0,0,0,20">
                         <TextBlock Text="Vyber žánr:" FontWeight="Bold" Margin="0,0,0,5" Width="200"/>
-                        <TextBox Width="200" Margin="0,0,0,5" x:Name="genrees"  Text="{Binding SearchTextGenre, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox Width="200" Margin="0,0,0,5" x:Name="genrees"  Text="{Binding SearchGenresFilter, UpdateSourceTrigger=PropertyChanged}"/>
 
                         <ScrollViewer Margin="10,0,0,0" Height="150" VerticalScrollBarVisibility="Hidden">
-                            <ItemsControl ItemsSource="{Binding FilteredGenres}">
+                            <ItemsControl ItemsSource="{Binding GenresFilter}">
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
                                         <CheckBox Content="{Binding Name}" IsChecked="{Binding IsSelected, Mode=TwoWay}" Margin="0,2"/>
@@ -70,10 +70,10 @@
 
                     <StackPanel Margin="0,0,0,20">
                         <TextBlock Text="Vyber jazyk:" FontWeight="Bold" Margin="0,0,0,5" Width="200"/>
-                        <TextBox Width="200" Margin="0,0,0,5" Text="{Binding SearchTextLanguages, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox Width="200" Margin="0,0,0,5" Text="{Binding SearchLanguagesFilters, UpdateSourceTrigger=PropertyChanged}"/>
 
                         <ScrollViewer Margin="10,0,0,0" Height="150" VerticalScrollBarVisibility="Auto">
-                            <ItemsControl ItemsSource="{Binding FilteredLanguages}">
+                            <ItemsControl ItemsSource="{Binding LanguagesFilter}">
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
                                         <CheckBox Content="{Binding Name}" IsChecked="{Binding IsSelected, Mode=TwoWay}" Margin="0,2"/>
@@ -85,10 +85,10 @@
 
                     <StackPanel Margin="0,0,0,20">
                         <TextBlock Text="Vyber nakladatale:" FontWeight="Bold" Margin="0,0,0,5" Width="200"/>
-                        <TextBox Width="200" Margin="0,0,0,5" Text="{Binding SearchTextPublisher, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox Width="200" Margin="0,0,0,5" Text="{Binding SearchPublishersFilter, UpdateSourceTrigger=PropertyChanged}"/>
 
                         <ScrollViewer Margin="10,0,0,0" Height="150" VerticalScrollBarVisibility="Auto">
-                            <ItemsControl ItemsSource="{Binding FilteredPublishers}">
+                            <ItemsControl ItemsSource="{Binding PublishersFilters}">
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
                                         <CheckBox Content="{Binding Name}" IsChecked="{Binding IsSelected, Mode=TwoWay}" Margin="0,2"/>

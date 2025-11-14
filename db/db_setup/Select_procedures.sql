@@ -87,12 +87,13 @@ SET TERM ^ ;
 create or alter procedure SELECT_BOOK (
     NAME_OF_BOOK varchar(64) character set UTF8)
 returns (
+    ID integer,
     LANGUAGE varchar(64),
     RATING blob sub_type 1 segment size 80,
     BOOK_TYPE varchar(64) character set UTF8,
     PUBLISHER varchar(64) character set UTF8,
     GENRE varchar(64) character set UTF8,
-    AUTHOR varchar(64) character set UTF8,
+    AUTHOR varchar(128) character set UTF8,
     EAN varchar(13) character set UTF8,
     ISBN varchar(13) character set UTF8,
     PHOTO blob sub_type 0 segment size 80,
@@ -102,7 +103,7 @@ returns (
 as
 begin FOR
        SELECT Books.name, books.description, books.rating, books.LENGTH, books.photo, books.isbn, books.ean, languages.name,
-       authors.name as author_name, genres.name as genre_name, publishers.name as publisher_name, Booktypes.name as book_type
+       (authors.name || ' ' || Authors.Surname) as author_name, genres.name as genre_name, publishers.name as publisher_name, Booktypes.name as book_type, books.id as ID
        FROM Books
        JOIN authors on authors.id = books.authorid
        JOIN genres on genres.id = books.genreid
@@ -111,7 +112,7 @@ begin FOR
        JOIN book_to_type btt on btt.bookid = books.id
        JOIN booktypes on booktypes.id = btt.typeid
        WHERE Books.name = :name_of_book
-       INTO :name, :description, :rating, :length_OF_BOOK, :photo, :isbn, :ean, :language, :author, :genre, :publisher, :book_type DO
+       INTO :name, :description, :rating, :length_OF_BOOK, :photo, :isbn, :ean, :language, :author, :genre, :publisher, :book_type, :ID DO
   suspend;
 end;
 ^

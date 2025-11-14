@@ -19,9 +19,11 @@ namespace BookDatabase
         public List<GeneralModel> Publishers { get; set; }
         public List<GeneralModel> Types { get; set; }
 
+        private Book EditBook { get; set; }
+
         Database db = Database.Instance;
 
-        public AddBookForm()
+        public AddBookForm(string func = "add", Book book = null)
         {
             InitializeComponent();
 
@@ -32,6 +34,44 @@ namespace BookDatabase
             Languages = GetProperties("Languages");
             Publishers = GetProperties("Publishers");
             Types = GetProperties("BOOKTYPES");
+
+            if (func == "edit")
+            {
+                EditBook = book;
+                this.Loaded += AddFormToEditForm;
+            }
+        }
+
+        private void AddFormToEditForm(object sender, RoutedEventArgs e)
+        {
+            AddEditButton.Content = "EDIT";
+
+            AuthorsBox.SelectedIndex = SelectIndeOfBox(Authors, EditBook.Author);
+            GenresBox.SelectedIndex = SelectIndeOfBox(Genres, EditBook.Genre);
+            PublishersBox.SelectedIndex = SelectIndeOfBox(Publishers, EditBook.Publisher);
+            LanguageBox.SelectedIndex = SelectIndeOfBox(Languages, EditBook.Langueage);
+            TypesBox.SelectedIndex = SelectIndeOfBox(Types, EditBook.Type);
+
+            NameBox.Text = EditBook.Name;
+            ISBNBox.Text = EditBook.ISBN;
+            EANBox.Text = EditBook.EAN;
+            LengthBox.Text = EditBook.Length.ToString();
+            RatingBox.Text = EditBook.Rating;
+            DescriptionBox.Text = EditBook.Description;
+            PhotoBox.Text = "STARÁ FOTKA NEMÁ CESTU, ALE JE ZATÍM ZDE";
+
+        }
+            
+        private int SelectIndeOfBox(List<GeneralModel> list, string value)
+        {
+            foreach (GeneralModel model in list)
+            {
+                if (model.Name == value)
+                {
+                    return list.IndexOf(model);
+                }
+            }
+            return 0;
         }
 
         private List<GeneralModel> GetProperties(string name)
@@ -53,7 +93,6 @@ namespace BookDatabase
             Regex regex = new Regex("^[0-9]*$");
             e.Handled = !regex.IsMatch(e.Text);
         }
-
 
 
         private void ControlBeforeSave(object sender, RoutedEventArgs e)
@@ -132,14 +171,13 @@ namespace BookDatabase
             bitmap.UriSource = new Uri(path, UriKind.Absolute);
             bitmap.CacheOption = BitmapCacheOption.OnLoad;
 
-            bitmap.DecodePixelWidth = 125;
-            bitmap.DecodePixelHeight = 150;                           
+            bitmap.DecodePixelWidth = 520;
+            bitmap.DecodePixelHeight = 800;                           
 
             bitmap.EndInit();
             bitmap.Freeze();
 
-            JpegBitmapEncoder encoder = new JpegBitmapEncoder();
-            encoder.QualityLevel = 85; 
+            PngBitmapEncoder encoder = new PngBitmapEncoder();
             encoder.Frames.Add(BitmapFrame.Create(bitmap));
 
             using (MemoryStream stream = new MemoryStream())
