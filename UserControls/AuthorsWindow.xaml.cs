@@ -17,8 +17,12 @@ namespace BookDatabase
     {
         Database db = Database.Instance;
 
+
+        // collection for Author Cards
         public ObservableCollection<Authors> AuthorCards { get; set; }
 
+
+        // properties and collections for filters for Author Cards
         public ObservableCollection<FilterOption> FilteredCountries { get; set; }
         private string fSearchTextCountries = string.Empty;
         public string SearchTextCountries
@@ -33,6 +37,7 @@ namespace BookDatabase
             }
         }
 
+        // filtering filters
         private ObservableCollection<FilterOption> filter(string table, string txt)
         {
             return new ObservableCollection<FilterOption>(
@@ -41,7 +46,7 @@ namespace BookDatabase
             );
         }
 
-
+        // event
         public event PropertyChangedEventHandler? PropertyChanged;
         protected void OnPropertyChanged([CallerMemberName] string? propertyName = null)
         {

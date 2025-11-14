@@ -78,7 +78,7 @@
             </ComboBox>
 
             <TextBlock Grid.Row="3" Grid.Column="0">Zadejte počet stran</TextBlock>
-            <TextBox Grid.Row="3" Grid.Column="1" PreviewTextInput="Length_PreviewTextInput" MaxLength="6" FontSize="22" x:Name="LengthBox"/>
+            <TextBox Grid.Row="3" Grid.Column="1" PreviewTextInput="Length_PreviewTextInput" MaxLength="5" FontSize="22" x:Name="LengthBox"/>
 
             <TextBlock Grid.Row="4" Grid.Column="0">Zadejte EAN</TextBlock>
             <TextBox Grid.Row="4" Grid.Column="1" MaxLength="13" FontSize="22" x:Name="EANBox"/>

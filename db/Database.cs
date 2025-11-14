@@ -1,10 +1,6 @@
 ﻿using BookDatabase.Models;
 using FirebirdSql.Data.FirebirdClient;
-using System.Collections.Generic;
-using System.Diagnostics.Metrics;
-using System.Drawing;
 using System.IO;
-using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 
 
@@ -249,7 +245,7 @@ namespace BookDatabase
  
         }
 
-        public void SelectAuthor(string authorName)
+        public Authors SelectAuthor(string authorName)
         {
             using (FbConnection con = new FbConnection(connString))
             {
@@ -260,20 +256,26 @@ namespace BookDatabase
 
                     using (var reader = cmd.ExecuteReader())
                     {
+    
 
                         while (reader.Read())
                         {
+                            var id = (int)reader["Id"];
                             var names = reader["Name"];
-                            var surname = reader["Surname"];
-                            string name = names + " " + surname;
                             var dateOfBirth = reader["DATE_OF_BIRTH"];
                             var country = reader["Country"];
                             var aboutAuthor = reader["About_Author"];
-                            Console.WriteLine("tohle je autor: " + name + " " + dateOfBirth + " " + country + " " + aboutAuthor + "\n");
+
+                            Authors author = new Authors((string)names, (string)dateOfBirth, (string)country);
+                            author.Id = id;
+                            author.AboutAuthor = (string)aboutAuthor;
+                            return author;
                         }
+                  
                     }
                 }
             }
+            return null;
         }
 
         public List<Authors> OrderAuthors(string argument, string way)
@@ -413,6 +415,71 @@ namespace BookDatabase
             }
         }
 
+        public void UpdateBook(
+            int bookId,
+            byte[] photo,
+            string typeOfBook,
+            short lengthOfBook,
+            string ean,
+            string isbn,
+            string publisher,
+            string language,
+            string rating,
+            string description,
+            string genre,
+            string bookName,
+            string authorName)
+        {
+            using (FbConnection con = new FbConnection(connString))
+            {
+                con.Open();
+
+                using (var cmd = new FbCommand("execute procedure UPDATE_BOOK(" +
+                                               "@BOOK_ID, @PHOTO, @TYPE_OF_BOOK, @LENGTH_OF_BOOK, @EAN, @ISBN, @PUBLISHER, @LANGUAGE, " +
+                                               "@RATING, @DESCRIPTION, @GENRE, @BOOK_NAME, @AUTHOR_NAME)", con))
+                {
+                    cmd.Parameters.AddWithValue("@BOOK_ID", bookId);
+                    cmd.Parameters.AddWithValue("@PHOTO", (object?)photo ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("@TYPE_OF_BOOK", (object?)typeOfBook ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("@LENGTH_OF_BOOK", lengthOfBook);
+                    cmd.Parameters.AddWithValue("@EAN", (object?)ean ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("@ISBN", (object?)isbn ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("@PUBLISHER", (object?)publisher ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("@LANGUAGE", (object?)language ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("@RATING", (object?)rating ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("@DESCRIPTION", (object?)description ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("@GENRE", (object?)genre ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("@BOOK_NAME", (object?)bookName ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("@AUTHOR_NAME", (object?)authorName ?? DBNull.Value);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public void UpdateAuthor(int authorId, string name, string surname, DateTime dateOfBirth, string countryName, string aboutAuthor)
+        {
+            using (FbConnection con = new FbConnection(connString))
+            {
+                con.Open();
+
+                using (var cmd = new FbCommand(
+                    "execute procedure UPDATE_AUTHOR(" +
+                    "@AUTHOR_ID, @NAME, @SURNAME, @DATE_OF_BIRTH, @COUNTRY_NAME, @ABOUT_AUTHOR)", con))
+                {
+                    cmd.Parameters.AddWithValue("@AUTHOR_ID", authorId);
+                    cmd.Parameters.AddWithValue("@NAME", (object?)name ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("@SURNAME", (object?)surname ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("@DATE_OF_BIRTH", dateOfBirth);
+                    cmd.Parameters.AddWithValue("@COUNTRY_NAME", (object?)countryName ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("@ABOUT_AUTHOR", (object?)aboutAuthor ?? DBNull.Value);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+
         public int DeleteAuthor(string authorName)
         {
             using (FbConnection con = new FbConnection(connString))
@@ -454,7 +521,7 @@ namespace BookDatabase
             }
         }
 
-
+        // decoding byte[] data into bitmapImage
         private BitmapImage GetBM(byte[] data, int size = 0)
         {
             var bitmap = new BitmapImage();

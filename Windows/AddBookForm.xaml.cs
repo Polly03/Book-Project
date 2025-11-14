@@ -1,6 +1,7 @@
 ﻿using BookDatabase.Models;
 using BookDatabase.Windows;
 using Microsoft.Win32;
+using System.Drawing;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Windows;
@@ -19,11 +20,11 @@ namespace BookDatabase
         public List<GeneralModel> Publishers { get; set; }
         public List<GeneralModel> Types { get; set; }
 
-        private Book EditBook { get; set; }
+        public Book? EditBook { get; set; }
 
         Database db = Database.Instance;
 
-        public AddBookForm(string func = "add", Book book = null)
+        public AddBookForm(string func = "add", Book? book = null)
         {
             InitializeComponent();
 
@@ -37,7 +38,7 @@ namespace BookDatabase
 
             if (func == "edit")
             {
-                EditBook = book;
+                EditBook = book!;
                 this.Loaded += AddFormToEditForm;
             }
         }
@@ -45,8 +46,10 @@ namespace BookDatabase
         private void AddFormToEditForm(object sender, RoutedEventArgs e)
         {
             AddEditButton.Content = "EDIT";
+            AddEditButton.Click -= ControlBeforeSave;
+            AddEditButton.Click += ControlBeforeSaveEdit;
 
-            AuthorsBox.SelectedIndex = SelectIndeOfBox(Authors, EditBook.Author);
+            AuthorsBox.SelectedIndex = SelectIndeOfBox(Authors, EditBook!.Author);
             GenresBox.SelectedIndex = SelectIndeOfBox(Genres, EditBook.Genre);
             PublishersBox.SelectedIndex = SelectIndeOfBox(Publishers, EditBook.Publisher);
             LanguageBox.SelectedIndex = SelectIndeOfBox(Languages, EditBook.Langueage);
@@ -58,11 +61,60 @@ namespace BookDatabase
             LengthBox.Text = EditBook.Length.ToString();
             RatingBox.Text = EditBook.Rating;
             DescriptionBox.Text = EditBook.Description;
-            PhotoBox.Text = "STARÁ FOTKA NEMÁ CESTU, ALE JE ZATÍM ZDE";
+            PhotoBox.Text = "OLD";
 
         }
-            
-        private int SelectIndeOfBox(List<GeneralModel> list, string value)
+
+        private void ControlBeforeSaveEdit(object sender, RoutedEventArgs e)
+        {
+            if (!ControlData())
+            {
+                return;
+            }
+
+            byte[] image;
+            if (PhotoBox.Text == "OLD")
+            {
+                image = BitMapToByte(EditBook!.Image!);
+            }
+            else
+            {
+                image = GetPhotoByPath(PhotoBox.Text);
+            }
+
+            string? typeOfBook = ((GeneralModel)TypesBox.SelectedItem).Name;
+            short lengthOfBook = short.Parse(LengthBox.Text);
+            string? ean = EANBox.Text;
+            string? isbn = ISBNBox.Text;
+            string? publisher = ((GeneralModel)PublishersBox.SelectedItem).Name;
+            string? language = ((GeneralModel)LanguageBox.SelectedItem).Name;
+            string? rating = RatingBox.Text;
+            string? description = DescriptionBox.Text;
+            string? genre = ((GeneralModel)GenresBox.SelectedItem).Name;
+            string? bookName = NameBox.Text;
+            string? authorName = ((GeneralModel)AuthorsBox.SelectedItem).Name;
+
+            db.UpdateBook(
+                EditBook!.Id, 
+                image, 
+                typeOfBook, 
+                lengthOfBook,
+                ean,
+                isbn,
+                publisher,
+                language,
+                rating,
+                description,
+                genre,
+                bookName,
+                authorName);
+            EditBook = db.SelectBook(bookName);
+
+            this.Close();
+        }
+
+
+        private int SelectIndeOfBox(List<GeneralModel> list, string? value)
         {
             foreach (GeneralModel model in list)
             {
@@ -94,44 +146,59 @@ namespace BookDatabase
             e.Handled = !regex.IsMatch(e.Text);
         }
 
-
-        private void ControlBeforeSave(object sender, RoutedEventArgs e)
+        private bool ControlData()
         {
-            if (AuthorsBox.SelectedItem == null) { MessageBox.Show("vyber autora"); return; }
-            if (GenresBox.SelectedItem == null) { MessageBox.Show("vyber Žánr");    return; }
-            if (LanguageBox.SelectedItem == null) { MessageBox.Show("vyber jazyk"); return; }
-            if (TypesBox.SelectedItem == null) { MessageBox.Show("vyber typ knihy"); return; }
-            if (PublishersBox.SelectedItem == null) { MessageBox.Show("vyber vydavatele"); return; }
+            if (AuthorsBox.SelectedItem == null) { MessageBox.Show("vyber autora"); return false; }
+            if (GenresBox.SelectedItem == null) { MessageBox.Show("vyber Žánr"); return false; ; }
+            if (LanguageBox.SelectedItem == null) { MessageBox.Show("vyber jazyk"); return false; }
+            if (TypesBox.SelectedItem == null) { MessageBox.Show("vyber typ knihy"); return false; }
+            if (PublishersBox.SelectedItem == null) { MessageBox.Show("vyber vydavatele"); return false; }
 
-            if (String.IsNullOrWhiteSpace(NameBox.Text)) { MessageBox.Show("vypln název knihy"); return; }
-            if (String.IsNullOrWhiteSpace(ISBNBox.Text)) { MessageBox.Show("vypln ISBN"); return; }
-            if (String.IsNullOrWhiteSpace(EANBox.Text)) { MessageBox.Show("vypln EAN"); return; }
-            if (String.IsNullOrWhiteSpace(LengthBox.Text)) { MessageBox.Show("vypln délku knihy"); return; }
+            if (String.IsNullOrWhiteSpace(NameBox.Text)) { MessageBox.Show("vypln název knihy"); return false; }
+            if (String.IsNullOrWhiteSpace(ISBNBox.Text)) { MessageBox.Show("vypln ISBN"); return false; }
+            if (String.IsNullOrWhiteSpace(EANBox.Text)) { MessageBox.Show("vypln EAN"); return false; }
+            if (String.IsNullOrWhiteSpace(LengthBox.Text)) { MessageBox.Show("vypln délku knihy"); return false; }
 
-            if (String.IsNullOrWhiteSpace(RatingBox.Text)) { MessageBox.Show("vypln zhodnocení knihy"); return; }
-            if (String.IsNullOrWhiteSpace(DescriptionBox.Text)) { MessageBox.Show("vypln popis knihy"); return; }
+            if (String.IsNullOrWhiteSpace(RatingBox.Text)) { MessageBox.Show("vypln zhodnocení knihy"); return false; }
+            if (String.IsNullOrWhiteSpace(DescriptionBox.Text)) { MessageBox.Show("vypln popis knihy"); return false; }
 
-            if (String.IsNullOrWhiteSpace(PhotoBox.Text)) { MessageBox.Show("vyber fotku"); return; }
+            if (String.IsNullOrWhiteSpace(PhotoBox.Text)) { MessageBox.Show("vyber fotku"); return false; }
 
             if (ISBNBox.Text.Length < 13)
             {
                 MessageBox.Show("ISBN musí mít přesně 13 znaků");
-             }
+                return false;
+            }
 
             if (EANBox.Text.Length < 13)
             {
                 MessageBox.Show("EAN musí mít přesně 13 znaků");
+                return false;
             }
 
-            InputData();
+            return true;
+        }
 
-            this.Close();
+
+        private void ControlBeforeSave(object sender, RoutedEventArgs e)
+        {
+
+            if (ControlData()){
+
+                InputData();
+
+                this.Close();
+            }
+            else
+            {
+                return;
+            }
+
         }
 
         private void InputData()
         {
             string path = PhotoBox.Text;
-
 
             byte[]? photo = GetPhotoByPath(path);
             string? typeOfBook = ((GeneralModel)TypesBox.SelectedItem).Name;
@@ -177,8 +244,13 @@ namespace BookDatabase
             bitmap.EndInit();
             bitmap.Freeze();
 
+            return BitMapToByte(bitmap);
+        }
+
+        private byte[] BitMapToByte (BitmapImage image)
+        {
             PngBitmapEncoder encoder = new PngBitmapEncoder();
-            encoder.Frames.Add(BitmapFrame.Create(bitmap));
+            encoder.Frames.Add(BitmapFrame.Create(image));
 
             using (MemoryStream stream = new MemoryStream())
             {

@@ -1,17 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using BookDatabase.Details;
+using BookDatabase.Models;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
+
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+
 
 namespace BookDatabase
 {
@@ -50,5 +43,18 @@ namespace BookDatabase
             get => (string)GetValue(CountryProperty);
             set => SetValue(CountryProperty, value);
         }
+
+        private void ShowAuthor(object sender, MouseButtonEventArgs e)
+        {
+            if (sender is FrameworkElement fe && fe.DataContext != null)
+            {
+                var author = fe.DataContext as Authors;
+                if (author != null)
+                {
+                    ((MainWindow)Application.Current.MainWindow).Main.Content = new AuthorDetail(author.NameOf);
+                }
+            }
+        }
+
     }
 }

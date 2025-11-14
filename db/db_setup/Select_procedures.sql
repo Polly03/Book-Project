@@ -7,23 +7,28 @@ SET TERM ^ ;
 create or alter procedure SELECT_AUTHOR (
     NAME_INPUT varchar(64))
 returns (
-    SURNAME varchar(64),
+    ID integer,
     ABOUT_AUTHOR blob sub_type 1 segment size 80,
     COUNTRY varchar(64),
     DATE_OF_BIRTH varchar(64),
-    NAME varchar(64))
+    NAME varchar(64)
+    )
 as
 begin
-    FOR SELECT distinct Authors.Name, authors.surname, Authors.dateOfBirth, Countries.Name, authors.aboutauthor
+    FOR SELECT distinct Authors.Id, (Authors.Name || ' ' || authors.surname) name, Authors.dateOfBirth, Countries.Name, authors.aboutauthor
         from Authors
         Join Countries on Authors.countryId = Countries.Id
-        where Authors.Name = :NAME_INPUT
+        where (Authors.Name || ' ' || Authors.Surname) = :NAME_INPUT
     
-    INTO :Name, :surname, :DATE_OF_BIRTH, :Country, :About_Author DO
+    INTO :ID, :Name, :DATE_OF_BIRTH, :Country, :About_Author DO
         SUSPEND;
 end;
 ^
 SET TERM ; ^
+
+
+
+
 
 SET TERM ^ ;
 
@@ -85,7 +90,7 @@ SET TERM ^ ;
 -- selecting book based on its name
 
 create or alter procedure SELECT_BOOK (
-    NAME_OF_BOOK varchar(64) character set UTF8)
+    Name_OF_BOOK varchar(128))
 returns (
     ID integer,
     LANGUAGE varchar(64),

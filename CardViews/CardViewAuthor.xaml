@@ -17,12 +17,12 @@
             </Grid.RowDefinitions>
 
             <!-- stack panel for data binding in elements -->
-            <StackPanel Grid.Row="1" Margin="10,10,10,10">
-                <TextBlock Text="{Binding NameOf, RelativeSource={RelativeSource AncestorType=UserControl}}"
+            <StackPanel Grid.Row="1" Margin="10,10,10,10" >
+                <TextBlock MouseDown="ShowAuthor" Text="{Binding NameOf, RelativeSource={RelativeSource AncestorType=UserControl}}"
                FontSize="18" FontWeight="Bold" TextWrapping="Wrap" Margin="0,0,0,5" Height="53"/>
-                <TextBlock Text="{Binding Country, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                <TextBlock MouseDown="ShowAuthor" Text="{Binding Country, RelativeSource={RelativeSource AncestorType=UserControl}}"
                FontSize="14" FontWeight="Bold" TextWrapping="Wrap" Height="24"/>
-                <TextBlock Text="{Binding DateOfBirth, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                <TextBlock MouseDown="ShowAuthor" Text="{Binding DateOfBirth, RelativeSource={RelativeSource AncestorType=UserControl}}"
                FontSize="14" FontWeight="Bold" TextWrapping="Wrap" Height="45"/>
 
             </StackPanel>

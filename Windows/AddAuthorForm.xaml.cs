@@ -7,12 +7,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
+
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+
 
 namespace BookDatabase.Windows
 {
@@ -20,24 +17,78 @@ namespace BookDatabase.Windows
     public partial class AddAuthorForm : Window
     {
         public List<GeneralModel> Countries { get; set; }
+
         private string _win;
+
         public event Action? AuthorAdded;
+
         Database db = Database.Instance;
 
-        public AddAuthorForm(string win)
+        public Authors? EditedAuthor { get; set; }
+
+        public AddAuthorForm(string win, string use = "default", Authors? author = null)
         {
 
             _win = win;
             InitializeComponent();
             DataContext = this;
-            Countries = new List<GeneralModel>();
+            Countries = db.SelectNameByTableName("Countries");
 
-            List<GeneralModel> list = db.SelectNameByTableName("Countries");
-
-            foreach (GeneralModel item in list)
+           if (use == "edit")
             {
-                Countries.Add(item);
+                EditedAuthor = author;
+                StartEdit();
             }
+        }
+
+        private void StartEdit()
+        {
+            if (EditedAuthor is null)
+                return;
+
+            AcceptButton.Click -= Accept;
+            AcceptButton.Click += AcceptEdit;
+
+
+
+       
+            CountriesBox.SelectedIndex = SelectIndeOfBox(Countries, EditedAuthor.Country);
+               
+
+
+            List<string> list = EditedAuthor!.NameOf!.Split(" ").ToList();
+            SurnameOfAuthor.Text = list.Last();
+            list.RemoveAt(list.Count - 1);
+            string name = string.Join("", list);
+            NameOfAuthor.Text = name;
+            AboutAuthor.Text = EditedAuthor.AboutAuthor;
+            DateAuthor.Text = EditedAuthor.DateOfBirth;
+
+        }
+
+        private int SelectIndeOfBox(List<GeneralModel> list, string? value)
+        {
+            foreach (GeneralModel model in list)
+            {
+                if (model.Name == value)
+                {
+                    return list.IndexOf(model);
+                }
+            }
+            return 0;
+        }
+
+        private void AcceptEdit(object sender, RoutedEventArgs e)
+        {
+            if (!Control())
+            {
+                return;
+            }
+            DateTime date = DateTime.Parse(DateAuthor.Text);
+            db.UpdateAuthor(EditedAuthor!.Id, NameOfAuthor.Text, SurnameOfAuthor.Text, date, ((GeneralModel)CountriesBox.SelectedItem).Name, AboutAuthor.Text);
+            EditedAuthor = db.SelectAuthor(NameOfAuthor.Text + " " + SurnameOfAuthor.Text);
+
+            this.Close();
         }
 
         public void Return(object sender, RoutedEventArgs e)
@@ -56,44 +107,52 @@ namespace BookDatabase.Windows
             DateAuthor.Background = Brushes.White;
         }
 
-        private void Accept(object sender, RoutedEventArgs e)
+        private bool Control()
         {
             if (DateAuthor.SelectedDate == null)
             {
                 MessageBox.Show("nesprávně zadané datum");
                 DateAuthor.Background = Brushes.Red;
-                return;
+                return false;
             }
             if (String.IsNullOrWhiteSpace(AboutAuthor.Text))
             {
                 MessageBox.Show("vyplňte pole o autorovi");
-                return;
+                return false;
             }
             if (String.IsNullOrWhiteSpace(NameOfAuthor.Text))
             {
                 MessageBox.Show("vyplňte autorovo jméno");
-                return;
+                return false;
             }
             if (String.IsNullOrWhiteSpace(SurnameOfAuthor.Text))
             {
                 MessageBox.Show("vyplňte autorovo přijímení");
-                return;
+                return false;
             }
             if (CountriesBox.SelectedItem == null)
             {
                 MessageBox.Show("vyberte zemi původu");
-                return;
+                return false;
             }
-            
+
             List<Authors> list = db.SelectAuthorWithSearch(NameOfAuthor.Text + SurnameOfAuthor.Text);
             if (list.Count > 0)
             {
                 MessageBox.Show("Tento Autor již existuje!");
-                return;
+                return false;
             }
 
+            return true;
+        }
 
+        private void Accept(object sender, RoutedEventArgs e)
+        {
 
+            if (!Control())
+            {
+                return;
+            }
 
             db.InsertAuthor(NameOfAuthor.Text ,SurnameOfAuthor.Text, ((GeneralModel)CountriesBox.SelectedItem).Name, (DateTime)DateAuthor.SelectedDate!, AboutAuthor.Text);
             AuthorAdded?.Invoke();

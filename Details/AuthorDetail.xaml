@@ -1,0 +1,31 @@
+﻿<UserControl x:Class="BookDatabase.Details.AuthorDetail"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:BookDatabase.Details"
+             mc:Ignorable="d" 
+             Height="720" Width="1280">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="3*"/>
+        </Grid.ColumnDefinitions>
+        
+        <!-- block for all data for authot -->
+        <TextBlock Grid.Column="0" x:Name="AuthorName" TextWrapping="Wrap" FontSize="50" Margin="42,38,42,544">Tady je nazev autora</TextBlock>
+        <TextBlock Grid.Column="0" x:Name="AuthorDateOfBirth" Margin="42,208,42,420" FontSize="40">tady je datum narození</TextBlock>
+        <TextBlock Grid.Column="0" x:Name="AuthorCountry" Margin="42,305,42,323" FontSize="40">tady je země původu</TextBlock>
+        <Button Grid.Column="0" Margin="42,607,278,46" Click="Return">ZPĚT</Button>
+        <Button Grid.Column="0" Margin="305,602,10,46" Click="EditAuthor">EDIT</Button>
+
+        <!-- about author -->
+        <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Hidden" Margin="44,38,68,128">
+            <TextBlock x:Name="AboutAuthor" FontSize="20" Height="544" Width="646" TextWrapping="Wrap">O Autorovi</TextBlock>
+        </ScrollViewer>
+        <Button Grid.Column="1" Margin="406,607,68,46" Click="DeleteAuthor">SMAZAT</Button>
+
+
+
+    </Grid>
+</UserControl>

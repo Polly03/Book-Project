@@ -50,10 +50,6 @@
         "net8.0-windows7.0": {
           "targetAlias": "net8.0-windows",
           "dependencies": {
-            "DevExpress.Data": {
-              "target": "Package",
-              "version": "[25.1.6, )"
-            },
             "FirebirdSql.Data.FirebirdClient": {
               "target": "Package",
               "version": "[10.3.3, )"

@@ -10,7 +10,7 @@ AS
 declare variable BOOK_COUNT integer;
 declare variable AUTHOR_ID integer;
 begin
-        SELECT ID FROM AUTHORS WHERE NAME = :author_name
+        SELECT ID FROM AUTHORS WHERE (NAME || ' ' || SURNAME) = :author_name
         INTO :AUTHOR_ID;
 
         SELECT COUNT(*) FROM BOOKS WHERE AUTHORID = :author_ID

@@ -1,56 +1,76 @@
 ﻿using BookDatabase.Models;
-using DevExpress.Utils.CommonDialogs.Internal;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 
 
 namespace BookDatabase.Details
 {
+
     /// <summary>
-    /// Interaction logic for BookDetail.xaml
+    /// 
+    /// CLASS for selecting, showing and editing details about book
+    /// 
     /// </summary>
+
+
     public partial class BookDetail : UserControl
     {
-  
+      
         public Database db = Database.Instance;
         public Book SelectedBook { get; set; }
+        // book selected for details
         public BookDetail(string title)
         {
             InitializeComponent();
             this.DataContext = this;
-
             Book book = db.SelectBook(title, 1);
             this.SelectedBook = book;
 
-            BookImage.Source = book.Image;
-            BookTitleBox.Text = book.Name;
-            AuthorNameBox.Text = book.Author;
-            DescriptionBox.Text = book.Description;
-            RatingBox.Text = book.Rating;
-            GenreBox.Text = book.Genre;
-            LengthBox.Text = book.Length.ToString();
-            TypeBox.Text = book.Type;
-            LanguageBox.Text = book.Langueage;
-            PublisherBox.Text = book.Publisher; 
-            EANBox.Text = book.EAN; 
-            ISBNBox.Text = book.ISBN;
+            ShowBook();
 
         }
 
-        private void BackToBooksWindow(object sender, System.Windows.RoutedEventArgs e)
+        // method for showing all details in gui selected book
+        private void ShowBook()
+        {
+
+            BookImage.Source = SelectedBook.Image;
+            BookTitleBox.Text = SelectedBook.Name;
+            AuthorNameBox.Text = SelectedBook.Author;
+            DescriptionBox.Text = SelectedBook.Description;
+            RatingBox.Text = SelectedBook.Rating;
+            GenreBox.Text = SelectedBook.Genre;
+            LengthBox.Text = SelectedBook.Length.ToString();
+            TypeBox.Text = SelectedBook.Type;
+            LanguageBox.Text = SelectedBook.Langueage;
+            PublisherBox.Text = SelectedBook.Publisher;
+            EANBox.Text = SelectedBook.EAN;
+            ISBNBox.Text = SelectedBook.ISBN;
+        }
+
+        // returning from details
+        private void BackToBooksWindow(object sender, RoutedEventArgs e)
         {
 
             ((MainWindow)Application.Current.MainWindow).Main.Content = new BooksWindow();
         }
 
+        // editing book with Adjusted user control AddBookForm for editing book
         private void EditBook(object sender, RoutedEventArgs e)
         {
             AddBookForm win = new AddBookForm("edit", SelectedBook);
+        
+            win.Closed += (s, eArgs) =>
+            {
+                SelectedBook = db.SelectBook(win.EditBook.Name, 1);
+                ShowBook();
+            };
+
             win.ShowDialog();
         }
 
+        
+        // deleting book if user click on yes
         private void DeleteBook(object sender, RoutedEventArgs e)
         {
             MessageBoxResult result = MessageBox.Show(

@@ -16,7 +16,4 @@
   <ImportGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
     <Import Project="$(NuGetPackageRoot)microsoft.entityframeworkcore\9.0.10\buildTransitive\net8.0\Microsoft.EntityFrameworkCore.props" Condition="Exists('$(NuGetPackageRoot)microsoft.entityframeworkcore\9.0.10\buildTransitive\net8.0\Microsoft.EntityFrameworkCore.props')" />
   </ImportGroup>
-  <PropertyGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
-    <PkgDevExpress_Data Condition=" '$(PkgDevExpress_Data)' == '' ">C:\Users\polasekj\.nuget\packages\devexpress.data\25.1.6</PkgDevExpress_Data>
-  </PropertyGroup>
 </Project>

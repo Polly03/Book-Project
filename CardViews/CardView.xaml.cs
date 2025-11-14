@@ -1,19 +1,10 @@
 ﻿using BookDatabase.Details;
 using BookDatabase.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+
 
 
 namespace BookDatabase
@@ -67,7 +58,6 @@ namespace BookDatabase
         // methods ready for showing details of book and author
         private void ShowBook(object sender, MouseButtonEventArgs e)
         {
-
             if (sender is FrameworkElement fe && fe.DataContext != null)
             {
        
@@ -79,9 +69,16 @@ namespace BookDatabase
             }
         }
 
-        public void ShowAuthor(object sender, MouseEventArgs e)
+        private void ShowAuthor(object sender, MouseButtonEventArgs e)
         {
-            MessageBox.Show("Getting Author");
+            if (sender is FrameworkElement fe && fe.DataContext != null)
+            {
+                var author = fe.DataContext as BooksData;
+                if (author != null)
+                {
+                    ((MainWindow)Application.Current.MainWindow).Main.Content = new AuthorDetail(author.Author);
+                }
+            }
         }
 
     }

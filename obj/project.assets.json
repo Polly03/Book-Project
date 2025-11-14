@@ -2,22 +2,6 @@
   "version": 3,
   "targets": {
     "net8.0-windows7.0": {
-      "DevExpress.Data/25.1.6": {
-        "type": "package",
-        "dependencies": {
-          "System.Drawing.Common": "8.0.15"
-        },
-        "compile": {
-          "lib/net8.0/DevExpress.Data.v25.1.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/net8.0/DevExpress.Data.v25.1.dll": {
-            "related": ".xml"
-          }
-        }
-      },
       "FirebirdSql.Data.FirebirdClient/10.3.3": {
         "type": "package",
         "compile": {
@@ -219,28 +203,6 @@
           "buildTransitive/net8.0/_._": {}
         }
       },
-      "Microsoft.Win32.SystemEvents/8.0.0": {
-        "type": "package",
-        "compile": {
-          "lib/net8.0/Microsoft.Win32.SystemEvents.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/net8.0/Microsoft.Win32.SystemEvents.dll": {
-            "related": ".xml"
-          }
-        },
-        "build": {
-          "buildTransitive/net6.0/_._": {}
-        },
-        "runtimeTargets": {
-          "runtimes/win/lib/net8.0/Microsoft.Win32.SystemEvents.dll": {
-            "assetType": "runtime",
-            "rid": "win"
-          }
-        }
-      },
       "System.Diagnostics.DiagnosticSource/9.0.10": {
         "type": "package",
         "compile": {
@@ -256,49 +218,10 @@
         "build": {
           "buildTransitive/net8.0/_._": {}
         }
-      },
-      "System.Drawing.Common/8.0.15": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.Win32.SystemEvents": "8.0.0"
-        },
-        "compile": {
-          "lib/net8.0/System.Drawing.Common.dll": {
-            "related": ".pdb;.xml"
-          }
-        },
-        "runtime": {
-          "lib/net8.0/System.Drawing.Common.dll": {
-            "related": ".pdb;.xml"
-          }
-        },
-        "build": {
-          "buildTransitive/net6.0/_._": {}
-        }
       }
     }
   },
   "libraries": {
-    "DevExpress.Data/25.1.6": {
-      "sha512": "zWNDNBTmqCSLaIzlTntOPikiXc4f7B2OH2LB1EOcPevX8t0m8KN6mkT0d+lsfeiUHe7iwrzlQrN7j6J1FI+x3g==",
-      "type": "package",
-      "path": "devexpress.data/25.1.6",
-      "hasTools": true,
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "analyzers/dotnet/DevExpress.Generator.dll",
-        "devexpress.data.25.1.6.nupkg.sha512",
-        "devexpress.data.nuspec",
-        "lib/net462/DevExpress.Data.v25.1.dll",
-        "lib/net462/DevExpress.Data.v25.1.xml",
-        "lib/net8.0/DevExpress.Data.v25.1.dll",
-        "lib/net8.0/DevExpress.Data.v25.1.xml",
-        "tools/VisualStudioToolsManifest.xml",
-        "tools/install.ps1",
-        "tools/uninstall.ps1"
-      ]
-    },
     "FirebirdSql.Data.FirebirdClient/10.3.3": {
       "sha512": "iAj21eY5u7obZumA3NAVZf8ynu7Z6lslkU3V4W8Mm9Mowa4gcadT2a+LIMwAovDIg8iS8RpCSzIzFdKFCdakTg==",
       "type": "package",
@@ -655,41 +578,6 @@
         "useSharedDesignerContext.txt"
       ]
     },
-    "Microsoft.Win32.SystemEvents/8.0.0": {
-      "sha512": "9opKRyOKMCi2xJ7Bj7kxtZ1r9vbzosMvRrdEhVhDz8j8MoBGgB+WmC94yH839NPH+BclAjtQ/pyagvi/8gDLkw==",
-      "type": "package",
-      "path": "microsoft.win32.systemevents/8.0.0",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "Icon.png",
-        "LICENSE.TXT",
-        "THIRD-PARTY-NOTICES.TXT",
-        "buildTransitive/net461/Microsoft.Win32.SystemEvents.targets",
-        "buildTransitive/net462/_._",
-        "buildTransitive/net6.0/_._",
-        "buildTransitive/netcoreapp2.0/Microsoft.Win32.SystemEvents.targets",
-        "lib/net462/Microsoft.Win32.SystemEvents.dll",
-        "lib/net462/Microsoft.Win32.SystemEvents.xml",
-        "lib/net6.0/Microsoft.Win32.SystemEvents.dll",
-        "lib/net6.0/Microsoft.Win32.SystemEvents.xml",
-        "lib/net7.0/Microsoft.Win32.SystemEvents.dll",
-        "lib/net7.0/Microsoft.Win32.SystemEvents.xml",
-        "lib/net8.0/Microsoft.Win32.SystemEvents.dll",
-        "lib/net8.0/Microsoft.Win32.SystemEvents.xml",
-        "lib/netstandard2.0/Microsoft.Win32.SystemEvents.dll",
-        "lib/netstandard2.0/Microsoft.Win32.SystemEvents.xml",
-        "microsoft.win32.systemevents.8.0.0.nupkg.sha512",
-        "microsoft.win32.systemevents.nuspec",
-        "runtimes/win/lib/net6.0/Microsoft.Win32.SystemEvents.dll",
-        "runtimes/win/lib/net6.0/Microsoft.Win32.SystemEvents.xml",
-        "runtimes/win/lib/net7.0/Microsoft.Win32.SystemEvents.dll",
-        "runtimes/win/lib/net7.0/Microsoft.Win32.SystemEvents.xml",
-        "runtimes/win/lib/net8.0/Microsoft.Win32.SystemEvents.dll",
-        "runtimes/win/lib/net8.0/Microsoft.Win32.SystemEvents.xml",
-        "useSharedDesignerContext.txt"
-      ]
-    },
     "System.Diagnostics.DiagnosticSource/9.0.10": {
       "sha512": "uIpKiKp7EWlYZBK71jYP+maGYjDY9YTi/FxBlZoqDzM1ZHZB7gLqUm4jHvRFwaKfR1/Lrt2rQih9LGPIKyNEow==",
       "type": "package",
@@ -716,51 +604,10 @@
         "system.diagnostics.diagnosticsource.nuspec",
         "useSharedDesignerContext.txt"
       ]
-    },
-    "System.Drawing.Common/8.0.15": {
-      "sha512": "qe9ADU4LlSDEluFw6UCvnhUX43iu1rfIi4u3cpQ37DjFDbwyWGRrDM5gypYj1IQuAVRnMHqOyFbCjtCvijN2cA==",
-      "type": "package",
-      "path": "system.drawing.common/8.0.15",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "Icon.png",
-        "LICENSE.TXT",
-        "THIRD-PARTY-NOTICES.TXT",
-        "buildTransitive/net461/System.Drawing.Common.targets",
-        "buildTransitive/net462/_._",
-        "buildTransitive/net6.0/_._",
-        "buildTransitive/netcoreapp2.0/System.Drawing.Common.targets",
-        "lib/MonoAndroid10/_._",
-        "lib/MonoTouch10/_._",
-        "lib/net462/System.Drawing.Common.dll",
-        "lib/net462/System.Drawing.Common.pdb",
-        "lib/net462/System.Drawing.Common.xml",
-        "lib/net6.0/System.Drawing.Common.dll",
-        "lib/net6.0/System.Drawing.Common.pdb",
-        "lib/net6.0/System.Drawing.Common.xml",
-        "lib/net7.0/System.Drawing.Common.dll",
-        "lib/net7.0/System.Drawing.Common.pdb",
-        "lib/net7.0/System.Drawing.Common.xml",
-        "lib/net8.0/System.Drawing.Common.dll",
-        "lib/net8.0/System.Drawing.Common.pdb",
-        "lib/net8.0/System.Drawing.Common.xml",
-        "lib/netstandard2.0/System.Drawing.Common.dll",
-        "lib/netstandard2.0/System.Drawing.Common.pdb",
-        "lib/netstandard2.0/System.Drawing.Common.xml",
-        "lib/xamarinios10/_._",
-        "lib/xamarinmac20/_._",
-        "lib/xamarintvos10/_._",
-        "lib/xamarinwatchos10/_._",
-        "system.drawing.common.8.0.15.nupkg.sha512",
-        "system.drawing.common.nuspec",
-        "useSharedDesignerContext.txt"
-      ]
     }
   },
   "projectFileDependencyGroups": {
     "net8.0-windows7.0": [
-      "DevExpress.Data >= 25.1.6",
       "FirebirdSql.Data.FirebirdClient >= 10.3.3",
       "Microsoft.EntityFrameworkCore >= 9.0.10"
     ]
@@ -815,10 +662,6 @@
       "net8.0-windows7.0": {
         "targetAlias": "net8.0-windows",
         "dependencies": {
-          "DevExpress.Data": {
-            "target": "Package",
-            "version": "[25.1.6, )"
-          },
           "FirebirdSql.Data.FirebirdClient": {
             "target": "Package",
             "version": "[10.3.3, )"
