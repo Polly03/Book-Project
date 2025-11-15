@@ -179,6 +179,8 @@ namespace BookDatabase
             {
 
                 SelectCards();
+                OnPropertyChanged(nameof(AuthorCards));
+   
             };
 
             win.ShowDialog();
