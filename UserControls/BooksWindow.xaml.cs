@@ -146,7 +146,7 @@ namespace BookDatabase
         }
 
         // getting data from database and filling filter by name
-        private ObservableCollection<FilterOption> FillCheckBoxes(string txt)
+        private ObservableCollection<FilterOption> FillCheckBoxes (string txt)
         {
             ObservableCollection<FilterOption> filters = new ObservableCollection<FilterOption>();
             List<GeneralModel> list = db.SelectNameByTableName(txt);
@@ -255,8 +255,16 @@ namespace BookDatabase
         private void AddBookButton(object sender, RoutedEventArgs e)
         {
             AddBookForm win = new AddBookForm();
-            win.ShowDialog();
-        }
+
+			win.Closed += (s, eArgs) =>
+			{
+			
+				SelectCards();
+                OnPropertyChanged(nameof(BookCards));
+			};
+
+			win.ShowDialog();
+		}
 
         // click method for redirect to authorsWindow
         private void OpenAuthors(object sender, RoutedEventArgs e)

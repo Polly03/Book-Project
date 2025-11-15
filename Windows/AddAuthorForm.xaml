@@ -23,8 +23,8 @@
             <RowDefinition Height="Auto" MinHeight="120"/>
         </Grid.RowDefinitions>
 
-        <Button Grid.Row="0" Grid.Column="0" FontSize="32" Click="Return" HorizontalAlignment="Left" Width="200" Margin="0,0,0,20">Zrušit</Button>
-        <Button Grid.Row="0" Grid.Column="1" FontSize="32" HorizontalAlignment="Right" Width="200" Margin="0,0,0,20" x:Name="AcceptButton" Click="Accept">Potvrdit</Button>
+        <Button Grid.Row="0" Grid.Column="0" FontSize="32" Cursor="Hand" Click="Return" HorizontalAlignment="Left" Width="200" Margin="0,0,0,20">Zrušit</Button>
+        <Button Grid.Row="0" Grid.Column="1" FontSize="32" HorizontalAlignment="Right" Width="200" Margin="0,0,0,20" x:Name="AcceptButton" Cursor="Hand" Click="Accept">Potvrdit</Button>
 
         <TextBlock Grid.Row="1" Grid.Column="0" FontSize="20" VerticalAlignment="Center">Zadejte jméno autora</TextBlock>
         <TextBox Grid.Row="1" Grid.Column="1" FontSize="20" MaxLength="64" x:Name="NameOfAuthor"/>

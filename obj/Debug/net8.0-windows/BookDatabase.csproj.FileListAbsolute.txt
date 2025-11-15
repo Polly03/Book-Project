@@ -98,3 +98,7 @@ C:\Users\polasekj\source\repos\Book-Project\BookDatabase\BookDatabase\obj\Debug\
 C:\Users\polasekj\source\repos\Book-Project\BookDatabase\BookDatabase\obj\Debug\net8.0-windows\Details\BookDetail.baml
 C:\Users\polasekj\source\repos\Book-Project\BookDatabase\BookDatabase\obj\Debug\net8.0-windows\Details\AuthorDetail.g.cs
 C:\Users\polasekj\source\repos\Book-Project\BookDatabase\BookDatabase\obj\Debug\net8.0-windows\Details\AuthorDetail.baml
+C:\Users\jakpo\Desktop\prace\Book-Project\obj\Debug\net8.0-windows\Details\AuthorDetail.g.cs
+C:\Users\jakpo\Desktop\prace\Book-Project\obj\Debug\net8.0-windows\Details\BookDetail.g.cs
+C:\Users\jakpo\Desktop\prace\Book-Project\obj\Debug\net8.0-windows\Details\AuthorDetail.baml
+C:\Users\jakpo\Desktop\prace\Book-Project\obj\Debug\net8.0-windows\Details\BookDetail.baml

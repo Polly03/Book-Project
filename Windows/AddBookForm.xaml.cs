@@ -1,8 +1,10 @@
 ﻿using BookDatabase.Models;
 using BookDatabase.Windows;
 using Microsoft.Win32;
+using System.ComponentModel;
 using System.Drawing;
 using System.IO;
+using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Input;
@@ -12,7 +14,7 @@ using System.Windows.Media.Imaging;
 namespace BookDatabase
 {
 
-    public partial class AddBookForm : Window
+    public partial class AddBookForm : Window, INotifyPropertyChanged
     {
         public List<GeneralModel> Authors { get; set; }
         public List<GeneralModel> Genres { get; set; }
@@ -30,11 +32,11 @@ namespace BookDatabase
 
             DataContext = this;
 
-            Authors = GetProperties("Authors");
-            Genres = GetProperties("Genres");
-            Languages = GetProperties("Languages");
-            Publishers = GetProperties("Publishers");
-            Types = GetProperties("BOOKTYPES");
+            Authors = db.SelectNameByTableName("Authors");
+            Genres = db.SelectNameByTableName("Genres");
+            Languages = db.SelectNameByTableName("Languages");
+            Publishers = db.SelectNameByTableName("Publishers");
+            Types = db.SelectNameByTableName("BOOKTYPES");
 
             if (func == "edit")
             {
@@ -124,19 +126,6 @@ namespace BookDatabase
                 }
             }
             return 0;
-        }
-
-        private List<GeneralModel> GetProperties(string name)
-        {
-            List<GeneralModel> list = new List<GeneralModel>();
-            List<GeneralModel> lists = db.SelectNameByTableName(name);
-            foreach (GeneralModel item in lists)
-            {
-                list.Add(item);
-            }
-
-            return list;
-
         }
 
         private void Length_PreviewTextInput(object sender, TextCompositionEventArgs e)
@@ -282,14 +271,23 @@ namespace BookDatabase
         private void AddAuthorButton(object sender, RoutedEventArgs e)
         {
             AddAuthorForm win = new AddAuthorForm("Book");
+
+            win.Closed += (s, eArgs) =>
+            {
+
+                Authors = db.SelectNameByTableName("Authors");
+                OnPropertyChanged(nameof(Authors));
+            };
+
             win.ShowDialog();
-            win.AuthorAdded += ResetAuthors;
 
         }
-        private void ResetAuthors()
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+        protected void OnPropertyChanged([CallerMemberName] string? propertyName = null)
         {
-            Authors.Clear();
-            Authors = GetProperties("Authors");
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
     }
 }

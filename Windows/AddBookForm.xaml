@@ -55,9 +55,9 @@
                 <RowDefinition Height="Auto" MinHeight="80"/>
             </Grid.RowDefinitions>
 
-            <Button Grid.Row="0" Grid.Column="0" FontSize="32" Click="Return" Margin="0,0,250,60">Zrušit</Button>
-            <Button Grid.Row="0" Grid.Column="1" FontSize="32" Margin="250,0,0,60" x:Name="AddEditButton" Click="ControlBeforeSave">Potvrdit</Button>
-            <Button Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" FontSize="25" Margin="350,0,350,70" Click="AddAuthorButton">Přidat nového autora</Button>
+            <Button Grid.Row="0" Grid.Column="0" FontSize="32" Cursor="Hand" Click="Return" Margin="0,0,250,60">Zrušit</Button>
+            <Button Grid.Row="0" Grid.Column="1" FontSize="32" Margin="250,0,0,60" x:Name="AddEditButton" Cursor="Hand" Click="ControlBeforeSave">Potvrdit</Button>
+            <Button Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" FontSize="25" Margin="350,0,350,70" Cursor="Hand" Click="AddAuthorButton">Přidat nového autora</Button>
 
             <TextBlock Grid.Row="1" Grid.Column="0">Vybrat Autora</TextBlock>
             <ComboBox Grid.Row="1" Grid.Column="1" FontSize="22" ItemsSource="{Binding Authors}" x:Name="AuthorsBox">
@@ -122,7 +122,7 @@
             <TextBlock Grid.Row="11" Grid.Column="0">Popis Knihy</TextBlock>
             <TextBox Grid.Row="11" Grid.Column="1" TextWrapping="Wrap"  x:Name="DescriptionBox"/>
 
-            <Button Grid.Row="12" Grid.Column="0" FontSize="32" Margin="250,0,50,20" Click="ChoosePhoto">Vybrat fotku</Button>
+            <Button Grid.Row="12" Grid.Column="0" FontSize="32" Margin="250,0,50,20" Cursor="Hand" Click="ChoosePhoto">Vybrat fotku</Button>
             <TextBox Grid.Row="12" Grid.Column="1" IsReadOnly="True" x:Name="PhotoBox"/>
         </Grid>
     </ScrollViewer>

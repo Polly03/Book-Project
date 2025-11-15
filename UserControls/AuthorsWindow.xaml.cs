@@ -175,6 +175,12 @@ namespace BookDatabase
         private void AddAuthor(object sender, RoutedEventArgs e)
         {
             AddAuthorForm win = new AddAuthorForm("Author");
+            win.Closed += (s, eArgs) =>
+            {
+
+                SelectCards();
+            };
+
             win.ShowDialog();
         }
 

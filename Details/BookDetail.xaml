@@ -18,9 +18,9 @@
             <TextBlock FontSize="20" TextWrapping="Wrap" x:Name="RatingBox">Tady Bude zhodnocení</TextBlock>
         </ScrollViewer>
        
-        <Button Margin="28,634,1078,34" Click="BackToBooksWindow">ZPĚT</Button>
-        <Button Margin="202,634,904,34" Click="EditBook">EDIT</Button>
-        <Button Margin="786,634,320,34" Click="DeleteBook">DELETE</Button>
+        <Button Margin="28,634,1078,34" Cursor="Hand" Click="BackToBooksWindow">ZPĚT</Button>
+        <Button Margin="202,634,904,34" Cursor="Hand" Click="EditBook">EDIT</Button>
+        <Button Margin="786,634,320,34" Cursor="Hand" Click="DeleteBook">DELETE</Button>
 
 
 

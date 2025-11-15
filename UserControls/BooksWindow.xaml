@@ -10,13 +10,13 @@
     <Grid>
         <!-- Main Control menu-->
         <Button Margin="0,0,1055,641" Width="225" FontSize="32" IsEnabled="false">Knihy</Button>
-        <Button Margin="225,0,830,641" Width="225" FontSize="32" Click="OpenAuthors">Autoři</Button>
-        <Button Margin="131,92,965,569" FontSize="32" Click="AddBookButton" >
+        <Button Margin="225,0,830,641" Width="225" FontSize="32" Cursor="Hand" Click="OpenAuthors">Autoři</Button>
+        <Button Margin="131,92,965,569" FontSize="32" Cursor="Hand" Click="AddBookButton" >
             Přidat
         </Button>
 
 
-        <Button Margin="515,10,572,647" FontSize="25" Click="StartSearchBook">Vyhledat</Button>
+        <Button Margin="515,10,572,647" FontSize="25" Cursor="Hand" Click="StartSearchBook">Vyhledat</Button>
         <TextBox Margin="515,92,572,595" FontSize="20" x:Name="searchBar"></TextBox>
         <!-- Ordering element for book cards -->
         <TextBlock VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="25" Margin="766,26,0,0">Seřadit podle:</TextBlock>
@@ -34,7 +34,7 @@
                 <StackPanel Margin="0,0,0,25">
 
                     <StackPanel>
-                        <Button Click="DeleteFilters">Smazat všechny filtry</Button>
+                        <Button Cursor="Hand" Click="DeleteFilters">Smazat všechny filtry</Button>
                     </StackPanel>
 
                     <StackPanel Margin="0,0,0,20">
@@ -45,7 +45,7 @@
                             <ItemsControl ItemsSource="{Binding AuthorsFilter}">
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
-                                        <CheckBox Content="{Binding Name}" IsChecked="{Binding IsSelected, Mode=TwoWay}" Margin="0,2"/>
+                                        <CheckBox Cursor="Hand"  Content="{Binding Name}" IsChecked="{Binding IsSelected, Mode=TwoWay}" Margin="0,2"/>
                                     </DataTemplate>
                                 </ItemsControl.ItemTemplate>
                             </ItemsControl>
@@ -61,7 +61,7 @@
                             <ItemsControl ItemsSource="{Binding GenresFilter}">
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
-                                        <CheckBox Content="{Binding Name}" IsChecked="{Binding IsSelected, Mode=TwoWay}" Margin="0,2"/>
+                                        <CheckBox Cursor="Hand"  Content="{Binding Name}" IsChecked="{Binding IsSelected, Mode=TwoWay}" Margin="0,2"/>
                                     </DataTemplate>
                                 </ItemsControl.ItemTemplate>
                             </ItemsControl>
@@ -76,7 +76,7 @@
                             <ItemsControl ItemsSource="{Binding LanguagesFilter}">
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
-                                        <CheckBox Content="{Binding Name}" IsChecked="{Binding IsSelected, Mode=TwoWay}" Margin="0,2"/>
+                                        <CheckBox Cursor="Hand"  Content="{Binding Name}" IsChecked="{Binding IsSelected, Mode=TwoWay}" Margin="0,2"/>
                                     </DataTemplate>
                                 </ItemsControl.ItemTemplate>
                             </ItemsControl>
@@ -91,7 +91,7 @@
                             <ItemsControl ItemsSource="{Binding PublishersFilters}">
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
-                                        <CheckBox Content="{Binding Name}" IsChecked="{Binding IsSelected, Mode=TwoWay}" Margin="0,2"/>
+                                        <CheckBox Cursor="Hand"  Content="{Binding Name}" IsChecked="{Binding IsSelected, Mode=TwoWay}" Margin="0,2"/>
                                     </DataTemplate>
                                 </ItemsControl.ItemTemplate>
                             </ItemsControl>

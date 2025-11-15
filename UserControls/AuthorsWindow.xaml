@@ -8,14 +8,14 @@
           Height="720" Width="1280">
 
     <Grid>
-        <Button Margin="0,0,1055,641" Width="225" FontSize="32" Click="OpenBooks">Knihy</Button>
+        <Button Margin="0,0,1055,641" Width="225" FontSize="32" Cursor="Hand" Click="OpenBooks">Knihy</Button>
         <Button Margin="225,-1,830,642" Width="225" FontSize="32" IsEnabled="False">Autoři</Button>
-        <Button Margin="131,92,965,569" FontSize="32" Click="AddAuthor" >
+        <Button Margin="131,92,965,569" FontSize="32" Cursor="Hand" Click="AddAuthor" >
             Přidat
         </Button>
 
 
-        <Button Margin="515,10,572,647" FontSize="25" Click="StartSearchAuthor">Vyhledat</Button>
+        <Button Margin="515,10,572,647" FontSize="25" Cursor="Hand" Click="StartSearchAuthor">Vyhledat</Button>
         <TextBox Margin="515,92,572,595" FontSize="20" x:Name="SearchBar"></TextBox>
 
         <TextBlock VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="25" Margin="766,26,0,0">Seřadit podle:</TextBlock>
@@ -35,7 +35,7 @@
                 <ItemsControl ItemsSource="{Binding FilteredCountries}" Margin="0,0,0,20">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <CheckBox Content="{Binding Name}" IsChecked="{Binding IsSelected, Mode=TwoWay}" Margin="0,2"/>
+                            <CheckBox Cursor="Hand"  Content="{Binding Name}" IsChecked="{Binding IsSelected, Mode=TwoWay}" Margin="0,2"/>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
