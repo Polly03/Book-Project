@@ -4,6 +4,6 @@
              xmlns:local="clr-namespace:BookDatabase"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-
+       
     </Application.Resources>
 </Application>

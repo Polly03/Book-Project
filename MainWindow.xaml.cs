@@ -11,9 +11,12 @@ namespace BookDatabase
         {
             InitializeComponent();
 
-            SetupDatabase();
+            //SetupDatabase();
 
-            Main.Content = new BooksWindow();
+            //Main.Content = new BooksWindow();
+
+            test win = new test();
+            win.Show();
         }
 
         // executing bat file to setup database
