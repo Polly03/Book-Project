@@ -11,19 +11,21 @@ namespace BookDatabase
 
     public partial class CardViewAuthor : UserControl
     {
+
+
         public CardViewAuthor()
         {
             InitializeComponent();
         }
 
         // properties for working card when used as element in other xaml
-        public static readonly DependencyProperty NameOfProperty =
-            DependencyProperty.Register("NameOf", typeof(string), typeof(CardViewAuthor), new PropertyMetadata(""));
+        public static readonly DependencyProperty AuthorNameProperty =
+            DependencyProperty.Register("AuthorName", typeof(string), typeof(CardViewAuthor), new PropertyMetadata(""));
 
-        public string NameOf
+        public string AuthorName
         {
-            get => (string)GetValue(NameOfProperty);
-            set => SetValue(NameOfProperty, value);
+            get => (string)GetValue(AuthorNameProperty);
+            set => SetValue(AuthorNameProperty, value);
         }
 
         public static readonly DependencyProperty DateOfBirthProperty =
@@ -48,10 +50,10 @@ namespace BookDatabase
         {
             if (sender is FrameworkElement fe && fe.DataContext != null)
             {
-                var author = fe.DataContext as Authors;
+                var author = fe.DataContext as Author;
                 if (author != null)
                 {
-                    ((MainWindow)Application.Current.MainWindow).Main.Content = new AuthorDetail(author.NameOf);
+                    ((MainWindow)Application.Current.MainWindow).Main.Content = new AuthorDetail(author.Name);
                 }
             }
         }

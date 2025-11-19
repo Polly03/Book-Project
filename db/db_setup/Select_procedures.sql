@@ -34,7 +34,7 @@ SET TERM ^ ;
 
 -- selecting authors which are in filtes selected
 
-create or alter procedure SELECT_AUTHORS_WITH_FILTERS (
+create or alter procedure SELECT_AUTHOR_WITH_FILTERS (
     COUNTRIES_LIST varchar(800))
 returns (
     SURNAME varchar(64),

@@ -9,30 +9,29 @@ using System.Windows.Input;
 
 namespace BookDatabase
 {
-
+    // class for showing and filtering books
     public partial class BooksWindow : UserControl, INotifyPropertyChanged
     {
-    // class for showing and filtering books
+       
 
+        // class for working with database    
         Database db = Database.Instance;
-        // class for working with database
-
+        
         // collection for BookCards
-        public ObservableCollection<BooksData> BookCards { get; set; }
+        public ObservableCollection<Book> BookCards { get; set; }
 
 
-        // properties for setting, getting and updating automaticly filters for book cards AUTHORS
-        public ObservableCollection<FilterOption> AuthorsFilter { get; set; }
-        private string fSearchAuthorsFilter = string.Empty;
-        public string SearchAuthorsFilter
+        // properties for setting, getting and updating automaticly filters for book cards Author
+        public ObservableCollection<FilterOption> AuthorFilter { get; set; }
+        private string fSearchAuthorFilter = string.Empty;
+        public string SearchAuthorFilter
         {
-            get => fSearchAuthorsFilter;
+            get => fSearchAuthorFilter;
             set
             {
-                fSearchAuthorsFilter = value;
-                AuthorsFilter.Clear();
-                AuthorsFilter = filter("Authors", value);
-                OnPropertyChanged(nameof(AuthorsFilter));
+                fSearchAuthorFilter = value;
+                AuthorFilter = SelectFiltersByname("Authors", value);
+                OnPropertyChanged(nameof(AuthorFilter));
             }
         }
 
@@ -47,8 +46,7 @@ namespace BookDatabase
             set
             {
                 fSearchGenresFilter = value;
-                GenresFilter.Clear();
-                GenresFilter = filter("Genres", value);
+                GenresFilter = SelectFiltersByname("Genres", value);
                 OnPropertyChanged(nameof(GenresFilter));
             }
         }
@@ -64,14 +62,10 @@ namespace BookDatabase
             set
             {
                 fSearchGenresFilter = value;
-                LanguagesFilter.Clear();
-                LanguagesFilter = filter("Languages", value);
+                LanguagesFilter = SelectFiltersByname("Languages", value);
                 OnPropertyChanged(nameof(LanguagesFilter));
             }
         }
-
-
-
 
         // properties for setting, getting and updating automaticly filters for book cards PUBLISHERS
         public ObservableCollection<FilterOption> PublishersFilters { get; set; }
@@ -82,21 +76,22 @@ namespace BookDatabase
             set
             {
                 fSearchGenresFilter = value;
-                PublishersFilters.Clear();
-                PublishersFilters = filter("Publishers", value);
+                PublishersFilters = SelectFiltersByname("Publishers", value);
                 OnPropertyChanged(nameof(PublishersFilters));
             }
         }
 
 
         // method for selecting only filters in substring
-        private ObservableCollection<FilterOption> filter(string table, string txt)
+        private ObservableCollection<FilterOption> SelectFiltersByname(string table, string txt)
         {
-            return new ObservableCollection<FilterOption>(
-                db.SelectNameByTableName(table).Where(elem => elem.Name.ToLower().Contains(txt.ToLower()))
-                                               .Select(elem => new FilterOption { Name = elem.Name })
-            );
+            ObservableCollection <FilterOption> list = new ObservableCollection<FilterOption>(
+                    db.SelectNameByTableName(table).Where(elem => elem.Name.ToLower().Contains(txt.ToLower()))
+                                               .Select(elem => new FilterOption { Name = elem.Name }));
+
+            return SetPropertyChange(list);
         }
+
 
         // evennt method for reacting on changed property
         public event PropertyChangedEventHandler? PropertyChanged;
@@ -113,25 +108,12 @@ namespace BookDatabase
             DataContext = this;
             SelectCards();
 
-
-            AuthorsFilter = FillCheckBoxes("Authors");
-            GenresFilter = FillCheckBoxes("Genres");
-            LanguagesFilter = FillCheckBoxes("Languages");
-            PublishersFilters = FillCheckBoxes("Publishers");
-
-            AuthorsFilter = new ObservableCollection<FilterOption>(AuthorsFilter);
-            GenresFilter = new ObservableCollection<FilterOption>(GenresFilter);
-            LanguagesFilter = new ObservableCollection<FilterOption>(LanguagesFilter);
-            PublishersFilters = new ObservableCollection<FilterOption>(PublishersFilters);
-            // filling properties
-
+            // filling filters
+            AuthorFilter = SelectFiltersByname("Authors", "");
+            GenresFilter = SelectFiltersByname("Genres", "");
+            LanguagesFilter = SelectFiltersByname("Languages", "");
+            PublishersFilters = SelectFiltersByname("Publishers", "");
             
-
-            AuthorsFilter = SetPropertyChange(AuthorsFilter);
-            PublishersFilters = SetPropertyChange(PublishersFilters);
-            GenresFilter = SetPropertyChange(GenresFilter);
-            LanguagesFilter = SetPropertyChange(LanguagesFilter);
-            // adding event method when filter is checked or unchecked
 
         }
 
@@ -145,23 +127,7 @@ namespace BookDatabase
             return list;
         }
 
-        // getting data from database and filling filter by name
-        private ObservableCollection<FilterOption> FillCheckBoxes (string txt)
-        {
-            ObservableCollection<FilterOption> filters = new ObservableCollection<FilterOption>();
-            List<GeneralModel> list = db.SelectNameByTableName(txt);
-
-            foreach (GeneralModel elem in list)
-            {
-                FilterOption option = new FilterOption();
-                option.Name = elem.Name;
-                filters.Add(option);
-            }
-
-            return filters;
-        }
-
-        private void FillItems(List<BooksData> list)
+        private void FillItems(List<Book> list)
         {
             BookCards.Clear();
             foreach (var elem in list)
@@ -173,22 +139,20 @@ namespace BookDatabase
         // start method for showing all books or refresh books
         private void SelectCards()
         {
-            BookCards = new ObservableCollection<BooksData>();
-            List<BooksData> list = db.SelectAllBooks();
+            BookCards = new ObservableCollection<Book>();
+            List<Book> list = db.SelectAllBooks();
 
-           FillItems(list);
+           FillItems(list); 
         }
-
-        // decoding byte[] data of image to BitmapImage to show it in Cards
         
 
         // Method for reseting filters
         private void DeleteFilters(object sender, RoutedEventArgs e)
         {
-            DelFilters(AuthorsFilter);
+            DelFilters(AuthorFilter);
             DelFilters(GenresFilter);
             DelFilters(PublishersFilters);
-            DelFilters(AuthorsFilter);
+            DelFilters(LanguagesFilter);
         }
 
         private void DelFilters(ObservableCollection<FilterOption> list)
@@ -202,12 +166,12 @@ namespace BookDatabase
         // Method called when someone check the filter
         private void ApplyFilter()
         {
-            var authors = DoFilter(AuthorsFilter);
+            var Author = DoFilter(AuthorFilter);
             var genre = DoFilter(GenresFilter);
             var languages = DoFilter(LanguagesFilter);
             var publishers = DoFilter(PublishersFilters);
 
-            List<BooksData> list = db.SelectBooksByFilters(authors, genre, languages, publishers);
+            List<Book> list = db.SelectBooksByFilters(Author, genre, languages, publishers);
 
             FillItems(list);
         }
@@ -240,14 +204,14 @@ namespace BookDatabase
             else if (s == "LENdsc") { column = "books.length"; way = "desc"; }
 
 
-            List<BooksData> list = db.OrderBooks(column, way);
+            List<Book> list = db.OrderBooks(column, way);
             FillItems(list);
         }
 
         // click method for button which start searching if substring in searchbar is in some book names or author names
         private void StartSearchBook(object sender, EventArgs e)
         {
-            List<BooksData> list = db.SelectBooksWithSearch(searchBar.Text);
+            List<Book> list = db.SelectBooksWithSearch(searchBar.Text);
             FillItems(list);
         }
 
@@ -258,7 +222,6 @@ namespace BookDatabase
 
 			win.Closed += (s, eArgs) =>
 			{
-			
 				SelectCards();
                 OnPropertyChanged(nameof(BookCards));
 			};
@@ -266,10 +229,10 @@ namespace BookDatabase
 			win.ShowDialog();
 		}
 
-        // click method for redirect to authorsWindow
-        private void OpenAuthors(object sender, RoutedEventArgs e)
+        // click method for redirect to AuthorWindow
+        private void OpenAuthor(object sender, RoutedEventArgs e)
         {
-            ((MainWindow)Application.Current.MainWindow).Main.Content = new AuthorsWindow();
+            ((MainWindow)Application.Current.MainWindow).Main.Content = new AuthorWindow();
         }
     }
 

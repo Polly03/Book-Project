@@ -9,7 +9,7 @@ namespace BookDatabase.Models
     {
         public string? Name { get; set; }
 
-        private bool _isSelected;
+        private bool _isSelected;  //JR: mela jsem dojem, ze jsem uz nekde videla pouziti prefixu "f" pro privatni promenne, bylo by fajn to mit vsude sjednocenne a nemit nekde novy a nekde stary styl... je to maly projekt. 
         public bool IsSelected
         {
             get => _isSelected;

@@ -13,15 +13,15 @@ namespace BookDatabase.Details
     /// </summary>
     public partial class AuthorDetail : UserControl
     {
-        private Database db = Database.Instance;
+        private Database db = Database.Instance; 
 
         // Property for keeping the selected author and its details
-        public Authors SelectedAuthor {  get; set; }
+        public Author Author {  get; set; }  
 
-        // from BooksWindow or Authors window i am getting name of author i clicked on
-        public AuthorDetail(string AuthorNameFull)
+        // from BooksWindow or Author window i am getting name of author i clicked on
+        public AuthorDetail(string AuthorNameFull)  //JR: zde by bylo vhodne predavat rovnou entitu Autora, tj instanci tridy Author, ne jen jeho jmeno a tady si to znovu selektovat z databaze 
         {
-            SelectedAuthor = db.SelectAuthor(AuthorNameFull);
+            Author = db.SelectAuthor(AuthorNameFull);
             InitializeComponent();
             DataContext = this;
             ShowAuthor();
@@ -31,26 +31,26 @@ namespace BookDatabase.Details
         // method for puting selected author to the gui
         private void ShowAuthor()
         {
-            AuthorName.Text = SelectedAuthor.NameOf;
-            AuthorCountry.Text = SelectedAuthor.Country;
-            AuthorDateOfBirth.Text = SelectedAuthor.DateOfBirth;
-            AboutAuthor.Text = SelectedAuthor.AboutAuthor;
+            AuthorName.Text = Author.Name;
+            AuthorCountry.Text = Author.Country;
+            AuthorDateOfBirth.Text = Author.DateOfBirth;
+            AboutAuthor.Text = Author.AboutAuthor;
         }
 
         // return from details to book selection
         private void Return(object sender, RoutedEventArgs e)
         {
-            ((MainWindow)Application.Current.MainWindow).Main.Content = new AuthorsWindow();
+            ((MainWindow)Application.Current.MainWindow).Main.Content = new AuthorWindow();
         }
 
-        // opening AuthorForm adjusted for editing author and also letting know about this this window for updating its selectedAuthor
+        // opening AuthorForm adjusted for editing author and also letting know about this this window for updating its Author
         private void EditAuthor(object sender, RoutedEventArgs e)
         {
-            AddAuthorForm win = new AddAuthorForm("authorD", "edit", SelectedAuthor);
+            AddAuthorForm win = new AddAuthorForm("authorD", "edit", Author);
 
             win.Closed += (s, eArgs) =>
             {
-                SelectedAuthor = db.SelectAuthor(win.EditedAuthor.NameOf);
+                Author = db.SelectAuthor(win.EditedAuthor.Name);
                 ShowAuthor();
             };
 
@@ -69,7 +69,7 @@ namespace BookDatabase.Details
 
             if (result == MessageBoxResult.Yes)
             {
-                int i = db.DeleteAuthor(SelectedAuthor.NameOf);
+                int i = db.DeleteAuthor(Author.Name);
                 if (i == 1)
                 {
                     MessageBox.Show("Autor má v aplikaci knihu, nemuže být smazán");
@@ -77,7 +77,7 @@ namespace BookDatabase.Details
                 else
                 {
                     MessageBox.Show("Autor smazán");
-                    ((MainWindow)Application.Current.MainWindow).Main.Content = new AuthorsWindow();
+                    ((MainWindow)Application.Current.MainWindow).Main.Content = new AuthorWindow();
                 }
 
             }

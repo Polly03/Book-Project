@@ -1,7 +1,9 @@
 ﻿using BookDatabase.Models;
 using FirebirdSql.Data.FirebirdClient;
 using System.IO;
+using System.Windows;
 using System.Windows.Media.Imaging;
+using System.Xml.Linq;
 
 
 
@@ -37,24 +39,24 @@ namespace BookDatabase
         }
 
         // Methods for selecting procedures in SQL
-        public List<Authors> SelectAllAuthors()
+        public List<Author> SelectAllAuthor()
         {
             return SelectAuthorWithSearch("");
         }
 
-        public List<BooksData> SelectAllBooks()
+        public List<Book> SelectAllBooks()
         {
             return SelectBooksWithSearch("");
         }
 
-        public List<BooksData> SelectBooksByFilters(string? author, string? genres, string? languages, string? publishers)
+        public List<Book> SelectBooksByFilters(string? author, string? genres, string? languages, string? publishers)
         {
 
             using (FbConnection con = new FbConnection(connString))
             {
                 con.Open();
 
-                using (var cmd = new FbCommand("select * from select_books_with_filters(@Author_list, @Genre_list, @Language_list, @Publishing_house_list)", con))
+                using (var cmd = new FbCommand("select * from select_Books_with_filters(@Author_list, @Genre_list, @Language_list, @Publishing_house_list)", con))
                 {
                     cmd.Parameters.AddWithValue("@Author_list", (object?)author ?? DBNull.Value);
                     cmd.Parameters.AddWithValue("@Genre_list", (object?)genres ?? DBNull.Value);
@@ -63,17 +65,24 @@ namespace BookDatabase
 
                     using (var reader = cmd.ExecuteReader())
                     {
-                        List<BooksData> list = new List<BooksData> { };
+                        List<Book> list = new List<Book> { };
 
                         while (reader.Read())
                         {
                             var photo = reader["Photo"];
                             byte[]? photoByte = photo as byte[];
                             var names = (string)reader["Name"];
-                            var authors = (string)reader["Fullname"];
+                            var Author = (string)reader["Fullname"];
                             var genre = (string)reader["Genre"];
 
-                            list.Add(new BooksData(GetBM((byte[])photo), names, authors, genre));
+                            Book book = new Book();
+                            book.Author = Author;
+                            book.Name = names;
+                            book.Genre = genre;
+                            book.Image = GetBM((byte[])photoByte);
+
+                            list.Add(book);
+
 
                         }
                         con.Close();
@@ -106,21 +115,21 @@ namespace BookDatabase
             }
         }
 
-        public List<Authors> SelectAuthorsByFilters(string? Countries)
+        public List<Author> SelectAuthorByFilters(string? Countries)
         {
 
             using (FbConnection con = new FbConnection(connString))
             {
                 con.Open();
 
-                using (var cmd = new FbCommand("select * from select_authors_with_filters(@Countries_list)", con))
+                using (var cmd = new FbCommand("select * from select_Author_with_filters(@Countries_list)", con))
                 {
 
                     cmd.Parameters.AddWithValue("@Countries_list", (object?)Countries ?? DBNull.Value);
 
                     using (var reader = cmd.ExecuteReader())
                     {
-                        List<Authors> list = new List<Authors>();
+                        List<Author> list = new List<Author>();
 
                         while (reader.Read())
                         {
@@ -129,7 +138,9 @@ namespace BookDatabase
                             var dateOfBirthT = (DateTime)reader["DateOfBirth"];
                             var countryT = (string)reader["Country"];
 
-                            list.Add(new Authors(nameT + " " + surnameT, dateOfBirthT.ToString(), countryT));
+                       
+
+                            list.Add(new Author(nameT + " " + surnameT, dateOfBirthT.ToString(), countryT));
 
                         }
 
@@ -139,30 +150,36 @@ namespace BookDatabase
             }
         }
 
-        public List<BooksData> SelectBooksWithSearch(string search)
+        public List<Book> SelectBooksWithSearch(string search)
         {
             using (FbConnection con = new FbConnection(connString))
             {
                 con.Open();
 
-                using (var cmd = new FbCommand("select * from select_book_with_search(@search)", con))
+                using (var cmd = new FbCommand("select * from select_Book_with_search(@search)", con))
                 {
                     cmd.Parameters.AddWithValue("@search", (object?)search ?? DBNull.Value);
 
                     using (var reader = cmd.ExecuteReader())
                     {
-                        List<BooksData> list = new List<BooksData> { };
+                        List<Book> list = new List<Book> { };
 
                         while (reader.Read())
                         {
                             var photo = reader["Photo"];
                             byte[]? photoByte = photo as byte[];
                             var names = (string)reader["Name"];
-                            var authors = (string)reader["Fullname"];
+                            var Author = (string)reader["Fullname"];
                             var genre = (string)reader["Genre"];
 
 
-                            list.Add(new BooksData(GetBM((byte[])photo), names, authors, genre));
+                            Book book = new Book();
+                            book.Author = Author;
+                            book.Name = names;
+                            book.Genre = genre;
+                            book.Image = GetBM((byte[])photoByte);
+
+                            list.Add(book);
 
 
                         }
@@ -173,7 +190,7 @@ namespace BookDatabase
             }
         }
 
-        public List<Authors> SelectAuthorWithSearch(string search)
+        public List<Author> SelectAuthorWithSearch(string search)
         {
             using (FbConnection con = new FbConnection(connString))
             {
@@ -185,7 +202,7 @@ namespace BookDatabase
 
                     using (var reader = cmd.ExecuteReader())
                     {
-                        List<Authors> list = new List<Authors> { };
+                        List<Author> list = new List<Author> { };
                         while (reader.Read())
                         {
                             var names = (string)reader["Name"];
@@ -194,7 +211,7 @@ namespace BookDatabase
                             var dateOfBirth = (DateTime)reader["DateOfBirth"];
                             var country = (string)reader["Country"];
 
-                            list.Add(new Authors(name, dateOfBirth.ToString(), country));
+                            list.Add(new Author(name, dateOfBirth.ToString(), country));
 
                         }
                         con.Close();
@@ -211,7 +228,7 @@ namespace BookDatabase
             {
                 con.Open();
 
-                using (var cmd = new FbCommand("select * from select_book(@name)", con))
+                using (var cmd = new FbCommand("select * from select_Book(@name)", con))
                 {
                     cmd.Parameters.AddWithValue("@name", (object?)name ?? DBNull.Value);
 
@@ -219,15 +236,15 @@ namespace BookDatabase
                     {
                         while (reader.Read())
                         {
-                            Book book = new Book
+                            Book Book = new Book
                             {
                                 Id = (int)reader["Id"],
                                 Name = reader["Name"] as string,
                                 Author = reader["author"] as string,
                                 Genre = reader["Genre"] as string,
-                                Type = reader["BOOK_type"] as string,
+                                Type = reader["Book_type"] as string,
                                 Langueage = reader["language"] as string,
-                                Length = (short)reader["length_OF_BOOK"],
+                                Length = (short)reader["length_OF_Book"],
                                 Publisher = reader["publisher"] as string,
                                 Description = reader["Description"] as string,
                                 EAN = reader["ean"] as string,
@@ -235,17 +252,17 @@ namespace BookDatabase
                                 Rating = reader["rating"] as string,
                                 Image = GetBM((byte[])reader["Photo"], size)
                             };
-                            return book;
+                            return Book;
                         }
-                     
+
                     }
                 }
             }
             return null;
- 
+
         }
 
-        public Authors SelectAuthor(string authorName)
+        public Author SelectAuthor(string authorName)
         {
             using (FbConnection con = new FbConnection(connString))
             {
@@ -256,7 +273,7 @@ namespace BookDatabase
 
                     using (var reader = cmd.ExecuteReader())
                     {
-    
+
 
                         while (reader.Read())
                         {
@@ -266,39 +283,39 @@ namespace BookDatabase
                             var country = reader["Country"];
                             var aboutAuthor = reader["About_Author"];
 
-                            Authors author = new Authors((string)names, (string)dateOfBirth, (string)country);
+                            Author author = new Author((string)names, (string)dateOfBirth, (string)country);
                             author.Id = id;
                             author.AboutAuthor = (string)aboutAuthor;
                             return author;
                         }
-                  
+
                     }
                 }
             }
             return null;
         }
 
-        public List<Authors> OrderAuthors(string argument, string way)
+        public List<Author> OrderAuthor(string argument, string way)
         {
             using (FbConnection con = new FbConnection(connString))
             {
                 con.Open();
 
-                using (var cmd = new FbCommand("select * from order_Authors(@way, @argument)", con))
+                using (var cmd = new FbCommand("select * from order_Author(@way, @argument)", con))
                 {
                     cmd.Parameters.AddWithValue("@argument", (object?)argument ?? DBNull.Value);
                     cmd.Parameters.AddWithValue("@way", (object?)way ?? DBNull.Value);
 
                     using (var reader = cmd.ExecuteReader())
                     {
-                        List<Authors> list = new List<Authors>();
+                        List<Author> list = new List<Author>();
                         while (reader.Read())
                         {
                             var fullname = (string)reader["Fullname"];
                             var DateOfBirth = (DateTime)reader["DateOfBirth"];
                             var Country = (string)reader["Country"];
 
-                            list.Add(new Authors(fullname, DateOfBirth.ToString(), Country));
+                            list.Add(new Author(fullname, DateOfBirth.ToString(), Country));
                         }
                         con.Close();
                         return list;
@@ -309,20 +326,20 @@ namespace BookDatabase
             }
         }
 
-        public List<BooksData> OrderBooks(string argument, string way)
+        public List<Book> OrderBooks(string argument, string way)
         {
             using (FbConnection con = new FbConnection(connString))
             {
                 con.Open();
 
-                using (var cmd = new FbCommand("select * from order_books(@way, @argument)", con))
+                using (var cmd = new FbCommand("select * from order_Books(@way, @argument)", con))
                 {
                     cmd.Parameters.AddWithValue("@argument", (object?)argument ?? DBNull.Value);
                     cmd.Parameters.AddWithValue("@way", (object?)way ?? DBNull.Value);
 
                     using (var reader = cmd.ExecuteReader())
                     {
-                        List<BooksData> list = new List<BooksData>();
+                        List<Book> list = new List<Book>();
                         while (reader.Read())
                         {
                             var photo = reader["Photo"];
@@ -331,7 +348,13 @@ namespace BookDatabase
                             var author = (string)reader["Fullname"];
                             var genre = (string)reader["genre"];
 
-                            list.Add(new BooksData(GetBM((byte[])photo), name, author, genre));
+                            Book book = new Book();
+                            book.Author = author;
+                            book.Name = name;
+                            book.Genre = genre;
+                            book.Image = GetBM((byte[])photoByte);
+
+                            list.Add(book);
                         }
                         con.Close();
                         return list;
@@ -348,7 +371,7 @@ namespace BookDatabase
             {
                 con.Open();
 
-              
+
                 using (var cmd = new FbCommand("SELECT * FROM SELECT_NAME_BY_TABLE_NAME(@tableName)", con))
                 {
                     cmd.Parameters.AddWithValue("@tableName", (object?)tableName ?? DBNull.Value);
@@ -368,7 +391,7 @@ namespace BookDatabase
 
                 }
             }
-      
+
         }
 
         public void InsertBookOldAuthor(
@@ -382,7 +405,7 @@ namespace BookDatabase
             string? rating,
             string? description,
             string? genre,
-            string? bookName,
+            string? BookName,
             string? authorName)
         {
             string newName = authorName.Split(" ")[0];
@@ -391,13 +414,13 @@ namespace BookDatabase
             {
                 con.Open();
 
-                using (FbCommand cmd = new FbCommand("INSERT_BOOK_OLD_AUTHOR", con))
+                using (FbCommand cmd = new FbCommand("INSERT_Book_OLD_AUTHOR", con))
                 {
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
 
                     cmd.Parameters.AddWithValue("PHOTO", (object?)photo ?? DBNull.Value);
-                    cmd.Parameters.AddWithValue("TYPE_OF_BOOK", (object?)typeOfBook ?? DBNull.Value);
-                    cmd.Parameters.AddWithValue("LENGTH_OF_BOOK", (object?)lengthOfBook ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("TYPE_OF_Book", (object?)typeOfBook ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("LENGTH_OF_Book", (object?)lengthOfBook ?? DBNull.Value);
                     cmd.Parameters.AddWithValue("EAN", (object?)ean ?? DBNull.Value);
                     cmd.Parameters.AddWithValue("ISBN", (object?)isbn ?? DBNull.Value);
                     cmd.Parameters.AddWithValue("PUBLISHER", (object?)publisher ?? DBNull.Value);
@@ -405,7 +428,7 @@ namespace BookDatabase
                     cmd.Parameters.AddWithValue("RATING", (object?)rating ?? DBNull.Value);
                     cmd.Parameters.AddWithValue("DESCRIPTION", (object?)description ?? DBNull.Value);
                     cmd.Parameters.AddWithValue("GENRE", (object?)genre ?? DBNull.Value);
-                    cmd.Parameters.AddWithValue("BOOK_NAME", (object?)bookName ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("Book_NAME", (object?)BookName ?? DBNull.Value);
                     cmd.Parameters.AddWithValue("AUTHOR_NAME", (object?)newName ?? DBNull.Value);
 
                     cmd.ExecuteNonQuery();
@@ -416,7 +439,7 @@ namespace BookDatabase
         }
 
         public void UpdateBook(
-            int bookId,
+            int BookId,
             byte[] photo,
             string typeOfBook,
             short lengthOfBook,
@@ -427,21 +450,21 @@ namespace BookDatabase
             string rating,
             string description,
             string genre,
-            string bookName,
+            string BookName,
             string authorName)
         {
             using (FbConnection con = new FbConnection(connString))
             {
                 con.Open();
 
-                using (var cmd = new FbCommand("execute procedure UPDATE_BOOK(" +
-                                               "@BOOK_ID, @PHOTO, @TYPE_OF_BOOK, @LENGTH_OF_BOOK, @EAN, @ISBN, @PUBLISHER, @LANGUAGE, " +
-                                               "@RATING, @DESCRIPTION, @GENRE, @BOOK_NAME, @AUTHOR_NAME)", con))
+                using (var cmd = new FbCommand("execute procedure UPDATE_Book(" +
+                                               "@Book_ID, @PHOTO, @TYPE_OF_Book, @LENGTH_OF_Book, @EAN, @ISBN, @PUBLISHER, @LANGUAGE, " +
+                                               "@RATING, @DESCRIPTION, @GENRE, @Book_NAME, @AUTHOR_NAME)", con))
                 {
-                    cmd.Parameters.AddWithValue("@BOOK_ID", bookId);
+                    cmd.Parameters.AddWithValue("@Book_ID", BookId);
                     cmd.Parameters.AddWithValue("@PHOTO", (object?)photo ?? DBNull.Value);
-                    cmd.Parameters.AddWithValue("@TYPE_OF_BOOK", (object?)typeOfBook ?? DBNull.Value);
-                    cmd.Parameters.AddWithValue("@LENGTH_OF_BOOK", lengthOfBook);
+                    cmd.Parameters.AddWithValue("@TYPE_OF_Book", (object?)typeOfBook ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("@LENGTH_OF_Book", lengthOfBook);
                     cmd.Parameters.AddWithValue("@EAN", (object?)ean ?? DBNull.Value);
                     cmd.Parameters.AddWithValue("@ISBN", (object?)isbn ?? DBNull.Value);
                     cmd.Parameters.AddWithValue("@PUBLISHER", (object?)publisher ?? DBNull.Value);
@@ -449,7 +472,7 @@ namespace BookDatabase
                     cmd.Parameters.AddWithValue("@RATING", (object?)rating ?? DBNull.Value);
                     cmd.Parameters.AddWithValue("@DESCRIPTION", (object?)description ?? DBNull.Value);
                     cmd.Parameters.AddWithValue("@GENRE", (object?)genre ?? DBNull.Value);
-                    cmd.Parameters.AddWithValue("@BOOK_NAME", (object?)bookName ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("@Book_NAME", (object?)BookName ?? DBNull.Value);
                     cmd.Parameters.AddWithValue("@AUTHOR_NAME", (object?)authorName ?? DBNull.Value);
 
                     cmd.ExecuteNonQuery();
@@ -505,16 +528,16 @@ namespace BookDatabase
             }
         }
 
-        public void DeleteBook(string bookName, int bookId)
+        public void DeleteBook(string BookName, int BookId)
         {
             using (FbConnection con = new FbConnection(connString))
             {
                 con.Open();
 
-                using (var cmd = new FbCommand("execute procedure delete_book(@NAME_OF_BOOK, @ID_OF_BOOK)", con))
+                using (var cmd = new FbCommand("execute procedure delete_Book(@NAME_OF_Book, @ID_OF_Book)", con))
                 {
-                    cmd.Parameters.AddWithValue("@NAME_OF_BOOK", (object?)bookName ?? DBNull.Value);
-                    cmd.Parameters.AddWithValue("@ID_OF_BOOK", bookId);
+                    cmd.Parameters.AddWithValue("@NAME_OF_Book", (object?)BookName ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("@ID_OF_Book", BookId);
 
                     cmd.ExecuteNonQuery();
                 }
@@ -551,4 +574,3 @@ namespace BookDatabase
         }
     }
 }
-

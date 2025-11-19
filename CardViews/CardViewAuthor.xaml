@@ -18,7 +18,7 @@
 
             <!-- stack panel for data binding in elements -->
             <StackPanel Grid.Row="1" Margin="10,10,10,10" >
-                <TextBlock Cursor="Hand" MouseDown="ShowAuthor" Text="{Binding NameOf, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                <TextBlock Cursor="Hand" MouseDown="ShowAuthor" Text="{Binding AuthorName, RelativeSource={RelativeSource AncestorType=UserControl}}"
                FontSize="18" FontWeight="Bold" TextWrapping="Wrap" Margin="0,0,0,5" Height="53"/>
                 <TextBlock Cursor="Hand" MouseDown="ShowAuthor" Text="{Binding Country, RelativeSource={RelativeSource AncestorType=UserControl}}"
                FontSize="14" FontWeight="Bold" TextWrapping="Wrap" Height="24"/>

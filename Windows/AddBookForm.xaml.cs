@@ -16,7 +16,7 @@ namespace BookDatabase
 
     public partial class AddBookForm : Window, INotifyPropertyChanged
     {
-        public List<GeneralModel> Authors { get; set; }
+        public List<GeneralModel> Author { get; set; }
         public List<GeneralModel> Genres { get; set; }
         public List<GeneralModel> Languages { get; set; }
         public List<GeneralModel> Publishers { get; set; }
@@ -32,7 +32,7 @@ namespace BookDatabase
 
             DataContext = this;
 
-            Authors = db.SelectNameByTableName("Authors");
+            Author = db.SelectNameByTableName("Authors");
             Genres = db.SelectNameByTableName("Genres");
             Languages = db.SelectNameByTableName("Languages");
             Publishers = db.SelectNameByTableName("Publishers");
@@ -51,7 +51,7 @@ namespace BookDatabase
             AddEditButton.Click -= ControlBeforeSave;
             AddEditButton.Click += ControlBeforeSaveEdit;
 
-            AuthorsBox.SelectedIndex = SelectIndeOfBox(Authors, EditBook!.Author);
+            AuthorBox.SelectedIndex = SelectIndeOfBox(Author, EditBook!.Author);
             GenresBox.SelectedIndex = SelectIndeOfBox(Genres, EditBook.Genre);
             PublishersBox.SelectedIndex = SelectIndeOfBox(Publishers, EditBook.Publisher);
             LanguageBox.SelectedIndex = SelectIndeOfBox(Languages, EditBook.Langueage);
@@ -94,7 +94,7 @@ namespace BookDatabase
             string? description = DescriptionBox.Text;
             string? genre = ((GeneralModel)GenresBox.SelectedItem).Name;
             string? bookName = NameBox.Text;
-            string? authorName = ((GeneralModel)AuthorsBox.SelectedItem).Name;
+            string? authorName = ((GeneralModel)AuthorBox.SelectedItem).Name;
 
             db.UpdateBook(
                 EditBook!.Id, 
@@ -137,7 +137,7 @@ namespace BookDatabase
 
         private bool ControlData()
         {
-            if (AuthorsBox.SelectedItem == null) { MessageBox.Show("vyber autora"); return false; }
+            if (AuthorBox.SelectedItem == null) { MessageBox.Show("vyber autora"); return false; }
             if (GenresBox.SelectedItem == null) { MessageBox.Show("vyber Žánr"); return false; ; }
             if (LanguageBox.SelectedItem == null) { MessageBox.Show("vyber jazyk"); return false; }
             if (TypesBox.SelectedItem == null) { MessageBox.Show("vyber typ knihy"); return false; }
@@ -200,7 +200,7 @@ namespace BookDatabase
             string? description = DescriptionBox.Text;
             string? genre = ((GeneralModel)GenresBox.SelectedItem).Name;
             string? bookName = NameBox.Text;
-            string? authorName = ((GeneralModel)AuthorsBox.SelectedItem).Name;
+            string? authorName = ((GeneralModel)AuthorBox.SelectedItem).Name;
 
             db.InsertBookOldAuthor(
                 photo,
@@ -221,7 +221,7 @@ namespace BookDatabase
 
         private byte[] GetPhotoByPath(string path)
         {
-            // Načti obrázek s omezeným rozlišením už při dekódování
+       
             BitmapImage bitmap = new BitmapImage();
             bitmap.BeginInit();
             bitmap.UriSource = new Uri(path, UriKind.Absolute);
@@ -275,8 +275,8 @@ namespace BookDatabase
             win.Closed += (s, eArgs) =>
             {
 
-                Authors = db.SelectNameByTableName("Authors");
-                OnPropertyChanged(nameof(Authors));
+                Author = db.SelectNameByTableName("Authors");
+                OnPropertyChanged(nameof(Author));
             };
 
             win.ShowDialog();

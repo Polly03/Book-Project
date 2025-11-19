@@ -60,7 +60,7 @@
             <Button Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" FontSize="25" Margin="350,0,350,70" Cursor="Hand" Click="AddAuthorButton">Přidat nového autora</Button>
 
             <TextBlock Grid.Row="1" Grid.Column="0">Vybrat Autora</TextBlock>
-            <ComboBox Grid.Row="1" Grid.Column="1" FontSize="22" ItemsSource="{Binding Authors}" x:Name="AuthorsBox">
+            <ComboBox Grid.Row="1" Grid.Column="1" FontSize="22" ItemsSource="{Binding Author}" x:Name="AuthorBox">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Name}" />

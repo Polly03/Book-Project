@@ -13,38 +13,37 @@ using System.Windows.Input;
 namespace BookDatabase
 {
 
-    public partial class AuthorsWindow : UserControl, INotifyPropertyChanged
+    public partial class AuthorWindow : UserControl, INotifyPropertyChanged
     {
         Database db = Database.Instance;
 
 
         // collection for Author Cards
-        public ObservableCollection<Authors> AuthorCards { get; set; }
+        public ObservableCollection<Author> AuthorCards { get; set; }
 
 
         // properties and collections for filters for Author Cards
-        public ObservableCollection<FilterOption> FilteredCountries { get; set; }
-        private string fSearchTextCountries = string.Empty;
-        public string SearchTextCountries
+        public ObservableCollection<FilterOption> CountryFilters { get; set; }
+        private string fSearchCountryFilter = string.Empty;
+        public string SearchCountryFilter
         {
-            get => fSearchTextCountries;
+            get => fSearchCountryFilter;
             set
             {
-                fSearchTextCountries = value;
-                FilteredCountries.Clear();
-                FilteredCountries = filter("Countries", value);
-                OnPropertyChanged(nameof(FilteredCountries));
+                fSearchCountryFilter = value;
+                CountryFilters = SelectFiltersByname("Countries", value);
+                OnPropertyChanged(nameof(CountryFilters));
             }
         }
-
-        // filtering filters
-        private ObservableCollection<FilterOption> filter(string table, string txt)
+        private ObservableCollection<FilterOption> SelectFiltersByname(string table, string txt)
         {
-            return new ObservableCollection<FilterOption>(
-                db.SelectNameByTableName(table).Where(elem => elem.Name.ToLower().Contains(txt.ToLower()))
-                                               .Select(elem => new FilterOption { Name = elem.Name })
-            );
+            ObservableCollection<FilterOption> list = new ObservableCollection<FilterOption>(
+                    db.SelectNameByTableName(table).Where(elem => elem.Name.ToLower().Contains(txt.ToLower()))
+                                               .Select(elem => new FilterOption { Name = elem.Name }));
+
+            return SetPropertyChange(list);
         }
+
 
         // event
         public event PropertyChangedEventHandler? PropertyChanged;
@@ -55,24 +54,14 @@ namespace BookDatabase
 
 
 
-        public AuthorsWindow()
+        public AuthorWindow()
         {
             InitializeComponent();
 
             DataContext = this;
             SelectCards();
 
-
-            FilteredCountries = FillCheckBoxes("Countries");
-
-
-            FilteredCountries = new ObservableCollection<FilterOption>(FilteredCountries);
-   
-            // filling properties
-
-            FilteredCountries = SetPropertyChange(FilteredCountries);
- 
-            // adding event method when filter is checked or unchecked
+            CountryFilters = SelectFiltersByname("Countries", "");
         }
 
         private ObservableCollection<FilterOption> FillCheckBoxes(string txt)
@@ -92,8 +81,8 @@ namespace BookDatabase
         // start method for showing all books or refresh books
         private void SelectCards()
         {
-            AuthorCards = new ObservableCollection<Authors>();
-            List<Authors> list = db.SelectAllAuthors();
+            AuthorCards = new ObservableCollection<Author>();
+            List<Author> list = db.SelectAllAuthor();
 
             foreach (var item in list)
             {
@@ -113,10 +102,10 @@ namespace BookDatabase
         private void ApplyFilter()
         {
 
-            var countries = DoFilter(FilteredCountries);
+            var countries = DoFilter(CountryFilters);
 
           
-            List<Authors> list = db.SelectAuthorsByFilters(countries);
+            List<Author> list = db.SelectAuthorByFilters(countries);
             foreach (var item in list)
             {
 
@@ -131,16 +120,16 @@ namespace BookDatabase
             var s = item.Name;
             string column = "";
             string way = "";
-            if (s == "ABCasc") { column = "Authors.Name"; way = "asc";  }
-            else if (s == "ABCdsc") { column = "Authors.Name"; way = "desc";  }
-            else if (s == "Birthasc") { column = "Authors.DateOfBirth"; way = "asc";  }
-            else if (s == "Birthdsc") { column = "Authors.DateOfBirth"; way = "desc";  }
+            if (s == "ABCasc") { column = "Author.Name"; way = "asc";  }
+            else if (s == "ABCdsc") { column = "Author.Name"; way = "desc";  }
+            else if (s == "Birthasc") { column = "Author.DateOfBirth"; way = "asc";  }
+            else if (s == "Birthdsc") { column = "Author.DateOfBirth"; way = "desc";  }
 
-            List<Authors> authors = db.OrderAuthors(column, way);
-            FillItems(authors);
+            List<Author> Author = db.OrderAuthor(column, way);
+            FillItems(Author);
         }
 
-        private void FillItems(List<Authors> list)
+        private void FillItems(List<Author> list)
         {
             AuthorCards.Clear();
             foreach (var elem in list)
@@ -174,7 +163,7 @@ namespace BookDatabase
         }
         private void AddAuthor(object sender, RoutedEventArgs e)
         {
-            AddAuthorForm win = new AddAuthorForm("Author");
+            AddAuthorForm win = new AddAuthorForm("Authors");
             win.Closed += (s, eArgs) =>
             {
 
@@ -188,8 +177,8 @@ namespace BookDatabase
 
         private void StartSearchAuthor(object sender, RoutedEventArgs e)
         {
-            List<Authors> authors = db.SelectAuthorWithSearch(SearchBar.Text);
-            FillItems(authors);
+            List<Author> Author = db.SelectAuthorWithSearch(SearchBar.Text);
+            FillItems(Author);
         }
     }
 }

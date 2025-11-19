@@ -24,9 +24,9 @@ namespace BookDatabase.Windows
 
         Database db = Database.Instance;
 
-        public Authors? EditedAuthor { get; set; }
+        public Author? EditedAuthor { get; set; }
 
-        public AddAuthorForm(string win, string use = "default", Authors? author = null)
+        public AddAuthorForm(string win, string use = "default", Author? author = null)
         {
 
             _win = win;
@@ -56,11 +56,11 @@ namespace BookDatabase.Windows
                
 
 
-            List<string> list = EditedAuthor!.NameOf!.Split(" ").ToList();
-            SurnameOfAuthor.Text = list.Last();
+            List<string> list = EditedAuthor!.Name!.Split(" ").ToList();
+            SurNameAuthor.Text = list.Last();
             list.RemoveAt(list.Count - 1);
             string name = string.Join("", list);
-            NameOfAuthor.Text = name;
+            NameAuthor.Text = name;
             AboutAuthor.Text = EditedAuthor.AboutAuthor;
             DateAuthor.Text = EditedAuthor.DateOfBirth;
 
@@ -85,8 +85,8 @@ namespace BookDatabase.Windows
                 return;
             }
             DateTime date = DateTime.Parse(DateAuthor.Text);
-            db.UpdateAuthor(EditedAuthor!.Id, NameOfAuthor.Text, SurnameOfAuthor.Text, date, ((GeneralModel)CountriesBox.SelectedItem).Name, AboutAuthor.Text);
-            EditedAuthor = db.SelectAuthor(NameOfAuthor.Text + " " + SurnameOfAuthor.Text);
+            db.UpdateAuthor(EditedAuthor!.Id, NameAuthor.Text, SurNameAuthor.Text, date, ((GeneralModel)CountriesBox.SelectedItem).Name, AboutAuthor.Text);
+            EditedAuthor = db.SelectAuthor(NameAuthor.Text + " " + SurNameAuthor.Text);
 
             this.Close();
         }
@@ -120,12 +120,12 @@ namespace BookDatabase.Windows
                 MessageBox.Show("vyplňte pole o autorovi");
                 return false;
             }
-            if (String.IsNullOrWhiteSpace(NameOfAuthor.Text))
+            if (String.IsNullOrWhiteSpace(NameAuthor.Text))
             {
                 MessageBox.Show("vyplňte autorovo jméno");
                 return false;
             }
-            if (String.IsNullOrWhiteSpace(SurnameOfAuthor.Text))
+            if (String.IsNullOrWhiteSpace(SurNameAuthor.Text))
             {
                 MessageBox.Show("vyplňte autorovo přijímení");
                 return false;
@@ -136,7 +136,7 @@ namespace BookDatabase.Windows
                 return false;
             }
 
-            List<Authors> list = db.SelectAuthorWithSearch(NameOfAuthor.Text + SurnameOfAuthor.Text);
+            List<Author> list = db.SelectAuthorWithSearch(NameAuthor.Text + SurNameAuthor.Text);
             if (list.Count > 0)
             {
                 MessageBox.Show("Tento Autor již existuje!");
@@ -154,7 +154,7 @@ namespace BookDatabase.Windows
                 return;
             }
 
-            db.InsertAuthor(NameOfAuthor.Text ,SurnameOfAuthor.Text, ((GeneralModel)CountriesBox.SelectedItem).Name, (DateTime)DateAuthor.SelectedDate!, AboutAuthor.Text);
+            db.InsertAuthor(NameAuthor.Text ,SurNameAuthor.Text, ((GeneralModel)CountriesBox.SelectedItem).Name, (DateTime)DateAuthor.SelectedDate!, AboutAuthor.Text);
             AuthorAdded?.Invoke();
             this.Close();
 

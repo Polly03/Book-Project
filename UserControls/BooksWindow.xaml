@@ -10,7 +10,7 @@
     <Grid>
         <!-- Main Control menu-->
         <Button Margin="0,0,1055,641" Width="225" FontSize="32" IsEnabled="false">Knihy</Button>
-        <Button Margin="225,0,830,641" Width="225" FontSize="32" Cursor="Hand" Click="OpenAuthors">Autoři</Button>
+        <Button Margin="225,0,830,641" Width="225" FontSize="32" Cursor="Hand" Click="OpenAuthor">Autoři</Button>
         <Button Margin="131,92,965,569" FontSize="32" Cursor="Hand" Click="AddBookButton" >
             Přidat
         </Button>
@@ -39,10 +39,10 @@
 
                     <StackPanel Margin="0,0,0,20">
                         <TextBlock Text="Vyber autora:" FontWeight="Bold" Margin="0,0,0,5" Width="200"/>
-                        <TextBox Width="200" Margin="0,0,0,5"  Text="{Binding SearchAuthorsFilter, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox Width="200" Margin="0,0,0,5"  Text="{Binding SearchAuthorFilter, UpdateSourceTrigger=PropertyChanged}"/>
 
                         <ScrollViewer Margin="10,0,0,0" Height="150" VerticalScrollBarVisibility="Hidden">
-                            <ItemsControl ItemsSource="{Binding AuthorsFilter}">
+                            <ItemsControl ItemsSource="{Binding AuthorFilter}">
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
                                         <CheckBox Cursor="Hand"  Content="{Binding Name}" IsChecked="{Binding IsSelected, Mode=TwoWay}" Margin="0,2"/>
@@ -119,7 +119,7 @@
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <Border Margin="5" Padding="10">
-                                <local:CardView ImageSource="{Binding ImageSource}"  Title="{Binding Title}" Author="{Binding Author}" Genre ="{Binding Genre}"/>
+                                <local:CardView Image="{Binding Image}"  Title="{Binding Name}" Author="{Binding Author}" Genre ="{Binding Genre}"/>
                             </Border>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
