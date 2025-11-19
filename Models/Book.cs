@@ -3,7 +3,7 @@
 namespace BookDatabase.Models
 {
     // model for 1 book
-    public class Book  //JR: z jakeho duvodu neni tato trida proste pouzita i pro ty karticky (kde pouzivate BookData? )
+    public class Book 
     {
         public int Id { get; set; }
         public string? Name { get; set; }

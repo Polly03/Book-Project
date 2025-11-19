@@ -13,13 +13,13 @@ namespace BookDatabase.Details
     /// </summary>
     public partial class AuthorDetail : UserControl
     {
-        private Database db = Database.Instance; 
+        private Database db = Database.Instace; 
 
         // Property for keeping the selected author and its details
         public Author Author {  get; set; }  
 
         // from BooksWindow or Author window i am getting name of author i clicked on
-        public AuthorDetail(string AuthorNameFull)  //JR: zde by bylo vhodne predavat rovnou entitu Autora, tj instanci tridy Author, ne jen jeho jmeno a tady si to znovu selektovat z databaze 
+        public AuthorDetail(string AuthorNameFull)
         {
             Author = db.SelectAuthor(AuthorNameFull);
             InitializeComponent();

@@ -68,7 +68,7 @@ namespace BookDatabase {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/BookDatabase;component/test.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/BookDatabase;V1.0.0.0;component/test.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\test.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

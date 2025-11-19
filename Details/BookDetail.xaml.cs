@@ -16,7 +16,7 @@ namespace BookDatabase.Details
     public partial class BookDetail : UserControl
     {
       
-        public Database db = Database.Instance;
+        public Database db = Database.Instace;
         public Book SelectedBook { get; set; }
         // book selected for details
         public BookDetail(string title)

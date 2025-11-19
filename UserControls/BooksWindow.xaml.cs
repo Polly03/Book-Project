@@ -15,7 +15,7 @@ namespace BookDatabase
        
 
         // class for working with database    
-        Database db = Database.Instance;
+        Database db = Database.Instace;
         
         // collection for BookCards
         public ObservableCollection<Book> BookCards { get; set; }

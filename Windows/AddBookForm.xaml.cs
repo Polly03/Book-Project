@@ -24,7 +24,7 @@ namespace BookDatabase
 
         public Book? EditBook { get; set; }
 
-        Database db = Database.Instance;
+        Database db = Database.Instace;
 
         public AddBookForm(string func = "add", Book? book = null)
         {

@@ -18,18 +18,12 @@ namespace BookDatabase.Windows
     {
         public List<GeneralModel> Countries { get; set; }
 
-        private string _win;
-
-        public event Action? AuthorAdded;
-
-        Database db = Database.Instance;
+        Database db = Database.Instace;
 
         public Author? EditedAuthor { get; set; }
 
         public AddAuthorForm(string win, string use = "default", Author? author = null)
         {
-
-            _win = win;
             InitializeComponent();
             DataContext = this;
             Countries = db.SelectNameByTableName("Countries");
@@ -155,7 +149,6 @@ namespace BookDatabase.Windows
             }
 
             db.InsertAuthor(NameAuthor.Text ,SurNameAuthor.Text, ((GeneralModel)CountriesBox.SelectedItem).Name, (DateTime)DateAuthor.SelectedDate!, AboutAuthor.Text);
-            AuthorAdded?.Invoke();
             this.Close();
 
 

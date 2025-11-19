@@ -15,7 +15,7 @@ namespace BookDatabase
 
     public partial class AuthorWindow : UserControl, INotifyPropertyChanged
     {
-        Database db = Database.Instance;
+        Database db = Database.Instace;
 
 
         // collection for Author Cards

@@ -17,16 +17,16 @@ namespace BookDatabase
         // string for connection
         private string connString { get; set; }
 
-        private static Database instance = null;
-        public static Database Instance
+        private static Database Finstace = null;
+        public static Database Instace
         {
             get
             {
-                if (instance == null)
+                if (Finstace == null)
                 {
-                    instance = new Database();
+                    Finstace = new Database();
                 }
-                return instance;
+                return Finstace;
             }
         }
         private Database()
@@ -51,12 +51,11 @@ namespace BookDatabase
 
         public List<Book> SelectBooksByFilters(string? author, string? genres, string? languages, string? publishers)
         {
-
             using (FbConnection con = new FbConnection(connString))
             {
                 con.Open();
 
-                using (var cmd = new FbCommand("select * from select_Books_with_filters(@Author_list, @Genre_list, @Language_list, @Publishing_house_list)", con))
+                using (var cmd = new FbCommand("SELECT * FROM SELECT_BOOKS_WITH_FILTERS(@Author_list, @Genre_list, @Language_list, @Publishing_house_list)", con))
                 {
                     cmd.Parameters.AddWithValue("@Author_list", (object?)author ?? DBNull.Value);
                     cmd.Parameters.AddWithValue("@Genre_list", (object?)genres ?? DBNull.Value);
@@ -82,8 +81,6 @@ namespace BookDatabase
                             book.Image = GetBM((byte[])photoByte);
 
                             list.Add(book);
-
-
                         }
                         con.Close();
                         return list;
@@ -117,14 +114,12 @@ namespace BookDatabase
 
         public List<Author> SelectAuthorByFilters(string? Countries)
         {
-
             using (FbConnection con = new FbConnection(connString))
             {
                 con.Open();
 
-                using (var cmd = new FbCommand("select * from select_Author_with_filters(@Countries_list)", con))
+                using (var cmd = new FbCommand("SELECT * FROM SELECT_AUTHOR_WITH_FILTERS(@Countries_list)", con))
                 {
-
                     cmd.Parameters.AddWithValue("@Countries_list", (object?)Countries ?? DBNull.Value);
 
                     using (var reader = cmd.ExecuteReader())
@@ -138,10 +133,7 @@ namespace BookDatabase
                             var dateOfBirthT = (DateTime)reader["DateOfBirth"];
                             var countryT = (string)reader["Country"];
 
-                       
-
                             list.Add(new Author(nameT + " " + surnameT, dateOfBirthT.ToString(), countryT));
-
                         }
 
                         return list;
@@ -156,7 +148,7 @@ namespace BookDatabase
             {
                 con.Open();
 
-                using (var cmd = new FbCommand("select * from select_Book_with_search(@search)", con))
+                using (var cmd = new FbCommand("SELECT * FROM SELECT_BOOK_WITH_SEARCH(@search)", con))
                 {
                     cmd.Parameters.AddWithValue("@search", (object?)search ?? DBNull.Value);
 
@@ -172,7 +164,6 @@ namespace BookDatabase
                             var Author = (string)reader["Fullname"];
                             var genre = (string)reader["Genre"];
 
-
                             Book book = new Book();
                             book.Author = Author;
                             book.Name = names;
@@ -180,8 +171,6 @@ namespace BookDatabase
                             book.Image = GetBM((byte[])photoByte);
 
                             list.Add(book);
-
-
                         }
                         con.Close();
                         return list;
@@ -196,7 +185,7 @@ namespace BookDatabase
             {
                 con.Open();
 
-                using (var cmd = new FbCommand("select * from select_author_with_search(@search)", con))
+                using (var cmd = new FbCommand("SELECT * FROM SELECT_AUTHOR_WITH_SEARCH(@search)", con))
                 {
                     cmd.Parameters.AddWithValue("@search", (object?)search ?? DBNull.Value);
 
@@ -212,7 +201,6 @@ namespace BookDatabase
                             var country = (string)reader["Country"];
 
                             list.Add(new Author(name, dateOfBirth.ToString(), country));
-
                         }
                         con.Close();
                         return list;
@@ -223,12 +211,11 @@ namespace BookDatabase
 
         public Book SelectBook(string name, int size = 0)
         {
-
             using (FbConnection con = new FbConnection(connString))
             {
                 con.Open();
 
-                using (var cmd = new FbCommand("select * from select_Book(@name)", con))
+                using (var cmd = new FbCommand("SELECT * FROM SELECT_BOOK(@name)", con))
                 {
                     cmd.Parameters.AddWithValue("@name", (object?)name ?? DBNull.Value);
 
@@ -254,12 +241,10 @@ namespace BookDatabase
                             };
                             return Book;
                         }
-
                     }
                 }
             }
             return null;
-
         }
 
         public Author SelectAuthor(string authorName)
@@ -267,14 +252,12 @@ namespace BookDatabase
             using (FbConnection con = new FbConnection(connString))
             {
                 con.Open();
-                using (var cmd = new FbCommand("select * from select_author(@Name_input)", con))
+                using (var cmd = new FbCommand("SELECT * FROM SELECT_AUTHOR(@Name_input)", con))
                 {
                     cmd.Parameters.AddWithValue("@Name_input", (object?)authorName ?? DBNull.Value);
 
                     using (var reader = cmd.ExecuteReader())
                     {
-
-
                         while (reader.Read())
                         {
                             var id = (int)reader["Id"];
@@ -288,7 +271,6 @@ namespace BookDatabase
                             author.AboutAuthor = (string)aboutAuthor;
                             return author;
                         }
-
                     }
                 }
             }
@@ -301,7 +283,7 @@ namespace BookDatabase
             {
                 con.Open();
 
-                using (var cmd = new FbCommand("select * from order_Author(@way, @argument)", con))
+                using (var cmd = new FbCommand("SELECT * FROM ORDER_AUTHOR(@way, @argument)", con))
                 {
                     cmd.Parameters.AddWithValue("@argument", (object?)argument ?? DBNull.Value);
                     cmd.Parameters.AddWithValue("@way", (object?)way ?? DBNull.Value);
@@ -320,9 +302,7 @@ namespace BookDatabase
                         con.Close();
                         return list;
                     }
-
                 }
-
             }
         }
 
@@ -332,7 +312,7 @@ namespace BookDatabase
             {
                 con.Open();
 
-                using (var cmd = new FbCommand("select * from order_Books(@way, @argument)", con))
+                using (var cmd = new FbCommand("SELECT * FROM ORDER_BOOKS(@way, @argument)", con))
                 {
                     cmd.Parameters.AddWithValue("@argument", (object?)argument ?? DBNull.Value);
                     cmd.Parameters.AddWithValue("@way", (object?)way ?? DBNull.Value);
@@ -359,9 +339,7 @@ namespace BookDatabase
                         con.Close();
                         return list;
                     }
-
                 }
-
             }
         }
 
@@ -370,7 +348,6 @@ namespace BookDatabase
             using (FbConnection con = new FbConnection(connString))
             {
                 con.Open();
-
 
                 using (var cmd = new FbCommand("SELECT * FROM SELECT_NAME_BY_TABLE_NAME(@tableName)", con))
                 {
@@ -388,10 +365,8 @@ namespace BookDatabase
                         con.Close();
                         return list;
                     }
-
                 }
             }
-
         }
 
         public void InsertBookOldAuthor(
@@ -414,13 +389,13 @@ namespace BookDatabase
             {
                 con.Open();
 
-                using (FbCommand cmd = new FbCommand("INSERT_Book_OLD_AUTHOR", con))
+                using (FbCommand cmd = new FbCommand("INSERT_BOOK_OLD_AUTHOR", con))
                 {
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
 
                     cmd.Parameters.AddWithValue("PHOTO", (object?)photo ?? DBNull.Value);
-                    cmd.Parameters.AddWithValue("TYPE_OF_Book", (object?)typeOfBook ?? DBNull.Value);
-                    cmd.Parameters.AddWithValue("LENGTH_OF_Book", (object?)lengthOfBook ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("TYPE_OF_BOOK", (object?)typeOfBook ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("LENGTH_OF_BOOK", (object?)lengthOfBook ?? DBNull.Value);
                     cmd.Parameters.AddWithValue("EAN", (object?)ean ?? DBNull.Value);
                     cmd.Parameters.AddWithValue("ISBN", (object?)isbn ?? DBNull.Value);
                     cmd.Parameters.AddWithValue("PUBLISHER", (object?)publisher ?? DBNull.Value);
@@ -428,7 +403,7 @@ namespace BookDatabase
                     cmd.Parameters.AddWithValue("RATING", (object?)rating ?? DBNull.Value);
                     cmd.Parameters.AddWithValue("DESCRIPTION", (object?)description ?? DBNull.Value);
                     cmd.Parameters.AddWithValue("GENRE", (object?)genre ?? DBNull.Value);
-                    cmd.Parameters.AddWithValue("Book_NAME", (object?)BookName ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("BOOK_NAME", (object?)BookName ?? DBNull.Value);
                     cmd.Parameters.AddWithValue("AUTHOR_NAME", (object?)newName ?? DBNull.Value);
 
                     cmd.ExecuteNonQuery();
@@ -457,14 +432,14 @@ namespace BookDatabase
             {
                 con.Open();
 
-                using (var cmd = new FbCommand("execute procedure UPDATE_Book(" +
-                                               "@Book_ID, @PHOTO, @TYPE_OF_Book, @LENGTH_OF_Book, @EAN, @ISBN, @PUBLISHER, @LANGUAGE, " +
-                                               "@RATING, @DESCRIPTION, @GENRE, @Book_NAME, @AUTHOR_NAME)", con))
+                using (var cmd = new FbCommand("EXECUTE PROCEDURE UPDATE_BOOK(" +
+                                               "@BOOK_ID, @PHOTO, @TYPE_OF_BOOK, @LENGTH_OF_BOOK, @EAN, @ISBN, @PUBLISHER, @LANGUAGE, " +
+                                               "@RATING, @DESCRIPTION, @GENRE, @BOOK_NAME, @AUTHOR_NAME)", con))
                 {
-                    cmd.Parameters.AddWithValue("@Book_ID", BookId);
+                    cmd.Parameters.AddWithValue("@BOOK_ID", BookId);
                     cmd.Parameters.AddWithValue("@PHOTO", (object?)photo ?? DBNull.Value);
-                    cmd.Parameters.AddWithValue("@TYPE_OF_Book", (object?)typeOfBook ?? DBNull.Value);
-                    cmd.Parameters.AddWithValue("@LENGTH_OF_Book", lengthOfBook);
+                    cmd.Parameters.AddWithValue("@TYPE_OF_BOOK", (object?)typeOfBook ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("@LENGTH_OF_BOOK", lengthOfBook);
                     cmd.Parameters.AddWithValue("@EAN", (object?)ean ?? DBNull.Value);
                     cmd.Parameters.AddWithValue("@ISBN", (object?)isbn ?? DBNull.Value);
                     cmd.Parameters.AddWithValue("@PUBLISHER", (object?)publisher ?? DBNull.Value);
@@ -472,7 +447,7 @@ namespace BookDatabase
                     cmd.Parameters.AddWithValue("@RATING", (object?)rating ?? DBNull.Value);
                     cmd.Parameters.AddWithValue("@DESCRIPTION", (object?)description ?? DBNull.Value);
                     cmd.Parameters.AddWithValue("@GENRE", (object?)genre ?? DBNull.Value);
-                    cmd.Parameters.AddWithValue("@Book_NAME", (object?)BookName ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("@BOOK_NAME", (object?)BookName ?? DBNull.Value);
                     cmd.Parameters.AddWithValue("@AUTHOR_NAME", (object?)authorName ?? DBNull.Value);
 
                     cmd.ExecuteNonQuery();
@@ -487,7 +462,7 @@ namespace BookDatabase
                 con.Open();
 
                 using (var cmd = new FbCommand(
-                    "execute procedure UPDATE_AUTHOR(" +
+                    "EXECUTE PROCEDURE UPDATE_AUTHOR(" +
                     "@AUTHOR_ID, @NAME, @SURNAME, @DATE_OF_BIRTH, @COUNTRY_NAME, @ABOUT_AUTHOR)", con))
                 {
                     cmd.Parameters.AddWithValue("@AUTHOR_ID", authorId);
@@ -502,14 +477,13 @@ namespace BookDatabase
             }
         }
 
-
         public int DeleteAuthor(string authorName)
         {
             using (FbConnection con = new FbConnection(connString))
             {
                 con.Open();
 
-                using (var cmd = new FbCommand("select * from delete_author(@AUTHOR_NAME)", con))
+                using (var cmd = new FbCommand("SELECT * FROM DELETE_AUTHOR(@AUTHOR_NAME)", con))
                 {
                     cmd.Parameters.AddWithValue("@AUTHOR_NAME", (object?)authorName ?? DBNull.Value);
 
@@ -534,15 +508,16 @@ namespace BookDatabase
             {
                 con.Open();
 
-                using (var cmd = new FbCommand("execute procedure delete_Book(@NAME_OF_Book, @ID_OF_Book)", con))
+                using (var cmd = new FbCommand("EXECUTE PROCEDURE DELETE_BOOK(@NAME_OF_BOOK, @ID_OF_BOOK)", con))
                 {
-                    cmd.Parameters.AddWithValue("@NAME_OF_Book", (object?)BookName ?? DBNull.Value);
-                    cmd.Parameters.AddWithValue("@ID_OF_Book", BookId);
+                    cmd.Parameters.AddWithValue("@NAME_OF_BOOK", (object?)BookName ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("@ID_OF_BOOK", BookId);
 
                     cmd.ExecuteNonQuery();
                 }
             }
         }
+
 
         // decoding byte[] data into bitmapImage
         private BitmapImage GetBM(byte[] data, int size = 0)
