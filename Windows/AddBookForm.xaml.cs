@@ -63,7 +63,7 @@ namespace BookDatabase
             LengthBox.Text = EditBook.Length.ToString();
             RatingBox.Text = EditBook.Rating;
             DescriptionBox.Text = EditBook.Description;
-            PhotoBox.Text = "OLD";
+            PhotoBox.Source = EditBook.Image;
 
         }
 
@@ -74,16 +74,9 @@ namespace BookDatabase
                 return;
             }
 
-            byte[] image;
-            if (PhotoBox.Text == "OLD")
-            {
-                image = BitMapToByte(EditBook!.Image!);
-            }
-            else
-            {
-                image = GetPhotoByPath(PhotoBox.Text);
-            }
+         
 
+            byte[] image = BitMapToByte(PhotoBox.Source as BitmapImage);
             string? typeOfBook = ((GeneralModel)TypesBox.SelectedItem).Name;
             short lengthOfBook = short.Parse(LengthBox.Text);
             string? ean = EANBox.Text;
@@ -151,7 +144,7 @@ namespace BookDatabase
             if (String.IsNullOrWhiteSpace(RatingBox.Text)) { MessageBox.Show("vypln zhodnocení knihy"); return false; }
             if (String.IsNullOrWhiteSpace(DescriptionBox.Text)) { MessageBox.Show("vypln popis knihy"); return false; }
 
-            if (String.IsNullOrWhiteSpace(PhotoBox.Text)) { MessageBox.Show("vyber fotku"); return false; }
+            if (PhotoBox.Source == null) { MessageBox.Show("vyber fotku"); return false; }
 
             if (ISBNBox.Text.Length < 13)
             {
@@ -187,9 +180,9 @@ namespace BookDatabase
 
         private void InputData()
         {
-            string path = PhotoBox.Text;
+            BitmapImage path = (BitmapImage)PhotoBox.Source;
 
-            byte[]? photo = GetPhotoByPath(path);
+            byte[]? photo = BitMapToByte(path);
             string? typeOfBook = ((GeneralModel)TypesBox.SelectedItem).Name;
             short lengthOfBook = short.Parse(LengthBox.Text);
             string? ean = EANBox.Text;
@@ -219,22 +212,6 @@ namespace BookDatabase
 
         }
 
-        private byte[] GetPhotoByPath(string path)
-        {
-       
-            BitmapImage bitmap = new BitmapImage();
-            bitmap.BeginInit();
-            bitmap.UriSource = new Uri(path, UriKind.Absolute);
-            bitmap.CacheOption = BitmapCacheOption.OnLoad;
-
-            bitmap.DecodePixelWidth = 520;
-            bitmap.DecodePixelHeight = 800;                           
-
-            bitmap.EndInit();
-            bitmap.Freeze();
-
-            return BitMapToByte(bitmap);
-        }
 
         private byte[] BitMapToByte (BitmapImage image)
         {
@@ -259,13 +236,23 @@ namespace BookDatabase
                 string filePath = dialog.FileName;
 
                 MessageBox.Show(filePath);
-                PhotoBox.Text = filePath;
+                PhotoBox.Source = new BitmapImage(new Uri(filePath));
             }
         }
 
         public void Return(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            MessageBoxResult result = MessageBox.Show(
+               "Opravdu se chcete vrátit?\nVaše vyplněné pole budou ztraceny!",
+               "Confirmation",
+               MessageBoxButton.YesNo,
+               MessageBoxImage.Question
+           );
+
+            if (result == MessageBoxResult.Yes)
+            {
+                this.Close();
+            }
         }
 
         private void AddAuthorButton(object sender, RoutedEventArgs e)

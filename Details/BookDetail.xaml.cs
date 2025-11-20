@@ -62,7 +62,7 @@ namespace BookDatabase.Details
         
             win.Closed += (s, eArgs) =>
             {
-                SelectedBook = db.SelectBook(win.EditBook.Name, 1);
+                SelectedBook = db.SelectBook(win.EditBook!.Name, 1);
                 ShowBook();
             };
 

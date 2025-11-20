@@ -1,11 +1,7 @@
 ﻿using BookDatabase.Models;
 using FirebirdSql.Data.FirebirdClient;
 using System.IO;
-using System.Windows;
 using System.Windows.Media.Imaging;
-using System.Xml.Linq;
-
-
 
 
 
@@ -17,7 +13,7 @@ namespace BookDatabase
         // string for connection
         private string connString { get; set; }
 
-        private static Database Finstace = null;
+        private static Database? Finstace = null;
         public static Database Instace
         {
             get
@@ -78,7 +74,7 @@ namespace BookDatabase
                             book.Author = Author;
                             book.Name = names;
                             book.Genre = genre;
-                            book.Image = GetBM((byte[])photoByte);
+                            book.Image = GetBM((byte[])photoByte!);
 
                             list.Add(book);
                         }
@@ -168,7 +164,7 @@ namespace BookDatabase
                             book.Author = Author;
                             book.Name = names;
                             book.Genre = genre;
-                            book.Image = GetBM((byte[])photoByte);
+                            book.Image = GetBM((byte[])photoByte!);
 
                             list.Add(book);
                         }
@@ -244,7 +240,7 @@ namespace BookDatabase
                     }
                 }
             }
-            return null;
+            return null!;
         }
 
         public Author SelectAuthor(string authorName)
@@ -274,7 +270,7 @@ namespace BookDatabase
                     }
                 }
             }
-            return null;
+            return null!;
         }
 
         public List<Author> OrderAuthor(string argument, string way)
@@ -283,7 +279,7 @@ namespace BookDatabase
             {
                 con.Open();
 
-                using (var cmd = new FbCommand("SELECT * FROM ORDER_AUTHOR(@way, @argument)", con))
+                using (var cmd = new FbCommand("SELECT * FROM ORDER_AUTHORS(@way, @argument)", con))
                 {
                     cmd.Parameters.AddWithValue("@argument", (object?)argument ?? DBNull.Value);
                     cmd.Parameters.AddWithValue("@way", (object?)way ?? DBNull.Value);
@@ -332,7 +328,7 @@ namespace BookDatabase
                             book.Author = author;
                             book.Name = name;
                             book.Genre = genre;
-                            book.Image = GetBM((byte[])photoByte);
+                            book.Image = GetBM((byte[])photoByte!);
 
                             list.Add(book);
                         }
@@ -383,7 +379,7 @@ namespace BookDatabase
             string? BookName,
             string? authorName)
         {
-            string newName = authorName.Split(" ")[0];
+            string newName = authorName!.Split(" ")[0];
 
             using (FbConnection con = new FbConnection(connString))
             {

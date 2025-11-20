@@ -7,6 +7,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 
 
+
 namespace BookDatabase
 {
     // class for showing and filtering books
@@ -113,8 +114,6 @@ namespace BookDatabase
             GenresFilter = SelectFiltersByname("Genres", "");
             LanguagesFilter = SelectFiltersByname("Languages", "");
             PublishersFilters = SelectFiltersByname("Publishers", "");
-            
-
         }
 
         // method for adding element in list property of ApplyFilter
@@ -130,9 +129,12 @@ namespace BookDatabase
         private void FillItems(List<Book> list)
         {
             BookCards.Clear();
-            foreach (var elem in list)
+            for (int i = 0; i < 20; i++)
             {
-                BookCards.Add(elem);
+                foreach (var elem in list)
+                {
+                    BookCards.Add(elem);
+                }
             }
         }
 

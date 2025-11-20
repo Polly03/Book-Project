@@ -11,20 +11,70 @@
             <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="3*"/>
         </Grid.ColumnDefinitions>
-        
+
         <!-- block for all data for authot -->
-        <TextBlock Grid.Column="0" x:Name="AuthorName" TextWrapping="Wrap" FontSize="50" Margin="42,38,42,544">Tady je nazev autora</TextBlock>
-        <TextBlock Grid.Column="0" x:Name="AuthorDateOfBirth" Margin="42,208,42,420" FontSize="40">tady je datum narození</TextBlock>
-        <TextBlock Grid.Column="0" x:Name="AuthorCountry" Margin="42,305,42,323" FontSize="40">tady je země původu</TextBlock>
-        <Button Grid.Column="0" Margin="42,607,278,46" Cursor="Hand" Click="Return">ZPĚT</Button>
-        <Button Grid.Column="0" Margin="305,602,10,46" Cursor="Hand" Click="EditAuthor">EDIT</Button>
+        <TextBlock Margin="42,25,211,627" FontSize="35">Jméno autora:</TextBlock>
+        <TextBlock Grid.Column="0" x:Name="AuthorName" TextWrapping="Wrap" FontSize="50" Margin="42,59,42,523">Tady je nazev autora</TextBlock>
+        <TextBlock Margin="41,216,212,436" FontSize="35">Datum narození:</TextBlock>
+        <TextBlock Grid.Column="0" x:Name="AuthorDateOfBirth" Margin="42,254,42,374" FontSize="40">tady je datum narození</TextBlock>
+        <TextBlock Margin="41,343,212,309" FontSize="35">Země původu:</TextBlock>
+        <TextBlock Grid.Column="0" x:Name="AuthorCountry" Margin="42,381,42,247" FontSize="40">tady je země původu</TextBlock>
+
+        <Button Grid.Column="0"  Width="200" Height="50" FontSize="32" Click="Return" Margin="20,616,292,54" Foreground="White" Cursor="Hand">
+            <Button.Template>
+                <ControlTemplate TargetType="Button">
+                    <Border  x:Name="border" Background="#11FF11"  CornerRadius="10" BorderBrush="Transparent" BorderThickness="0" Padding="{TemplateBinding Padding}">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="border" Property="Background" Value="#11BB11"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Button.Template>
+            Zpět
+        </Button>
+
+        <Button  Width="200" Height="50" FontSize="25" Click="EditAuthor" Grid.Column="0" Margin="292,616,20,54" Foreground="White" Cursor="Hand">
+            <Button.Template>
+                <ControlTemplate TargetType="Button">
+                    <Border  x:Name="border" Background="#FF5A7EFF"  CornerRadius="10" BorderBrush="Transparent" BorderThickness="0" Padding="{TemplateBinding Padding}">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="border" Property="Background" Value="#FF1E3AFF"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Button.Template>
+            Edit
+        </Button>
 
         <!-- about author -->
-        <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Hidden" Margin="44,38,68,128">
-            <TextBlock x:Name="AboutAuthor" FontSize="20" Height="544" Width="646" TextWrapping="Wrap">O Autorovi</TextBlock>
+        <TextBlock Margin="44,21,465,631" FontSize="35" Grid.Column="1">O Autorovi:</TextBlock>
+        <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Hidden" Margin="44,100,68,128">
+            <TextBlock x:Name="AboutAuthor" FontSize="20" Height="515" Width="646" TextWrapping="Wrap">O Autorovi</TextBlock>
         </ScrollViewer>
-        <Button Grid.Column="1" Margin="406,607,68,46" Cursor="Hand" Click="DeleteAuthor">SMAZAT</Button>
 
+
+
+        <Button  Width="200" Height="50" FontSize="32" Click="DeleteAuthor" Grid.Column="1" Margin="406,607,68,46" Foreground="White" Cursor="Hand">
+            <Button.Template>
+                <ControlTemplate TargetType="Button">
+                    <Border  x:Name="border" Background="#FF4040"  CornerRadius="10" BorderBrush="Transparent" BorderThickness="0" Padding="{TemplateBinding Padding}">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="border" Property="Background" Value="#FFFF0000"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Button.Template>
+            Smazat
+        </Button>
 
 
     </Grid>

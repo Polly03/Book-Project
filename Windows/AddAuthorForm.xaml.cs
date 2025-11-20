@@ -1,10 +1,4 @@
 ﻿using BookDatabase.Models;
-using Microsoft.EntityFrameworkCore.Metadata;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -42,14 +36,8 @@ namespace BookDatabase.Windows
 
             AcceptButton.Click -= Accept;
             AcceptButton.Click += AcceptEdit;
-
-
-
-       
             CountriesBox.SelectedIndex = SelectIndeOfBox(Countries, EditedAuthor.Country);
                
-
-
             List<string> list = EditedAuthor!.Name!.Split(" ").ToList();
             SurNameAuthor.Text = list.Last();
             list.RemoveAt(list.Count - 1);
@@ -87,7 +75,17 @@ namespace BookDatabase.Windows
 
         public void Return(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            MessageBoxResult result = MessageBox.Show(
+              "Opravdu se chcete vrátit?\nVaše vyplněné pole budou ztraceny!",
+              "Confirmation",
+              MessageBoxButton.YesNo,
+              MessageBoxImage.Question
+          );
+
+            if (result == MessageBoxResult.Yes)
+            {
+                this.Close();
+            }
         }
 
         private void DatePicker_DateValidationError(object sender, DatePickerDateValidationErrorEventArgs e)

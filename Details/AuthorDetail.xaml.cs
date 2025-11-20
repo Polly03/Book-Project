@@ -50,7 +50,7 @@ namespace BookDatabase.Details
 
             win.Closed += (s, eArgs) =>
             {
-                Author = db.SelectAuthor(win.EditedAuthor.Name);
+                Author = db.SelectAuthor(win.EditedAuthor!.Name);
                 ShowAuthor();
             };
 

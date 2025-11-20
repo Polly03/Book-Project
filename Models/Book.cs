@@ -2,12 +2,12 @@
 
 namespace BookDatabase.Models
 {
-    // model for 1 book
+    // model for book
     public class Book 
     {
         public int Id { get; set; }
-        public string? Name { get; set; }
-        public string? Author { get; set; }
+        public string Name { get; set; }
+        public string Author { get; set; }
         public string? Genre { get; set; }
         public string? Type { get; set; }
         public string? Langueage { get; set; }
@@ -19,7 +19,7 @@ namespace BookDatabase.Models
         public string? ISBN { get; set; }
         public string? Rating { get; set; }
 
-        public BitmapImage? Image { get; set; }
+        public BitmapImage Image { get; set; }
 
         public Book()
         {

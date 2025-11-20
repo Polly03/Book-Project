@@ -5,47 +5,102 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookDatabase.Windows"
         mc:Ignorable="d"
-        Title="AddAuthorForm" Height="600" Width="1000"
+        Title="AddAuthorForm" Height="800" Width="1000"
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize">
-    <Grid Margin="20">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="2*"/>
-            <ColumnDefinition Width="3*"/>
-        </Grid.ColumnDefinitions>
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <Style TargetType="TextBlock">
+                <Setter Property="Width" Value="400"/>
+                <Setter Property="FontSize" Value="20"/>
+            </Style>
+
+            <Style TargetType="TextBox">
+                <Setter Property="Width" Value="400"/>
+                <Setter Property="FontSize" Value="20"/>
+                <Setter Property="Height" Value="40"/>
+                <Setter Property="Margin" Value="0,0,0,20"/>
+            </Style>
+
+            <Style TargetType="ComboBox">
+                <Setter Property="Width" Value="400"/>
+                <Setter Property="FontSize" Value="20"/>
+                <Setter Property="Height" Value="40"/>
+                <Setter Property="Margin" Value="0,0,0,20"/>
+            </Style>
+
+            <Style TargetType="DatePicker">
+                <Setter Property="Width" Value="400"/>
+                <Setter Property="FontSize" Value="20"/>
+                <Setter Property="Height" Value="40"/>
+                <Setter Property="Margin" Value="0,0,0,20"/>
+            </Style>
+
+
+        </ResourceDictionary>
+    </Window.Resources>
+
+
+    <ScrollViewer VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Disabled">
+        <StackPanel Margin="20">
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,40">
+                <Button  Width="200" Height="50" FontSize="32" Click="Return"  Margin="0,0,150,0" Foreground="White" Cursor="Hand">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border  x:Name="border" Background="#FF4040"  CornerRadius="10" BorderBrush="Transparent" BorderThickness="0" Padding="{TemplateBinding Padding}">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="border" Property="Background" Value="#FFFF0000"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
+                    Zpět
+                </Button>
+
+                <Button  Width="200" Height="50" FontSize="32" Click="Accept"  Margin="150,0,0,0" Foreground="White" Cursor="Hand" x:Name="AcceptButton">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border  x:Name="border" Background="#11FF11"  CornerRadius="10" BorderBrush="Transparent" BorderThickness="0" Padding="{TemplateBinding Padding}">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="border" Property="Background" Value="#11BB11"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
+                    Potvrdit
+                </Button>
+            </StackPanel>
         
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" MinHeight="80"/>
-            <RowDefinition Height="Auto" MinHeight="80"/>
-            <RowDefinition Height="Auto" MinHeight="80"/>
-            <RowDefinition Height="Auto" MinHeight="80"/>
-            <RowDefinition Height="Auto" MinHeight="80"/>
-            <RowDefinition Height="Auto" MinHeight="120"/>
-        </Grid.RowDefinitions>
 
-        <Button Grid.Row="0" Grid.Column="0" FontSize="32" Cursor="Hand" Click="Return" HorizontalAlignment="Left" Width="200" Margin="0,0,0,20">Zrušit</Button>
-        <Button Grid.Row="0" Grid.Column="1" FontSize="32" HorizontalAlignment="Right" Width="200" Margin="0,0,0,20" x:Name="AcceptButton" Cursor="Hand" Click="Accept">Potvrdit</Button>
+            <TextBlock FontSize="20" VerticalAlignment="Center">Zadejte jméno autora</TextBlock>
+            <TextBox FontSize="20" MaxLength="64" x:Name="NameAuthor"/>
 
-        <TextBlock Grid.Row="1" Grid.Column="0" FontSize="20" VerticalAlignment="Center">Zadejte jméno autora</TextBlock>
-        <TextBox Grid.Row="1" Grid.Column="1" FontSize="20" MaxLength="64" x:Name="NameAuthor"/>
+            <TextBlock FontSize="20" VerticalAlignment="Center">Zadejte přijímení autora</TextBlock>
+            <TextBox FontSize="20" MaxLength="64" x:Name="SurNameAuthor"/>
 
-        <TextBlock Grid.Row="2" Grid.Column="0" FontSize="20" VerticalAlignment="Center">Zadejte přijímení autora</TextBlock>
-        <TextBox Grid.Row="2" Grid.Column="1" FontSize="20" MaxLength="64" x:Name="SurNameAuthor"/>
+            <TextBlock FontSize="20" VerticalAlignment="Center">Zadejte zemi původu</TextBlock>
+            <ComboBox ItemsSource="{Binding Countries}" x:Name="CountriesBox" FontSize="20">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Name}" />
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
 
-        <TextBlock Grid.Row="3" Grid.Column="0" FontSize="20" VerticalAlignment="Center">Zadejte zemi původu</TextBlock>
-        <ComboBox Grid.Row="3" Grid.Column="1" ItemsSource="{Binding Countries}" x:Name="CountriesBox" FontSize="20">
-            <ComboBox.ItemTemplate>
-                <DataTemplate>
-                    <TextBlock Text="{Binding Name}" />
-                </DataTemplate>
-            </ComboBox.ItemTemplate>
-        </ComboBox>
+            <TextBlock FontSize="20" VerticalAlignment="Center">Zadejte datum narození</TextBlock>
+            <DatePicker FontSize="20" DateValidationError="DatePicker_DateValidationError" SelectedDateChanged="MyDatePicker_SelectedDateChanged" x:Name="DateAuthor"/>
 
-        <TextBlock Grid.Row="4" Grid.Column="0" FontSize="20" VerticalAlignment="Center">Zadejte datum narození</TextBlock>
-        <DatePicker Grid.Row="4" Grid.Column="1" FontSize="20" DateValidationError="DatePicker_DateValidationError" SelectedDateChanged="MyDatePicker_SelectedDateChanged" x:Name="DateAuthor"/>
-
-        <TextBlock Grid.Row="5" Grid.Column="0" FontSize="20" VerticalAlignment="Top" Margin="0,10,0,0">Zadejte popis autora</TextBlock>
-        <TextBox Grid.Row="5" Grid.Column="1" FontSize="20" Height="150" TextWrapping="Wrap" AcceptsReturn="True" x:Name="AboutAuthor"/>
-    </Grid>
+            <TextBlock FontSize="20" VerticalAlignment="Top" Margin="0,10,0,0">Zadejte popis autora</TextBlock>
+            <TextBox FontSize="16" MinHeight="150" Height="auto" TextWrapping="Wrap" AcceptsReturn="True" x:Name="AboutAuthor"/>
+        </StackPanel>
+    </ScrollViewer>
 
 </Window>

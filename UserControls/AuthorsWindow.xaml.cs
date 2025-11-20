@@ -35,6 +35,8 @@ namespace BookDatabase
                 OnPropertyChanged(nameof(CountryFilters));
             }
         }
+
+        // selecting Authors by Filter
         private ObservableCollection<FilterOption> SelectFiltersByname(string table, string txt)
         {
             ObservableCollection<FilterOption> list = new ObservableCollection<FilterOption>(
@@ -45,7 +47,7 @@ namespace BookDatabase
         }
 
 
-        // event
+        // event listener for automatic change
         public event PropertyChangedEventHandler? PropertyChanged;
         protected void OnPropertyChanged([CallerMemberName] string? propertyName = null)
         {
@@ -64,19 +66,6 @@ namespace BookDatabase
             CountryFilters = SelectFiltersByname("Countries", "");
         }
 
-        private ObservableCollection<FilterOption> FillCheckBoxes(string txt)
-        {
-            ObservableCollection<FilterOption> filters = new ObservableCollection<FilterOption>();
-
-            List<GeneralModel> list = db.SelectNameByTableName(txt);
-            foreach (GeneralModel elem in list)
-            {
-                FilterOption option = new FilterOption();
-                option.Name = elem.Name;
-                filters.Add(option);
-            }
-            return filters;
-        }
 
         // start method for showing all books or refresh books
         private void SelectCards()
@@ -84,12 +73,13 @@ namespace BookDatabase
             AuthorCards = new ObservableCollection<Author>();
             List<Author> list = db.SelectAllAuthor();
 
-            foreach (var item in list)
-            {
-                AuthorCards.Add(item);
-            }
+                foreach (var item in list)
+                {
+                    AuthorCards.Add(item);
+                }
         }
 
+        // method for setting elements of list method to start when property of element change
         private ObservableCollection<FilterOption> SetPropertyChange(ObservableCollection<FilterOption> list)
         {
             foreach (var elem in list)
@@ -99,19 +89,13 @@ namespace BookDatabase
             return list;
         }
 
+        // 
         private void ApplyFilter()
         {
 
             var countries = DoFilter(CountryFilters);
-
-          
             List<Author> list = db.SelectAuthorByFilters(countries);
-            foreach (var item in list)
-            {
-
-
-            }
-                FillItems(list);
+            FillItems(list);
         }
 
         private void OrderMouseDown(object sender, MouseButtonEventArgs e)
@@ -120,10 +104,10 @@ namespace BookDatabase
             var s = item.Name;
             string column = "";
             string way = "";
-            if (s == "ABCasc") { column = "Author.Name"; way = "asc";  }
-            else if (s == "ABCdsc") { column = "Author.Name"; way = "desc";  }
-            else if (s == "Birthasc") { column = "Author.DateOfBirth"; way = "asc";  }
-            else if (s == "Birthdsc") { column = "Author.DateOfBirth"; way = "desc";  }
+            if (s == "ABCasc") { column = "Authors.Name"; way = "asc";  }
+            else if (s == "ABCdsc") { column = "Authors.Name"; way = "desc";  }
+            else if (s == "Birthasc") { column = "Authors.DateOfBirth"; way = "asc";  }
+            else if (s == "Birthdsc") { column = "Authors.DateOfBirth"; way = "desc";  }
 
             List<Author> Author = db.OrderAuthor(column, way);
             FillItems(Author);
@@ -166,10 +150,8 @@ namespace BookDatabase
             AddAuthorForm win = new AddAuthorForm("Authors");
             win.Closed += (s, eArgs) =>
             {
-
                 SelectCards();
                 OnPropertyChanged(nameof(AuthorCards));
-   
             };
 
             win.ShowDialog();

@@ -12,55 +12,85 @@
     <Window.Resources>
         <ResourceDictionary>
             <Style TargetType="TextBlock">
-                <Setter Property="Foreground" Value="Black"/>
-                <Setter Property="Margin" Value="150,0,0,0"/>
-                <Setter Property="FontSize" Value="32"/>
+                <Setter Property="Width" Value="400"/>
+                <Setter Property="FontSize" Value="20"/>
             </Style>
 
             <Style TargetType="TextBox">
-                <Setter Property="Margin" Value="0,0,100,20"/>
-                <Setter Property="FontSize" Value="14"/>
-            </Style>
-
-            <Style TargetType="Button">
-                <Setter Property="Margin" Value="20,20,20,20"/>
+                <Setter Property="Width" Value="400"/>
+                <Setter Property="FontSize" Value="20"/>
+                <Setter Property="Height" Value="40"/>
+                <Setter Property="Margin" Value="0,0,0,20"/>
             </Style>
 
             <Style TargetType="ComboBox">
-                <Setter Property="Margin" Value="0,0,100,20"/>
+                <Setter Property="Width" Value="400"/>
+                <Setter Property="FontSize" Value="20"/>
+                <Setter Property="Height" Value="40"/>
+                <Setter Property="Margin" Value="0,0,0,20"/>
             </Style>
         </ResourceDictionary>
     </Window.Resources>
 
+
     <ScrollViewer VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Disabled">
-        <Grid Margin="0,0,0,40">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
 
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" MinHeight="120"/>
-                <RowDefinition Height="Auto" MinHeight="80"/>
-                <RowDefinition Height="Auto" MinHeight="80"/>
-                <RowDefinition Height="Auto" MinHeight="80"/>
-                <RowDefinition Height="Auto" MinHeight="80"/>
-                <RowDefinition Height="Auto" MinHeight="80"/>
-                <RowDefinition Height="Auto" MinHeight="80"/>
-                <RowDefinition Height="Auto" MinHeight="80"/>
-                <RowDefinition Height="Auto" MinHeight="80"/>
-                <RowDefinition Height="Auto" MinHeight="80"/>
-                <RowDefinition Height="Auto" MinHeight="160"/>
-                <RowDefinition Height="Auto" MinHeight="200"/>
-                <RowDefinition Height="Auto" MinHeight="80"/>
-            </Grid.RowDefinitions>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="20,20,20,50">
 
-            <Button Grid.Row="0" Grid.Column="0" FontSize="32" Cursor="Hand" Click="Return" Margin="0,0,250,60">Zrušit</Button>
-            <Button Grid.Row="0" Grid.Column="1" FontSize="32" Margin="250,0,0,60" x:Name="AddEditButton" Cursor="Hand" Click="ControlBeforeSave">Potvrdit</Button>
-            <Button Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" FontSize="25" Margin="350,0,350,70" Cursor="Hand" Click="AddAuthorButton">Přidat nového autora</Button>
 
-            <TextBlock Grid.Row="1" Grid.Column="0">Vybrat Autora</TextBlock>
-            <ComboBox Grid.Row="1" Grid.Column="1" FontSize="22" ItemsSource="{Binding Author}" x:Name="AuthorBox">
+                <Button  Width="200" Height="50" FontSize="32" Click="Return"  Margin="0,0,100,0" Foreground="White" Cursor="Hand">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border  x:Name="border" Background="#FF4040"  CornerRadius="10" BorderBrush="Transparent" BorderThickness="0" Padding="{TemplateBinding Padding}">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="border" Property="Background" Value="#FFFF0000"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
+                    Zpět
+                </Button>
+
+                <Button  Width="200" Height="50" FontSize="25" Click="AddAuthorButton" Margin="40,0,40,0" Foreground="White" Cursor="Hand">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border  x:Name="border" Background="#FF5A7EFF"  CornerRadius="10" BorderBrush="Transparent" BorderThickness="0" Padding="{TemplateBinding Padding}">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="border" Property="Background" Value="#FF1E3AFF"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
+                    Přidat Autora
+                </Button>
+
+                <Button  Width="200" Height="50" FontSize="32" Click="ControlBeforeSave"  Margin="100,0,0,0" Foreground="White" Cursor="Hand" x:Name="AddEditButton">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border  x:Name="border" Background="#11FF11"  CornerRadius="10" BorderBrush="Transparent" BorderThickness="0" Padding="{TemplateBinding Padding}">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="border" Property="Background" Value="#11BB11"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
+                    Potvrdit
+                </Button>
+
+            </StackPanel>
+
+            <TextBlock>Vybrat Autora</TextBlock>
+            <ComboBox FontSize="22" ItemsSource="{Binding Author}" x:Name="AuthorBox">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Name}" />
@@ -68,8 +98,8 @@
                 </ComboBox.ItemTemplate>
             </ComboBox>
 
-            <TextBlock Grid.Row="2" Grid.Column="0">Vyberte žánr</TextBlock>
-            <ComboBox Grid.Row="2" Grid.Column="1" ItemsSource="{Binding Genres}" FontSize="22" x:Name="GenresBox">
+            <TextBlock>Vyberte žánr</TextBlock>
+            <ComboBox ItemsSource="{Binding Genres}" FontSize="22" x:Name="GenresBox">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Name}" />
@@ -77,17 +107,17 @@
                 </ComboBox.ItemTemplate>
             </ComboBox>
 
-            <TextBlock Grid.Row="3" Grid.Column="0">Zadejte počet stran</TextBlock>
-            <TextBox Grid.Row="3" Grid.Column="1" PreviewTextInput="Length_PreviewTextInput" MaxLength="5" FontSize="22" x:Name="LengthBox"/>
+            <TextBlock>Zadejte počet stran</TextBlock>
+            <TextBox PreviewTextInput="Length_PreviewTextInput" MaxLength="5" FontSize="22" x:Name="LengthBox"/>
 
-            <TextBlock Grid.Row="4" Grid.Column="0">Zadejte EAN</TextBlock>
-            <TextBox Grid.Row="4" Grid.Column="1" MaxLength="13" FontSize="22" x:Name="EANBox"/>
+            <TextBlock>Zadejte EAN</TextBlock>
+            <TextBox MaxLength="13" FontSize="22" x:Name="EANBox"/>
 
-            <TextBlock Grid.Row="5" Grid.Column="0">Zadejte ISBN</TextBlock>
-            <TextBox Grid.Row="5" Grid.Column="1" MaxLength="13" FontSize="22" x:Name="ISBNBox"/>
+            <TextBlock>Zadejte ISBN</TextBlock>
+            <TextBox MaxLength="13" FontSize="22" x:Name="ISBNBox"/>
 
-            <TextBlock Grid.Row="6" Grid.Column="0">Vyberte Vydavatele</TextBlock>
-            <ComboBox Grid.Row="6" Grid.Column="1" ItemsSource="{Binding Publishers}" FontSize="22" x:Name="PublishersBox">
+            <TextBlock>Vyberte Vydavatele</TextBlock>
+            <ComboBox ItemsSource="{Binding Publishers}" FontSize="22" x:Name="PublishersBox">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Name}" />
@@ -95,8 +125,8 @@
                 </ComboBox.ItemTemplate>
             </ComboBox>
 
-            <TextBlock Grid.Row="7" Grid.Column="0">Vyberte Jazyk</TextBlock>
-            <ComboBox Grid.Row="7" Grid.Column="1" ItemsSource="{Binding Languages}" FontSize="22" x:Name="LanguageBox">
+            <TextBlock>Vyberte Jazyk</TextBlock>
+            <ComboBox ItemsSource="{Binding Languages}" FontSize="22" x:Name="LanguageBox">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Name}" />
@@ -104,11 +134,11 @@
                 </ComboBox.ItemTemplate>
             </ComboBox>
 
-            <TextBlock Grid.Row="8" Grid.Column="0" TextWrapping="WrapWithOverflow">Zadejte název knihy</TextBlock>
-            <TextBox Grid.Row="8" Grid.Column="1" MaxLength="64" FontSize="22" x:Name="NameBox"/>
+            <TextBlock TextWrapping="WrapWithOverflow">Zadejte název knihy</TextBlock>
+            <TextBox MaxLength="64" FontSize="22" x:Name="NameBox"/>
 
-            <TextBlock Grid.Row="9" Grid.Column="0">Vyberte Typ knihy</TextBlock>
-            <ComboBox Grid.Row="9" Grid.Column="1" ItemsSource="{Binding Types}" FontSize="22" x:Name="TypesBox">
+            <TextBlock>Vyberte Typ knihy</TextBlock>
+            <ComboBox ItemsSource="{Binding Types}" FontSize="22" x:Name="TypesBox">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Name}" />
@@ -116,15 +146,20 @@
                 </ComboBox.ItemTemplate>
             </ComboBox>
 
-            <TextBlock Grid.Row="10" Grid.Column="0" >Zhodnocení</TextBlock>
-            <TextBox Grid.Row="10" Grid.Column="1" x:Name="RatingBox" TextWrapping="Wrap"/>
+            <TextBlock>Zhodnocení</TextBlock>
+            <TextBox x:Name="RatingBox" TextWrapping="Wrap" MinHeight="120" Height="auto" FontSize="16"/>
 
-            <TextBlock Grid.Row="11" Grid.Column="0">Popis Knihy</TextBlock>
-            <TextBox Grid.Row="11" Grid.Column="1" TextWrapping="Wrap"  x:Name="DescriptionBox"/>
+            <TextBlock>Popis Knihy</TextBlock>
+            <TextBox TextWrapping="Wrap" x:Name="DescriptionBox" MinHeight="160" Height="auto" FontSize="16"/>
 
-            <Button Grid.Row="12" Grid.Column="0" FontSize="32" Margin="250,0,50,20" Cursor="Hand" Click="ChoosePhoto">Vybrat fotku</Button>
-            <TextBox Grid.Row="12" Grid.Column="1" IsReadOnly="True" x:Name="PhotoBox"/>
-        </Grid>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,20">
+                <Button FontSize="20" Cursor="Hand" Click="ChoosePhoto" Width="150" Height="50" Margin="0,0,20,0">Vybrat fotku</Button>
+                <Border Height="250" Width="150" Margin="20,0,0,0" BorderThickness="1" BorderBrush="Black">
+                    <Image Source="{Binding Image}" x:Name="PhotoBox" Height="250" Width="150"/>
+                </Border>
+               
+            </StackPanel>
+        </StackPanel>
     </ScrollViewer>
 </Window>
 
