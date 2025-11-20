@@ -8,36 +8,35 @@
              Height="720" Width="1280">
 
     <Grid>
-        <Image x:Name="BookImage" Width="260" Height="400" Margin="25,25,995,292" Source="{Binding ImageSource}"></Image>
-        
-        
-        <TextBlock Margin="320,25,275,620" FontSize="45" x:Name="BookTitleBox">Tady Bude Nazev Knihy</TextBlock>
-        <TextBlock Margin="320,105,320,559" FontSize="35" x:Name="AuthorNameBox">Tady Bude jmeno Autora</TextBlock>
+        <Image x:Name="BookImage" Width="230" Height="340" Margin="13,16,1037,364" Source="{Binding ImageSource}"></Image>
 
-        <TextBlock FontSize="25" Margin="320,185,816,498">Popis knihy:</TextBlock>
 
-        <Border BorderThickness="1" BorderBrush="Black" Margin="320,227,320,340">
+        <TextBlock Margin="281,23,314,622" FontSize="45" x:Name="BookTitleBox">Tady Bude Nazev Knihy</TextBlock>
+        <TextBlock Margin="281,98,359,566" FontSize="35" x:Name="AuthorNameBox">Tady Bude jmeno Autora</TextBlock>
+
+        <TextBlock FontSize="25" Margin="835,9,300,674">Popis knihy:</TextBlock>
+        <Border BorderThickness="1" BorderBrush="Black" Margin="835,51,30,400">
             <ScrollViewer VerticalScrollBarVisibility="Hidden">
                 <TextBlock FontSize="18" x:Name="DescriptionBox" TextWrapping="Wrap">Tady Bude popis</TextBlock>
             </ScrollViewer>
         </Border>
 
-        <TextBlock FontSize="25" Margin="320,396,652,286">Hodnocení knihy:</TextBlock>
-        <Border BorderThickness="1" BorderBrush="Black" Margin="320,434,320,144">
+        <TextBlock FontSize="25" Margin="835,341,136,341">Hodnocení knihy:</TextBlock>
+        <Border BorderThickness="1" BorderBrush="Black" Margin="835,384,30,86">
             <ScrollViewer VerticalScrollBarVisibility="Hidden">
                 <TextBlock FontSize="18" TextWrapping="Wrap" x:Name="RatingBox">Tady Bude zhodnocení</TextBlock>
             </ScrollViewer>
         </Border>
-        
-       
-        <Button Margin="68,593,1038,75" Cursor="Hand" Click="BackToBooksWindow">ZPĚT</Button>
-        <Button Margin="68,474,1038,194" Cursor="Hand" Click="EditBook">EDIT</Button>
-        <Button Margin="786,593,320,75" Cursor="Hand" Click="DeleteBook">DELETE</Button>
+
+
+        <Button Margin="41,603,1065,65" Cursor="Hand" Click="BackToBooksWindow">ZPĚT</Button>
+        <Button Margin="320,200,786,468" Cursor="Hand" Click="EditBook">EDIT</Button>
+        <Button Margin="281,603,825,65" Cursor="Hand" Click="DeleteBook">DELETE</Button>
 
 
 
-        <StackPanel Margin="1010,0,0,0">
-            <TextBlock  FontSize="20" HorizontalAlignment="Center" Margin="0,30,0,0">ŽÁNR:</TextBlock>
+        <StackPanel Margin="531,154,479,36">
+            <TextBlock  FontSize="20" HorizontalAlignment="Center" Margin="0,0,0,0">ŽÁNR:</TextBlock>
             <TextBlock  FontSize="20" HorizontalAlignment="Center" Margin="0,0,0,20" x:Name="GenreBox">tu bude žánr</TextBlock>
             <TextBlock  FontSize="20" HorizontalAlignment="Center">TYP OBALU:</TextBlock>
             <TextBlock  FontSize="20" HorizontalAlignment="Center" Margin="0,0,0,20" x:Name="TypeBox">tu bude typ obalu</TextBlock>
@@ -52,7 +51,7 @@
             <TextBlock  FontSize="20" HorizontalAlignment="Center">ISBN:</TextBlock>
             <TextBlock  FontSize="20" HorizontalAlignment="Center" Margin="0,0,0,20" x:Name="ISBNBox">tu bude isbn</TextBlock>
         </StackPanel>
-        
-        
+
+
     </Grid>
 </UserControl>
