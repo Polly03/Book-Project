@@ -11,7 +11,7 @@ using System.Windows.Input;
 namespace BookDatabase
 {
     // class for showing and filtering books
-    public partial class BooksWindow : UserControl, INotifyPropertyChanged
+    public partial class BooksWindow : UserControlLibrary, INotifyPropertyChanged
     {
        
 
@@ -179,18 +179,7 @@ namespace BookDatabase
         }
 
         // getting filters in correct order to work like a list
-        private string DoFilter(ObservableCollection<FilterOption> list)
-        {
-            List<string> selected = GetSelected(list);
-            return selected.Count == 0 ? "" :
-                string.Join(",", selected.Select(a => $"'{a.Replace("'", "''")}'"));
-        }
-
-        // select name of selected items
-        private List<string> GetSelected(ObservableCollection<FilterOption> list)
-        {
-            return list.Where(a => a.IsSelected).Select(a => a.Name).ToList() as List<string>;
-        }
+      
 
 
         // method when user select order of books by which element and in which way

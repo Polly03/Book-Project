@@ -1,10 +1,11 @@
-﻿<UserControl x:Class="BookDatabase.AuthorWindow"
+﻿<local:UserControlLibrary x:Class="BookDatabase.AuthorWindow"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BookDatabase"
-             mc:Ignorable="d" 
+
+                          mc:Ignorable="d" 
           Height="720" Width="1280">
     
     <ScrollViewer Margin="0,0,12,0">
@@ -116,7 +117,7 @@
                                     <ItemsControl ItemsSource="{Binding CountryFilters}" Width="200">
                                         <ItemsControl.ItemTemplate>
                                             <DataTemplate>
-                                                <CheckBox Cursor="Hand"  Content="{Binding Name}" IsChecked="{Binding IsSelected, Mode=TwoWay}" Margin="0,2"/>
+                                                <CheckBox Style="{StaticResource CustomCheckBox}" Cursor="Hand"  Content="{Binding Name}" IsChecked="{Binding IsSelected, Mode=TwoWay}" Margin="0,2"/>
                                             </DataTemplate>
                                         </ItemsControl.ItemTemplate>
                                     </ItemsControl>
@@ -153,5 +154,5 @@
 
 
 
-</UserControl>
+</local:UserControlLibrary>
 

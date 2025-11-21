@@ -1,6 +1,8 @@
 C:\Users\polasekj\source\repos\Book-Project\BookDatabase\BookDatabase\obj\Debug\net8.0-windows\BookDatabase.csproj.AssemblyReference.cache
 C:\Users\polasekj\source\repos\Book-Project\BookDatabase\BookDatabase\obj\Debug\net8.0-windows\CardViews\CardView.g.cs
 C:\Users\polasekj\source\repos\Book-Project\BookDatabase\BookDatabase\obj\Debug\net8.0-windows\CardViews\CardViewAuthor.g.cs
+C:\Users\polasekj\source\repos\Book-Project\BookDatabase\BookDatabase\obj\Debug\net8.0-windows\Details\AuthorDetail.g.cs
+C:\Users\polasekj\source\repos\Book-Project\BookDatabase\BookDatabase\obj\Debug\net8.0-windows\Details\BookDetail.g.cs
 C:\Users\polasekj\source\repos\Book-Project\BookDatabase\BookDatabase\obj\Debug\net8.0-windows\MainWindow.g.cs
 C:\Users\polasekj\source\repos\Book-Project\BookDatabase\BookDatabase\obj\Debug\net8.0-windows\UserControls\AuthorsWindow.g.cs
 C:\Users\polasekj\source\repos\Book-Project\BookDatabase\BookDatabase\obj\Debug\net8.0-windows\UserControls\BooksWindow.g.cs
@@ -10,54 +12,6 @@ C:\Users\polasekj\source\repos\Book-Project\BookDatabase\BookDatabase\obj\Debug\
 C:\Users\polasekj\source\repos\Book-Project\BookDatabase\BookDatabase\obj\Debug\net8.0-windows\GeneratedInternalTypeHelper.g.cs
 C:\Users\polasekj\source\repos\Book-Project\BookDatabase\BookDatabase\obj\Debug\net8.0-windows\BookDatabase_MarkupCompile.cache
 C:\Users\polasekj\source\repos\Book-Project\BookDatabase\BookDatabase\obj\Debug\net8.0-windows\BookDatabase_MarkupCompile.lref
-C:\Users\jakpo\Desktop\prace\Book-Project\obj\Debug\net8.0-windows\BookDatabase.csproj.AssemblyReference.cache
-C:\Users\jakpo\Desktop\prace\Book-Project\obj\Debug\net8.0-windows\CardViews\CardView.g.cs
-C:\Users\jakpo\Desktop\prace\Book-Project\obj\Debug\net8.0-windows\CardViews\CardViewAuthor.g.cs
-C:\Users\jakpo\Desktop\prace\Book-Project\obj\Debug\net8.0-windows\MainWindow.g.cs
-C:\Users\jakpo\Desktop\prace\Book-Project\obj\Debug\net8.0-windows\UserControls\AuthorsWindow.g.cs
-C:\Users\jakpo\Desktop\prace\Book-Project\obj\Debug\net8.0-windows\UserControls\BooksWindow.g.cs
-C:\Users\jakpo\Desktop\prace\Book-Project\obj\Debug\net8.0-windows\Windows\AddAuthorForm.g.cs
-C:\Users\jakpo\Desktop\prace\Book-Project\obj\Debug\net8.0-windows\Windows\AddBookForm.g.cs
-C:\Users\jakpo\Desktop\prace\Book-Project\obj\Debug\net8.0-windows\App.g.cs
-C:\Users\jakpo\Desktop\prace\Book-Project\obj\Debug\net8.0-windows\GeneratedInternalTypeHelper.g.cs
-C:\Users\jakpo\Desktop\prace\Book-Project\obj\Debug\net8.0-windows\BookDatabase_MarkupCompile.cache
-C:\Users\jakpo\Desktop\prace\Book-Project\obj\Debug\net8.0-windows\BookDatabase_MarkupCompile.lref
-C:\Users\jakpo\Desktop\prace\Book-Project\bin\Debug\net8.0-windows\BookDatabase.exe
-C:\Users\jakpo\Desktop\prace\Book-Project\bin\Debug\net8.0-windows\BookDatabase.deps.json
-C:\Users\jakpo\Desktop\prace\Book-Project\bin\Debug\net8.0-windows\BookDatabase.runtimeconfig.json
-C:\Users\jakpo\Desktop\prace\Book-Project\bin\Debug\net8.0-windows\BookDatabase.dll
-C:\Users\jakpo\Desktop\prace\Book-Project\bin\Debug\net8.0-windows\BookDatabase.pdb
-C:\Users\jakpo\Desktop\prace\Book-Project\bin\Debug\net8.0-windows\FirebirdSql.Data.FirebirdClient.dll
-C:\Users\jakpo\Desktop\prace\Book-Project\bin\Debug\net8.0-windows\Microsoft.EntityFrameworkCore.dll
-C:\Users\jakpo\Desktop\prace\Book-Project\bin\Debug\net8.0-windows\Microsoft.EntityFrameworkCore.Abstractions.dll
-C:\Users\jakpo\Desktop\prace\Book-Project\bin\Debug\net8.0-windows\Microsoft.Extensions.Caching.Abstractions.dll
-C:\Users\jakpo\Desktop\prace\Book-Project\bin\Debug\net8.0-windows\Microsoft.Extensions.Caching.Memory.dll
-C:\Users\jakpo\Desktop\prace\Book-Project\bin\Debug\net8.0-windows\Microsoft.Extensions.DependencyInjection.dll
-C:\Users\jakpo\Desktop\prace\Book-Project\bin\Debug\net8.0-windows\Microsoft.Extensions.DependencyInjection.Abstractions.dll
-C:\Users\jakpo\Desktop\prace\Book-Project\bin\Debug\net8.0-windows\Microsoft.Extensions.Logging.dll
-C:\Users\jakpo\Desktop\prace\Book-Project\bin\Debug\net8.0-windows\Microsoft.Extensions.Logging.Abstractions.dll
-C:\Users\jakpo\Desktop\prace\Book-Project\bin\Debug\net8.0-windows\Microsoft.Extensions.Options.dll
-C:\Users\jakpo\Desktop\prace\Book-Project\bin\Debug\net8.0-windows\Microsoft.Extensions.Primitives.dll
-C:\Users\jakpo\Desktop\prace\Book-Project\bin\Debug\net8.0-windows\System.Diagnostics.DiagnosticSource.dll
-C:\Users\jakpo\Desktop\prace\Book-Project\obj\Debug\net8.0-windows\CardViews\CardView.baml
-C:\Users\jakpo\Desktop\prace\Book-Project\obj\Debug\net8.0-windows\CardViews\CardViewAuthor.baml
-C:\Users\jakpo\Desktop\prace\Book-Project\obj\Debug\net8.0-windows\MainWindow.baml
-C:\Users\jakpo\Desktop\prace\Book-Project\obj\Debug\net8.0-windows\UserControls\AuthorsWindow.baml
-C:\Users\jakpo\Desktop\prace\Book-Project\obj\Debug\net8.0-windows\UserControls\BooksWindow.baml
-C:\Users\jakpo\Desktop\prace\Book-Project\obj\Debug\net8.0-windows\Windows\AddAuthorForm.baml
-C:\Users\jakpo\Desktop\prace\Book-Project\obj\Debug\net8.0-windows\Windows\AddBookForm.baml
-C:\Users\jakpo\Desktop\prace\Book-Project\obj\Debug\net8.0-windows\BookDatabase.g.resources
-C:\Users\jakpo\Desktop\prace\Book-Project\obj\Debug\net8.0-windows\BookDatabase.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\jakpo\Desktop\prace\Book-Project\obj\Debug\net8.0-windows\BookDatabase.AssemblyInfoInputs.cache
-C:\Users\jakpo\Desktop\prace\Book-Project\obj\Debug\net8.0-windows\BookDatabase.AssemblyInfo.cs
-C:\Users\jakpo\Desktop\prace\Book-Project\obj\Debug\net8.0-windows\BookDatabase.csproj.CoreCompileInputs.cache
-C:\Users\jakpo\Desktop\prace\Book-Project\obj\Debug\net8.0-windows\BookDatabase.sourcelink.json
-C:\Users\jakpo\Desktop\prace\Book-Project\obj\Debug\net8.0-windows\BookData.256CB2D4.Up2Date
-C:\Users\jakpo\Desktop\prace\Book-Project\obj\Debug\net8.0-windows\BookDatabase.dll
-C:\Users\jakpo\Desktop\prace\Book-Project\obj\Debug\net8.0-windows\refint\BookDatabase.dll
-C:\Users\jakpo\Desktop\prace\Book-Project\obj\Debug\net8.0-windows\BookDatabase.pdb
-C:\Users\jakpo\Desktop\prace\Book-Project\obj\Debug\net8.0-windows\BookDatabase.genruntimeconfig.cache
-C:\Users\jakpo\Desktop\prace\Book-Project\obj\Debug\net8.0-windows\ref\BookDatabase.dll
 C:\Users\polasekj\source\repos\Book-Project\BookDatabase\BookDatabase\bin\Debug\net8.0-windows\BookDatabase.exe
 C:\Users\polasekj\source\repos\Book-Project\BookDatabase\BookDatabase\bin\Debug\net8.0-windows\BookDatabase.deps.json
 C:\Users\polasekj\source\repos\Book-Project\BookDatabase\BookDatabase\bin\Debug\net8.0-windows\BookDatabase.runtimeconfig.json
@@ -75,8 +29,11 @@ C:\Users\polasekj\source\repos\Book-Project\BookDatabase\BookDatabase\bin\Debug\
 C:\Users\polasekj\source\repos\Book-Project\BookDatabase\BookDatabase\bin\Debug\net8.0-windows\Microsoft.Extensions.Options.dll
 C:\Users\polasekj\source\repos\Book-Project\BookDatabase\BookDatabase\bin\Debug\net8.0-windows\Microsoft.Extensions.Primitives.dll
 C:\Users\polasekj\source\repos\Book-Project\BookDatabase\BookDatabase\bin\Debug\net8.0-windows\System.Diagnostics.DiagnosticSource.dll
+C:\Users\polasekj\source\repos\Book-Project\BookDatabase\BookDatabase\obj\Debug\net8.0-windows\App.baml
 C:\Users\polasekj\source\repos\Book-Project\BookDatabase\BookDatabase\obj\Debug\net8.0-windows\CardViews\CardView.baml
 C:\Users\polasekj\source\repos\Book-Project\BookDatabase\BookDatabase\obj\Debug\net8.0-windows\CardViews\CardViewAuthor.baml
+C:\Users\polasekj\source\repos\Book-Project\BookDatabase\BookDatabase\obj\Debug\net8.0-windows\Details\AuthorDetail.baml
+C:\Users\polasekj\source\repos\Book-Project\BookDatabase\BookDatabase\obj\Debug\net8.0-windows\Details\BookDetail.baml
 C:\Users\polasekj\source\repos\Book-Project\BookDatabase\BookDatabase\obj\Debug\net8.0-windows\MainWindow.baml
 C:\Users\polasekj\source\repos\Book-Project\BookDatabase\BookDatabase\obj\Debug\net8.0-windows\UserControls\AuthorsWindow.baml
 C:\Users\polasekj\source\repos\Book-Project\BookDatabase\BookDatabase\obj\Debug\net8.0-windows\UserControls\BooksWindow.baml
@@ -94,116 +51,3 @@ C:\Users\polasekj\source\repos\Book-Project\BookDatabase\BookDatabase\obj\Debug\
 C:\Users\polasekj\source\repos\Book-Project\BookDatabase\BookDatabase\obj\Debug\net8.0-windows\BookDatabase.pdb
 C:\Users\polasekj\source\repos\Book-Project\BookDatabase\BookDatabase\obj\Debug\net8.0-windows\BookDatabase.genruntimeconfig.cache
 C:\Users\polasekj\source\repos\Book-Project\BookDatabase\BookDatabase\obj\Debug\net8.0-windows\ref\BookDatabase.dll
-C:\Users\polasekj\source\repos\Book-Project\BookDatabase\BookDatabase\obj\Debug\net8.0-windows\Details\BookDetail.g.cs
-C:\Users\polasekj\source\repos\Book-Project\BookDatabase\BookDatabase\obj\Debug\net8.0-windows\Details\BookDetail.baml
-C:\Users\polasekj\source\repos\Book-Project\BookDatabase\BookDatabase\obj\Debug\net8.0-windows\Details\AuthorDetail.g.cs
-C:\Users\polasekj\source\repos\Book-Project\BookDatabase\BookDatabase\obj\Debug\net8.0-windows\Details\AuthorDetail.baml
-C:\Users\jakpo\Desktop\prace\Book-Project\obj\Debug\net8.0-windows\Details\AuthorDetail.g.cs
-C:\Users\jakpo\Desktop\prace\Book-Project\obj\Debug\net8.0-windows\Details\BookDetail.g.cs
-C:\Users\jakpo\Desktop\prace\Book-Project\obj\Debug\net8.0-windows\Details\AuthorDetail.baml
-C:\Users\jakpo\Desktop\prace\Book-Project\obj\Debug\net8.0-windows\Details\BookDetail.baml
-C:\Users\rozsypalovaj\Downloads\Book-Project-main (1)\Book-Project-main\bin\Debug\net8.0-windows\BookDatabase.exe
-C:\Users\rozsypalovaj\Downloads\Book-Project-main (1)\Book-Project-main\bin\Debug\net8.0-windows\BookDatabase.deps.json
-C:\Users\rozsypalovaj\Downloads\Book-Project-main (1)\Book-Project-main\bin\Debug\net8.0-windows\BookDatabase.runtimeconfig.json
-C:\Users\rozsypalovaj\Downloads\Book-Project-main (1)\Book-Project-main\bin\Debug\net8.0-windows\BookDatabase.dll
-C:\Users\rozsypalovaj\Downloads\Book-Project-main (1)\Book-Project-main\bin\Debug\net8.0-windows\BookDatabase.pdb
-C:\Users\rozsypalovaj\Downloads\Book-Project-main (1)\Book-Project-main\bin\Debug\net8.0-windows\FirebirdSql.Data.FirebirdClient.dll
-C:\Users\rozsypalovaj\Downloads\Book-Project-main (1)\Book-Project-main\bin\Debug\net8.0-windows\Microsoft.EntityFrameworkCore.dll
-C:\Users\rozsypalovaj\Downloads\Book-Project-main (1)\Book-Project-main\bin\Debug\net8.0-windows\Microsoft.EntityFrameworkCore.Abstractions.dll
-C:\Users\rozsypalovaj\Downloads\Book-Project-main (1)\Book-Project-main\bin\Debug\net8.0-windows\Microsoft.Extensions.Caching.Abstractions.dll
-C:\Users\rozsypalovaj\Downloads\Book-Project-main (1)\Book-Project-main\bin\Debug\net8.0-windows\Microsoft.Extensions.Caching.Memory.dll
-C:\Users\rozsypalovaj\Downloads\Book-Project-main (1)\Book-Project-main\bin\Debug\net8.0-windows\Microsoft.Extensions.DependencyInjection.dll
-C:\Users\rozsypalovaj\Downloads\Book-Project-main (1)\Book-Project-main\bin\Debug\net8.0-windows\Microsoft.Extensions.DependencyInjection.Abstractions.dll
-C:\Users\rozsypalovaj\Downloads\Book-Project-main (1)\Book-Project-main\bin\Debug\net8.0-windows\Microsoft.Extensions.Logging.dll
-C:\Users\rozsypalovaj\Downloads\Book-Project-main (1)\Book-Project-main\bin\Debug\net8.0-windows\Microsoft.Extensions.Logging.Abstractions.dll
-C:\Users\rozsypalovaj\Downloads\Book-Project-main (1)\Book-Project-main\bin\Debug\net8.0-windows\Microsoft.Extensions.Options.dll
-C:\Users\rozsypalovaj\Downloads\Book-Project-main (1)\Book-Project-main\bin\Debug\net8.0-windows\Microsoft.Extensions.Primitives.dll
-C:\Users\rozsypalovaj\Downloads\Book-Project-main (1)\Book-Project-main\bin\Debug\net8.0-windows\System.Diagnostics.DiagnosticSource.dll
-C:\Users\rozsypalovaj\Downloads\Book-Project-main (1)\Book-Project-main\obj\Debug\net8.0-windows\BookDatabase.csproj.AssemblyReference.cache
-C:\Users\rozsypalovaj\Downloads\Book-Project-main (1)\Book-Project-main\obj\Debug\net8.0-windows\CardViews\CardView.g.cs
-C:\Users\rozsypalovaj\Downloads\Book-Project-main (1)\Book-Project-main\obj\Debug\net8.0-windows\CardViews\CardViewAuthor.g.cs
-C:\Users\rozsypalovaj\Downloads\Book-Project-main (1)\Book-Project-main\obj\Debug\net8.0-windows\Details\AuthorDetail.g.cs
-C:\Users\rozsypalovaj\Downloads\Book-Project-main (1)\Book-Project-main\obj\Debug\net8.0-windows\Details\BookDetail.g.cs
-C:\Users\rozsypalovaj\Downloads\Book-Project-main (1)\Book-Project-main\obj\Debug\net8.0-windows\MainWindow.g.cs
-C:\Users\rozsypalovaj\Downloads\Book-Project-main (1)\Book-Project-main\obj\Debug\net8.0-windows\UserControls\AuthorsWindow.g.cs
-C:\Users\rozsypalovaj\Downloads\Book-Project-main (1)\Book-Project-main\obj\Debug\net8.0-windows\UserControls\BooksWindow.g.cs
-C:\Users\rozsypalovaj\Downloads\Book-Project-main (1)\Book-Project-main\obj\Debug\net8.0-windows\Windows\AddAuthorForm.g.cs
-C:\Users\rozsypalovaj\Downloads\Book-Project-main (1)\Book-Project-main\obj\Debug\net8.0-windows\Windows\AddBookForm.g.cs
-C:\Users\rozsypalovaj\Downloads\Book-Project-main (1)\Book-Project-main\obj\Debug\net8.0-windows\App.g.cs
-C:\Users\rozsypalovaj\Downloads\Book-Project-main (1)\Book-Project-main\obj\Debug\net8.0-windows\GeneratedInternalTypeHelper.g.cs
-C:\Users\rozsypalovaj\Downloads\Book-Project-main (1)\Book-Project-main\obj\Debug\net8.0-windows\BookDatabase_MarkupCompile.cache
-C:\Users\rozsypalovaj\Downloads\Book-Project-main (1)\Book-Project-main\obj\Debug\net8.0-windows\BookDatabase_MarkupCompile.lref
-C:\Users\rozsypalovaj\Downloads\Book-Project-main (1)\Book-Project-main\obj\Debug\net8.0-windows\CardViews\CardView.baml
-C:\Users\rozsypalovaj\Downloads\Book-Project-main (1)\Book-Project-main\obj\Debug\net8.0-windows\CardViews\CardViewAuthor.baml
-C:\Users\rozsypalovaj\Downloads\Book-Project-main (1)\Book-Project-main\obj\Debug\net8.0-windows\Details\AuthorDetail.baml
-C:\Users\rozsypalovaj\Downloads\Book-Project-main (1)\Book-Project-main\obj\Debug\net8.0-windows\Details\BookDetail.baml
-C:\Users\rozsypalovaj\Downloads\Book-Project-main (1)\Book-Project-main\obj\Debug\net8.0-windows\MainWindow.baml
-C:\Users\rozsypalovaj\Downloads\Book-Project-main (1)\Book-Project-main\obj\Debug\net8.0-windows\UserControls\AuthorsWindow.baml
-C:\Users\rozsypalovaj\Downloads\Book-Project-main (1)\Book-Project-main\obj\Debug\net8.0-windows\UserControls\BooksWindow.baml
-C:\Users\rozsypalovaj\Downloads\Book-Project-main (1)\Book-Project-main\obj\Debug\net8.0-windows\Windows\AddAuthorForm.baml
-C:\Users\rozsypalovaj\Downloads\Book-Project-main (1)\Book-Project-main\obj\Debug\net8.0-windows\Windows\AddBookForm.baml
-C:\Users\rozsypalovaj\Downloads\Book-Project-main (1)\Book-Project-main\obj\Debug\net8.0-windows\BookDatabase.g.resources
-C:\Users\rozsypalovaj\Downloads\Book-Project-main (1)\Book-Project-main\obj\Debug\net8.0-windows\BookDatabase.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\rozsypalovaj\Downloads\Book-Project-main (1)\Book-Project-main\obj\Debug\net8.0-windows\BookDatabase.AssemblyInfoInputs.cache
-C:\Users\rozsypalovaj\Downloads\Book-Project-main (1)\Book-Project-main\obj\Debug\net8.0-windows\BookDatabase.AssemblyInfo.cs
-C:\Users\rozsypalovaj\Downloads\Book-Project-main (1)\Book-Project-main\obj\Debug\net8.0-windows\BookDatabase.csproj.CoreCompileInputs.cache
-C:\Users\rozsypalovaj\Downloads\Book-Project-main (1)\Book-Project-main\obj\Debug\net8.0-windows\BookData.256CB2D4.Up2Date
-C:\Users\rozsypalovaj\Downloads\Book-Project-main (1)\Book-Project-main\obj\Debug\net8.0-windows\BookDatabase.dll
-C:\Users\rozsypalovaj\Downloads\Book-Project-main (1)\Book-Project-main\obj\Debug\net8.0-windows\refint\BookDatabase.dll
-C:\Users\rozsypalovaj\Downloads\Book-Project-main (1)\Book-Project-main\obj\Debug\net8.0-windows\BookDatabase.pdb
-C:\Users\rozsypalovaj\Downloads\Book-Project-main (1)\Book-Project-main\obj\Debug\net8.0-windows\BookDatabase.genruntimeconfig.cache
-C:\Users\rozsypalovaj\Downloads\Book-Project-main (1)\Book-Project-main\obj\Debug\net8.0-windows\ref\BookDatabase.dll
-C:\Users\jakpo\Downloads\Book-Project-main\Book-Project-main\bin\Debug\net8.0-windows\BookDatabase.exe
-C:\Users\jakpo\Downloads\Book-Project-main\Book-Project-main\bin\Debug\net8.0-windows\BookDatabase.deps.json
-C:\Users\jakpo\Downloads\Book-Project-main\Book-Project-main\bin\Debug\net8.0-windows\BookDatabase.runtimeconfig.json
-C:\Users\jakpo\Downloads\Book-Project-main\Book-Project-main\bin\Debug\net8.0-windows\BookDatabase.dll
-C:\Users\jakpo\Downloads\Book-Project-main\Book-Project-main\bin\Debug\net8.0-windows\BookDatabase.pdb
-C:\Users\jakpo\Downloads\Book-Project-main\Book-Project-main\bin\Debug\net8.0-windows\FirebirdSql.Data.FirebirdClient.dll
-C:\Users\jakpo\Downloads\Book-Project-main\Book-Project-main\bin\Debug\net8.0-windows\Microsoft.EntityFrameworkCore.dll
-C:\Users\jakpo\Downloads\Book-Project-main\Book-Project-main\bin\Debug\net8.0-windows\Microsoft.EntityFrameworkCore.Abstractions.dll
-C:\Users\jakpo\Downloads\Book-Project-main\Book-Project-main\bin\Debug\net8.0-windows\Microsoft.Extensions.Caching.Abstractions.dll
-C:\Users\jakpo\Downloads\Book-Project-main\Book-Project-main\bin\Debug\net8.0-windows\Microsoft.Extensions.Caching.Memory.dll
-C:\Users\jakpo\Downloads\Book-Project-main\Book-Project-main\bin\Debug\net8.0-windows\Microsoft.Extensions.DependencyInjection.dll
-C:\Users\jakpo\Downloads\Book-Project-main\Book-Project-main\bin\Debug\net8.0-windows\Microsoft.Extensions.DependencyInjection.Abstractions.dll
-C:\Users\jakpo\Downloads\Book-Project-main\Book-Project-main\bin\Debug\net8.0-windows\Microsoft.Extensions.Logging.dll
-C:\Users\jakpo\Downloads\Book-Project-main\Book-Project-main\bin\Debug\net8.0-windows\Microsoft.Extensions.Logging.Abstractions.dll
-C:\Users\jakpo\Downloads\Book-Project-main\Book-Project-main\bin\Debug\net8.0-windows\Microsoft.Extensions.Options.dll
-C:\Users\jakpo\Downloads\Book-Project-main\Book-Project-main\bin\Debug\net8.0-windows\Microsoft.Extensions.Primitives.dll
-C:\Users\jakpo\Downloads\Book-Project-main\Book-Project-main\bin\Debug\net8.0-windows\System.Diagnostics.DiagnosticSource.dll
-C:\Users\jakpo\Downloads\Book-Project-main\Book-Project-main\obj\Debug\net8.0-windows\BookDatabase.csproj.AssemblyReference.cache
-C:\Users\jakpo\Downloads\Book-Project-main\Book-Project-main\obj\Debug\net8.0-windows\CardViews\CardView.g.cs
-C:\Users\jakpo\Downloads\Book-Project-main\Book-Project-main\obj\Debug\net8.0-windows\CardViews\CardViewAuthor.g.cs
-C:\Users\jakpo\Downloads\Book-Project-main\Book-Project-main\obj\Debug\net8.0-windows\Details\AuthorDetail.g.cs
-C:\Users\jakpo\Downloads\Book-Project-main\Book-Project-main\obj\Debug\net8.0-windows\Details\BookDetail.g.cs
-C:\Users\jakpo\Downloads\Book-Project-main\Book-Project-main\obj\Debug\net8.0-windows\MainWindow.g.cs
-C:\Users\jakpo\Downloads\Book-Project-main\Book-Project-main\obj\Debug\net8.0-windows\UserControls\AuthorsWindow.g.cs
-C:\Users\jakpo\Downloads\Book-Project-main\Book-Project-main\obj\Debug\net8.0-windows\UserControls\BooksWindow.g.cs
-C:\Users\jakpo\Downloads\Book-Project-main\Book-Project-main\obj\Debug\net8.0-windows\Windows\AddAuthorForm.g.cs
-C:\Users\jakpo\Downloads\Book-Project-main\Book-Project-main\obj\Debug\net8.0-windows\Windows\AddBookForm.g.cs
-C:\Users\jakpo\Downloads\Book-Project-main\Book-Project-main\obj\Debug\net8.0-windows\App.g.cs
-C:\Users\jakpo\Downloads\Book-Project-main\Book-Project-main\obj\Debug\net8.0-windows\GeneratedInternalTypeHelper.g.cs
-C:\Users\jakpo\Downloads\Book-Project-main\Book-Project-main\obj\Debug\net8.0-windows\BookDatabase_MarkupCompile.cache
-C:\Users\jakpo\Downloads\Book-Project-main\Book-Project-main\obj\Debug\net8.0-windows\BookDatabase_MarkupCompile.lref
-C:\Users\jakpo\Downloads\Book-Project-main\Book-Project-main\obj\Debug\net8.0-windows\CardViews\CardView.baml
-C:\Users\jakpo\Downloads\Book-Project-main\Book-Project-main\obj\Debug\net8.0-windows\CardViews\CardViewAuthor.baml
-C:\Users\jakpo\Downloads\Book-Project-main\Book-Project-main\obj\Debug\net8.0-windows\Details\AuthorDetail.baml
-C:\Users\jakpo\Downloads\Book-Project-main\Book-Project-main\obj\Debug\net8.0-windows\Details\BookDetail.baml
-C:\Users\jakpo\Downloads\Book-Project-main\Book-Project-main\obj\Debug\net8.0-windows\MainWindow.baml
-C:\Users\jakpo\Downloads\Book-Project-main\Book-Project-main\obj\Debug\net8.0-windows\UserControls\AuthorsWindow.baml
-C:\Users\jakpo\Downloads\Book-Project-main\Book-Project-main\obj\Debug\net8.0-windows\UserControls\BooksWindow.baml
-C:\Users\jakpo\Downloads\Book-Project-main\Book-Project-main\obj\Debug\net8.0-windows\Windows\AddAuthorForm.baml
-C:\Users\jakpo\Downloads\Book-Project-main\Book-Project-main\obj\Debug\net8.0-windows\Windows\AddBookForm.baml
-C:\Users\jakpo\Downloads\Book-Project-main\Book-Project-main\obj\Debug\net8.0-windows\BookDatabase.g.resources
-C:\Users\jakpo\Downloads\Book-Project-main\Book-Project-main\obj\Debug\net8.0-windows\BookDatabase.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\jakpo\Downloads\Book-Project-main\Book-Project-main\obj\Debug\net8.0-windows\BookDatabase.AssemblyInfoInputs.cache
-C:\Users\jakpo\Downloads\Book-Project-main\Book-Project-main\obj\Debug\net8.0-windows\BookDatabase.AssemblyInfo.cs
-C:\Users\jakpo\Downloads\Book-Project-main\Book-Project-main\obj\Debug\net8.0-windows\BookDatabase.csproj.CoreCompileInputs.cache
-C:\Users\jakpo\Downloads\Book-Project-main\Book-Project-main\obj\Debug\net8.0-windows\BookData.256CB2D4.Up2Date
-C:\Users\jakpo\Downloads\Book-Project-main\Book-Project-main\obj\Debug\net8.0-windows\BookDatabase.dll
-C:\Users\jakpo\Downloads\Book-Project-main\Book-Project-main\obj\Debug\net8.0-windows\refint\BookDatabase.dll
-C:\Users\jakpo\Downloads\Book-Project-main\Book-Project-main\obj\Debug\net8.0-windows\BookDatabase.pdb
-C:\Users\jakpo\Downloads\Book-Project-main\Book-Project-main\obj\Debug\net8.0-windows\BookDatabase.genruntimeconfig.cache
-C:\Users\jakpo\Downloads\Book-Project-main\Book-Project-main\obj\Debug\net8.0-windows\ref\BookDatabase.dll
-C:\Users\jakpo\Desktop\prace\Book-Project\obj\Debug\net8.0-windows\test.g.cs
-C:\Users\jakpo\Desktop\prace\Book-Project\obj\Debug\net8.0-windows\test.baml
-C:\Users\polasekj\source\repos\Book-Project\BookDatabase\BookDatabase\obj\Debug\net8.0-windows\App.baml

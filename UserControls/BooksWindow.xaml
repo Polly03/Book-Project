@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="BookDatabase.BooksWindow"
+﻿<local:UserControlLibrary x:Class="BookDatabase.BooksWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -157,7 +157,7 @@
                                     <ItemsControl ItemsSource="{Binding AuthorFilter}" Width="200">
                                         <ItemsControl.ItemTemplate>
                                             <DataTemplate>
-                                                <CheckBox Cursor="Hand" FontSize="15"  Content="{Binding Name}" IsChecked="{Binding IsSelected, Mode=TwoWay}" Margin="0,2" Foreground="White"/>
+                                                <CheckBox Style="{StaticResource CustomCheckBox}" Cursor="Hand" FontSize="15"  Content="{Binding Name}" IsChecked="{Binding IsSelected, Mode=TwoWay}" Margin="0,2" Foreground="White"/>
                                             </DataTemplate>
                                         </ItemsControl.ItemTemplate>
                                     </ItemsControl>
@@ -192,7 +192,7 @@
                                     <ItemsControl ItemsSource="{Binding GenresFilter}" Width="200">
                                         <ItemsControl.ItemTemplate>
                                             <DataTemplate>
-                                                <CheckBox Cursor="Hand"  Content="{Binding Name}" IsChecked="{Binding IsSelected, Mode=TwoWay}" Margin="0,2" FontSize="15" Foreground="White"/>
+                                                <CheckBox Style="{StaticResource CustomCheckBox}" Cursor="Hand"  Content="{Binding Name}" IsChecked="{Binding IsSelected, Mode=TwoWay}" Margin="0,2" FontSize="15" Foreground="White"/>
                                             </DataTemplate>
                                         </ItemsControl.ItemTemplate>
                                     </ItemsControl>
@@ -225,7 +225,7 @@
                                     <ItemsControl Width="200" ItemsSource="{Binding LanguagesFilter}">
                                         <ItemsControl.ItemTemplate>
                                             <DataTemplate>
-                                                <CheckBox Cursor="Hand"  Content="{Binding Name}" IsChecked="{Binding IsSelected, Mode=TwoWay}" Margin="0,2" Foreground="White"/>
+                                                <CheckBox Style="{StaticResource CustomCheckBox}" Cursor="Hand"  Content="{Binding Name}" IsChecked="{Binding IsSelected, Mode=TwoWay}" Margin="0,2" Foreground="White"/>
                                             </DataTemplate>
                                         </ItemsControl.ItemTemplate>
                                     </ItemsControl>
@@ -257,7 +257,7 @@
                                     <ItemsControl Width="200" ItemsSource="{Binding PublishersFilters}">
                                         <ItemsControl.ItemTemplate>
                                             <DataTemplate>
-                                                <CheckBox Cursor="Hand"  Content="{Binding Name}" IsChecked="{Binding IsSelected, Mode=TwoWay}" Margin="0,2" Foreground="White"/>
+                                                <CheckBox Style="{StaticResource CustomCheckBox}" Cursor="Hand"  Content="{Binding Name}" IsChecked="{Binding IsSelected, Mode=TwoWay}" Margin="0,2" Foreground="White"/>
                                             </DataTemplate>
                                         </ItemsControl.ItemTemplate>
                                     </ItemsControl>
@@ -301,4 +301,4 @@
     </ScrollViewer>
     
 
-</UserControl>
+</local:UserControlLibrary>

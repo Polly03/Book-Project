@@ -45,45 +45,7 @@ namespace BookDatabase
             return SelectBooksWithSearch("");
         }
 
-        public List<Book> SelectBooksByFilters(string? author, string? genres, string? languages, string? publishers)
-        {
-            using (FbConnection con = new FbConnection(connString))
-            {
-                con.Open();
-
-                using (var cmd = new FbCommand("SELECT * FROM SELECT_BOOKS_WITH_FILTERS(@Author_list, @Genre_list, @Language_list, @Publishing_house_list)", con))
-                {
-                    cmd.Parameters.AddWithValue("@Author_list", (object?)author ?? DBNull.Value);
-                    cmd.Parameters.AddWithValue("@Genre_list", (object?)genres ?? DBNull.Value);
-                    cmd.Parameters.AddWithValue("@Language_list", (object?)languages ?? DBNull.Value);
-                    cmd.Parameters.AddWithValue("@Publishing_house_list", (object?)publishers ?? DBNull.Value);
-
-                    using (var reader = cmd.ExecuteReader())
-                    {
-                        List<Book> list = new List<Book> { };
-
-                        while (reader.Read())
-                        {
-                            var photo = reader["Photo"];
-                            byte[]? photoByte = photo as byte[];
-                            var names = (string)reader["Name"];
-                            var Author = (string)reader["Fullname"];
-                            var genre = (string)reader["Genre"];
-
-                            Book book = new Book();
-                            book.Author = Author;
-                            book.Name = names;
-                            book.Genre = genre;
-                            book.Image = GetBM((byte[])photoByte!, Size.Small);
-
-                            list.Add(book);
-                        }
-                        con.Close();
-                        return list;
-                    }
-                }
-            }
-        }
+       
 
         public void InsertAuthor(string name, string surname, string country, DateTime dateOfBirth, string aboutAuthor)
         {
@@ -110,28 +72,38 @@ namespace BookDatabase
 
         public List<Author> SelectAuthorByFilters(string? Countries)
         {
+            return SelectAuthorWithRestrictions("SELECT * FROM SELECT_AUTHOR_WITH_FILTERS(@Countries_list)", Countries, "@Countries_list");
+        }
+
+        public List<Author> SelectAuthorWithSearch(string search)
+        {
+            return SelectAuthorWithRestrictions("SELECT * FROM SELECT_AUTHOR_WITH_SEARCH(@search)", search, "@search");
+        }
+
+        private List<Author> SelectAuthorWithRestrictions(string query, string param, string paramS)
+        {
             using (FbConnection con = new FbConnection(connString))
             {
                 con.Open();
 
-                using (var cmd = new FbCommand("SELECT * FROM SELECT_AUTHOR_WITH_FILTERS(@Countries_list)", con))
+                using (var cmd = new FbCommand(query, con))
                 {
-                    cmd.Parameters.AddWithValue("@Countries_list", (object?)Countries ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue(paramS, (object?)param ?? DBNull.Value);
 
                     using (var reader = cmd.ExecuteReader())
                     {
-                        List<Author> list = new List<Author>();
-
+                        List<Author> list = new List<Author> { };
                         while (reader.Read())
                         {
-                            var nameT = (string)reader["Name"];
-                            var surnameT = (string)reader["Surname"];
-                            var dateOfBirthT = (DateTime)reader["DateOfBirth"];
-                            var countryT = (string)reader["Country"];
+                            var name = (string)reader["Name"];
+                            var surname = (string)reader["Surname"];
+                            string FullName = name + " " + surname;
+                            var dateOfBirth = (DateTime)reader["DateOfBirth"];
+                            var country = (string)reader["Country"];
 
-                            list.Add(new Author(nameT + " " + surnameT, dateOfBirthT.ToString(), countryT));
+                            list.Add(new Author(FullName, dateOfBirth.ToString(), country));
                         }
-
+                        con.Close();
                         return list;
                     }
                 }
@@ -148,62 +120,61 @@ namespace BookDatabase
                 {
                     cmd.Parameters.AddWithValue("@search", (object?)search ?? DBNull.Value);
 
-                    using (var reader = cmd.ExecuteReader())
-                    {
-                        List<Book> list = new List<Book> { };
-
-                        while (reader.Read())
-                        {
-                            var photo = reader["Photo"];
-                            byte[]? photoByte = photo as byte[];
-                            var names = (string)reader["Name"];
-                            var Author = (string)reader["Fullname"];
-                            var genre = (string)reader["Genre"];
-
-                            Book book = new Book();
-                            book.Author = Author;
-                            book.Name = names;
-                            book.Genre = genre;
-                            book.Image = GetBM((byte[])photoByte!, Size.Small);
-
-                            list.Add(book);
-                        }
-                        con.Close();
-                        return list;
-                    }
+                    List<Book> list = SelectBooksWithRestriction(cmd);
+                    con.Close();
+                    return list;
                 }
             }
         }
 
-        public List<Author> SelectAuthorWithSearch(string search)
+        public List<Book> SelectBooksByFilters(string? author, string? genres, string? languages, string? publishers)
         {
             using (FbConnection con = new FbConnection(connString))
             {
                 con.Open();
 
-                using (var cmd = new FbCommand("SELECT * FROM SELECT_AUTHOR_WITH_SEARCH(@search)", con))
+                using (var cmd = new FbCommand("SELECT * FROM SELECT_BOOKS_WITH_FILTERS(@Author_list, @Genre_list, @Language_list, @Publishing_house_list)", con))
                 {
-                    cmd.Parameters.AddWithValue("@search", (object?)search ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("@Author_list", (object?)author ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("@Genre_list", (object?)genres ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("@Language_list", (object?)languages ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("@Publishing_house_list", (object?)publishers ?? DBNull.Value);
 
-                    using (var reader = cmd.ExecuteReader())
-                    {
-                        List<Author> list = new List<Author> { };
-                        while (reader.Read())
-                        {
-                            var names = (string)reader["Name"];
-                            var surname = (string)reader["Surname"];
-                            string name = names + " " + surname;
-                            var dateOfBirth = (DateTime)reader["DateOfBirth"];
-                            var country = (string)reader["Country"];
-
-                            list.Add(new Author(name, dateOfBirth.ToString(), country));
-                        }
-                        con.Close();
-                        return list;
-                    }
+                    List<Book> list = SelectBooksWithRestriction(cmd);
+                    con.Close();
+                    return list;
                 }
             }
         }
+
+        private List<Book> SelectBooksWithRestriction(FbCommand cmd)
+        {
+            using (var reader = cmd.ExecuteReader())
+            {
+                List<Book> list = new List<Book> { };
+
+                while (reader.Read())
+                {
+                    var photo = reader["Photo"];
+                    byte[]? photoByte = photo as byte[];
+                    var names = (string)reader["Name"];
+                    var Author = (string)reader["Fullname"];
+                    var genre = (string)reader["Genre"];
+
+                    Book book = new Book();
+                    book.Author = Author;
+                    book.Name = names;
+                    book.Genre = genre;
+                    book.Image = GetBM((byte[])photoByte!, Size.Small);
+
+                    list.Add(book);
+                }
+           
+                return list;
+            }
+        }
+
+
 
         public Book SelectBook(string name, Size size)
         {
@@ -240,7 +211,6 @@ namespace BookDatabase
                     }
                 }
             }
-            return null!;
         }
 
         public Author SelectAuthor(string authorName)
@@ -270,7 +240,6 @@ namespace BookDatabase
                     }
                 }
             }
-            return null!;
         }
 
         public List<Author> OrderAuthor(string argument, string way)
@@ -433,6 +402,7 @@ namespace BookDatabase
                                                "@RATING, @DESCRIPTION, @GENRE, @BOOK_NAME, @AUTHOR_NAME)", con))
                 {
                     cmd.Parameters.AddWithValue("@BOOK_ID", BookId);
+
                     cmd.Parameters.AddWithValue("@PHOTO", (object?)photo ?? DBNull.Value);
                     cmd.Parameters.AddWithValue("@TYPE_OF_BOOK", (object?)typeOfBook ?? DBNull.Value);
                     cmd.Parameters.AddWithValue("@LENGTH_OF_BOOK", lengthOfBook);
@@ -450,6 +420,8 @@ namespace BookDatabase
                 }
             }
         }
+
+       
 
         public void UpdateAuthor(int authorId, string name, string surname, DateTime dateOfBirth, string countryName, string aboutAuthor)
         {

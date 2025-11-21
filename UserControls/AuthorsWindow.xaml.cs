@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
+using BookDatabase;
 
 
 using System.Windows.Input;
@@ -13,7 +14,7 @@ using System.Windows.Input;
 namespace BookDatabase
 {
 
-    public partial class AuthorWindow : UserControl, INotifyPropertyChanged
+    public partial class AuthorWindow : UserControlLibrary, INotifyPropertyChanged
     {
         Database db = Database.Instace;
 
@@ -121,20 +122,6 @@ namespace BookDatabase
                 AuthorCards.Add(elem);
             }
         }
-
-        private string DoFilter(ObservableCollection<FilterOption> list)
-        {
-            List<string> selected = GetSelected(list);
-            return selected.Count == 0 ? "" :
-                string.Join(",", selected.Select(a => $"'{a.Replace("'", "''")}'"));
-        }
-
-        private List<string> GetSelected(ObservableCollection<FilterOption> list)
-        {
-            return list.Where(a => a.IsSelected).Select(a => a.Name).ToList() as List<string>;
-        }
-
-
 
         private void Return(object sender, RoutedEventArgs e)
         {

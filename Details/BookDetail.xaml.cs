@@ -69,7 +69,7 @@ namespace BookDatabase.Details
         
             win.Closed += (s, eArgs) =>
             {
-                SelectedBook = db.SelectBook(win.EditBook!.Name, Models.Size.Small);
+                SelectedBook = db.SelectBook(win.EditBook!.Name, Models.Size.Medium);
             };
 
             win.ShowDialog();

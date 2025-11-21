@@ -32,5 +32,49 @@
                 </Setter.Value>
             </Setter>
         </Style>
+
+        <Style x:Key="CustomCheckBox" TargetType="CheckBox">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="CheckBox">
+                        <StackPanel Orientation="Horizontal">
+                            <Border
+                        x:Name="checkBorder"
+                        Width="24" Height="24"
+                        Background="White"
+                        BorderBrush="#0000FF"
+                        BorderThickness="2"
+                        CornerRadius="6"
+                        Margin="0,0,6,0">
+
+                                <Path x:Name="checkMark"
+                                      StrokeThickness="3"
+                                      Stroke="#1F1111"
+                                      Data="M 4 12 L 10 18 L 20 6"
+                                      Margin="-2 -2 0 0"
+                                      Visibility="Collapsed"/>
+                            </Border>
+
+                            <ContentPresenter VerticalAlignment="Center"/>
+                        </StackPanel>
+
+                        <ControlTemplate.Triggers>
+
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="checkBorder" Property="Background" Value="#2F65F8"/>
+                                <Setter TargetName="checkMark" Property="Stroke" Value="White"/>
+                                <Setter TargetName="checkMark" Property="Visibility" Value="Visible"/>
+                            </Trigger>
+
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="checkBorder" Property="BorderBrush" Value="#4A82FF"/>
+                            </Trigger>
+
+                        </ControlTemplate.Triggers>
+
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Application.Resources>
 </Application>
