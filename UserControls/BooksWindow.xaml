@@ -58,7 +58,12 @@
 
             </StackPanel>
 
-            <Separator Margin="0,10,0,-1" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Background="#135E90"></Separator>
+            <Separator Margin="0,10,0,-1" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Background="#135E90">
+                <Separator.RenderTransform>
+                    <ScaleTransform ScaleY="3" />
+                </Separator.RenderTransform>
+            </Separator>
+
 
             <Border Grid.Column="0" Background="#195E98" Width="240" Grid.Row="2" >
                 <StackPanel >
