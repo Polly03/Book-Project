@@ -16,13 +16,13 @@ namespace BookDatabase.Windows
 
         public Author? EditedAuthor { get; set; }
 
-        public AddAuthorForm(string win, string use = "default", Author? author = null)
+        public AddAuthorForm(Models.Func func, Author? author = null)
         {
             InitializeComponent();
             DataContext = this;
             Countries = db.SelectNameByTableName("Countries");
 
-           if (use == "edit")
+           if (func == Func.Edit)
             {
                 EditedAuthor = author;
                 StartEdit();
@@ -36,7 +36,7 @@ namespace BookDatabase.Windows
 
             AcceptButton.Click -= Accept;
             AcceptButton.Click += AcceptEdit;
-            CountriesBox.SelectedIndex = SelectIndeOfBox(Countries, EditedAuthor.Country);
+            CountriesBox.SelectedItem = Countries.FirstOrDefault(c => c.Name == EditedAuthor.Name);
                
             List<string> list = EditedAuthor!.Name!.Split(" ").ToList();
             SurNameAuthor.Text = list.Last();
@@ -46,18 +46,6 @@ namespace BookDatabase.Windows
             AboutAuthor.Text = EditedAuthor.AboutAuthor;
             DateAuthor.Text = EditedAuthor.DateOfBirth;
 
-        }
-
-        private int SelectIndeOfBox(List<GeneralModel> list, string? value)
-        {
-            foreach (GeneralModel model in list)
-            {
-                if (model.Name == value)
-                {
-                    return list.IndexOf(model);
-                }
-            }
-            return 0;
         }
 
         private void AcceptEdit(object sender, RoutedEventArgs e)
@@ -75,17 +63,25 @@ namespace BookDatabase.Windows
 
         public void Return(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult result = MessageBox.Show(
-              "Opravdu se chcete vrátit?\nVaše vyplněné pole budou ztraceny!",
-              "Confirmation",
-              MessageBoxButton.YesNo,
-              MessageBoxImage.Question
-          );
-
-            if (result == MessageBoxResult.Yes)
+            if (AreAllFieldsEmpty())
             {
                 this.Close();
             }
+            else
+            {
+                MessageBoxResult result = MessageBox.Show(
+                  "Opravdu se chcete vrátit?\nVaše vyplněné pole budou ztraceny!",
+                  "Confirmation",
+                  MessageBoxButton.YesNo,
+                  MessageBoxImage.Question
+              );
+
+                if (result == MessageBoxResult.Yes)
+                {
+                    this.Close();
+                }
+            }
+                
         }
 
         private void DatePicker_DateValidationError(object sender, DatePickerDateValidationErrorEventArgs e)
@@ -97,6 +93,15 @@ namespace BookDatabase.Windows
         private void MyDatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
             DateAuthor.Background = Brushes.White;
+        }
+
+        private bool AreAllFieldsEmpty()
+        {
+            return DateAuthor.SelectedDate == null
+                && string.IsNullOrWhiteSpace(AboutAuthor.Text)
+                && string.IsNullOrWhiteSpace(NameAuthor.Text)
+                && string.IsNullOrWhiteSpace(SurNameAuthor.Text)
+                && CountriesBox.SelectedItem == null;
         }
 
         private bool Control()

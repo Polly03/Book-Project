@@ -147,7 +147,7 @@ namespace BookDatabase
         }
         private void AddAuthor(object sender, RoutedEventArgs e)
         {
-            AddAuthorForm win = new AddAuthorForm("Authors");
+            AddAuthorForm win = new AddAuthorForm(Models.Func.Add);
             win.Closed += (s, eArgs) =>
             {
                 SelectCards();

@@ -6,7 +6,6 @@
         xmlns:local="clr-namespace:BookDatabase.Windows"
         mc:Ignorable="d"
         Title="AddAuthorForm" Height="800" Width="1000"
-        WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize">
 
     <Window.Resources>
@@ -96,7 +95,12 @@
             </ComboBox>
 
             <TextBlock FontSize="20" VerticalAlignment="Center">Zadejte datum narození</TextBlock>
-            <DatePicker FontSize="20" DateValidationError="DatePicker_DateValidationError" SelectedDateChanged="MyDatePicker_SelectedDateChanged" x:Name="DateAuthor"/>
+            <DatePicker FontSize="20" DateValidationError="DatePicker_DateValidationError" SelectedDateChanged="MyDatePicker_SelectedDateChanged" x:Name="DateAuthor">
+                <DatePicker.Resources>
+                    <Style TargetType="TextBlock">
+                    </Style>
+                </DatePicker.Resources>
+            </DatePicker>
 
             <TextBlock FontSize="20" VerticalAlignment="Top" Margin="0,10,0,0">Zadejte popis autora</TextBlock>
             <TextBox FontSize="16" MinHeight="150" Height="auto" TextWrapping="Wrap" AcceptsReturn="True" x:Name="AboutAuthor"/>

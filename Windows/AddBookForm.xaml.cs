@@ -26,7 +26,7 @@ namespace BookDatabase
 
         Database db = Database.Instace;
 
-        public AddBookForm(string func = "add", Book? book = null)
+        public AddBookForm(Models.Func func, Book? book = null)
         {
             InitializeComponent();
 
@@ -38,7 +38,7 @@ namespace BookDatabase
             Publishers = db.SelectNameByTableName("Publishers");
             Types = db.SelectNameByTableName("BOOKTYPES");
 
-            if (func == "edit")
+            if (func == Func.Edit)
             {
                 EditBook = book!;
                 this.Loaded += AddFormToEditForm;
@@ -51,11 +51,11 @@ namespace BookDatabase
             AddEditButton.Click -= ControlBeforeSave;
             AddEditButton.Click += ControlBeforeSaveEdit;
 
-            AuthorBox.SelectedIndex = SelectIndeOfBox(Author, EditBook!.Author);
-            GenresBox.SelectedIndex = SelectIndeOfBox(Genres, EditBook.Genre);
-            PublishersBox.SelectedIndex = SelectIndeOfBox(Publishers, EditBook.Publisher);
-            LanguageBox.SelectedIndex = SelectIndeOfBox(Languages, EditBook.Langueage);
-            TypesBox.SelectedIndex = SelectIndeOfBox(Types, EditBook.Type);
+            AuthorBox.SelectedItem = Author.FirstOrDefault(a => a.Name == EditBook.Author);
+            GenresBox.SelectedItem = Genres.FirstOrDefault(g => g.Name == EditBook.Genre);
+            PublishersBox.SelectedItem = Publishers.FirstOrDefault(p => p.Name == EditBook.Publisher);
+            LanguageBox.SelectedItem = Languages.FirstOrDefault(l => l.Name == EditBook.Langueage);
+            TypesBox.SelectedItem = Types.FirstOrDefault(t => t.Name == EditBook.Type);
 
             NameBox.Text = EditBook.Name;
             ISBNBox.Text = EditBook.ISBN;
@@ -103,23 +103,12 @@ namespace BookDatabase
                 genre,
                 bookName,
                 authorName);
-            EditBook = db.SelectBook(bookName);
+            EditBook = db.SelectBook(bookName, Models.Size.Medium);
 
             this.Close();
         }
 
 
-        private int SelectIndeOfBox(List<GeneralModel> list, string? value)
-        {
-            foreach (GeneralModel model in list)
-            {
-                if (model.Name == value)
-                {
-                    return list.IndexOf(model);
-                }
-            }
-            return 0;
-        }
 
         private void Length_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
@@ -240,24 +229,49 @@ namespace BookDatabase
             }
         }
 
+        private bool AreAllFieldsEmpty()
+        {
+            return AuthorBox.SelectedItem == null
+                && GenresBox.SelectedItem == null
+                && LanguageBox.SelectedItem == null
+                && TypesBox.SelectedItem == null
+                && PublishersBox.SelectedItem == null
+                && string.IsNullOrWhiteSpace(NameBox.Text)
+                && string.IsNullOrWhiteSpace(ISBNBox.Text)
+                && string.IsNullOrWhiteSpace(EANBox.Text)
+                && string.IsNullOrWhiteSpace(LengthBox.Text)
+                && string.IsNullOrWhiteSpace(RatingBox.Text)
+                && string.IsNullOrWhiteSpace(DescriptionBox.Text)
+                && PhotoBox.Source == null;
+        }
+
         public void Return(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult result = MessageBox.Show(
+            if (AreAllFieldsEmpty())
+            {
+                this.Close();
+            }
+            else
+            {
+                MessageBoxResult result = MessageBox.Show(
                "Opravdu se chcete vrátit?\nVaše vyplněné pole budou ztraceny!",
                "Confirmation",
                MessageBoxButton.YesNo,
                MessageBoxImage.Question
-           );
+               );
 
-            if (result == MessageBoxResult.Yes)
-            {
-                this.Close();
+                if (result == MessageBoxResult.Yes)
+                {
+                    this.Close();
+                }
+            
             }
+         
         }
 
         private void AddAuthorButton(object sender, RoutedEventArgs e)
         {
-            AddAuthorForm win = new AddAuthorForm("Book");
+            AddAuthorForm win = new AddAuthorForm(Func.Add);
 
             win.Closed += (s, eArgs) =>
             {

@@ -220,7 +220,7 @@ namespace BookDatabase
         // metod for opening form for adding book
         private void AddBookButton(object sender, RoutedEventArgs e)
         {
-            AddBookForm win = new AddBookForm();
+            AddBookForm win = new AddBookForm(Func.Add);
 
 			win.Closed += (s, eArgs) =>
 			{
@@ -236,7 +236,53 @@ namespace BookDatabase
         {
             ((MainWindow)Application.Current.MainWindow).Main.Content = new AuthorWindow();
         }
+
+        private void ShowAuthors(object sender, RoutedEventArgs e)
+        {
+            bool isVisible = DropDownAuthorsFilter.Visibility == Visibility.Visible;
+
+            DropDownAuthorsFilter.Visibility = isVisible ? Visibility.Collapsed : Visibility.Visible;
+
+            AuthorFiltersButton.Content = isVisible
+               ? "Filtry Autorů ⯆"
+               : "Filtry Autorů ⯅";
+        }
+
+        private void ShowGenres(object sender, RoutedEventArgs e)
+        {
+            bool isVisible = DropDownGenresFilter.Visibility == Visibility.Visible;
+
+            DropDownGenresFilter.Visibility = isVisible ? Visibility.Collapsed : Visibility.Visible;
+
+            GenreFiltersButton.Content = isVisible
+               ? "Filtry Žánrů ⯆"
+               : "Filtry Žánrů ⯅";
+        }
+
+        private void ShowLanguages(object sender, RoutedEventArgs e)
+        {
+            bool isVisible = DropDownLanguagesFilter.Visibility == Visibility.Visible;
+
+            DropDownLanguagesFilter.Visibility = isVisible ? Visibility.Collapsed : Visibility.Visible;
+
+            LanguagesFiltersButton.Content = isVisible
+               ? "Filtry Jazyků ⯆"
+               : "Filtry Jazyků ⯅";
+        }
+
+        private void ShowPublishers(object sender, RoutedEventArgs e)
+        {
+            bool isVisible = DropDownPublishersFilter.Visibility == Visibility.Visible;
+            DropDownPublishersFilter.Visibility = isVisible ? Visibility.Collapsed : Visibility.Visible;
+
+            PublishersFiltersButton.Content = isVisible
+               ? "Filtry Nakladatelství ⯆"
+               : "Filtry Nakladatelství ⯅";
+
+        }
+
     }
+}
 
     
-}
+

@@ -46,7 +46,7 @@ namespace BookDatabase.Details
         // opening AuthorForm adjusted for editing author and also letting know about this this window for updating its Author
         private void EditAuthor(object sender, RoutedEventArgs e)
         {
-            AddAuthorForm win = new AddAuthorForm("authorD", "edit", Author);
+            AddAuthorForm win = new AddAuthorForm(Func.Edit, Author);
 
             win.Closed += (s, eArgs) =>
             {

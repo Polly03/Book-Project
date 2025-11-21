@@ -206,3 +206,4 @@ C:\Users\jakpo\Downloads\Book-Project-main\Book-Project-main\obj\Debug\net8.0-wi
 C:\Users\jakpo\Downloads\Book-Project-main\Book-Project-main\obj\Debug\net8.0-windows\ref\BookDatabase.dll
 C:\Users\jakpo\Desktop\prace\Book-Project\obj\Debug\net8.0-windows\test.g.cs
 C:\Users\jakpo\Desktop\prace\Book-Project\obj\Debug\net8.0-windows\test.baml
+C:\Users\polasekj\source\repos\Book-Project\BookDatabase\BookDatabase\obj\Debug\net8.0-windows\App.baml

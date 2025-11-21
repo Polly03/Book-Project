@@ -74,7 +74,7 @@ namespace BookDatabase
                             book.Author = Author;
                             book.Name = names;
                             book.Genre = genre;
-                            book.Image = GetBM((byte[])photoByte!);
+                            book.Image = GetBM((byte[])photoByte!, Size.Small);
 
                             list.Add(book);
                         }
@@ -164,7 +164,7 @@ namespace BookDatabase
                             book.Author = Author;
                             book.Name = names;
                             book.Genre = genre;
-                            book.Image = GetBM((byte[])photoByte!);
+                            book.Image = GetBM((byte[])photoByte!, Size.Small);
 
                             list.Add(book);
                         }
@@ -205,7 +205,7 @@ namespace BookDatabase
             }
         }
 
-        public Book SelectBook(string name, int size = 0)
+        public Book SelectBook(string name, Size size)
         {
             using (FbConnection con = new FbConnection(connString))
             {
@@ -217,8 +217,8 @@ namespace BookDatabase
 
                     using (var reader = cmd.ExecuteReader())
                     {
-                        while (reader.Read())
-                        {
+                            reader.Read();
+                      
                             Book Book = new Book
                             {
                                 Id = (int)reader["Id"],
@@ -236,7 +236,7 @@ namespace BookDatabase
                                 Image = GetBM((byte[])reader["Photo"], size)
                             };
                             return Book;
-                        }
+                        
                     }
                 }
             }
@@ -254,10 +254,10 @@ namespace BookDatabase
 
                     using (var reader = cmd.ExecuteReader())
                     {
-                        while (reader.Read())
-                        {
+                        reader.Read();
+                        
                             var id = (int)reader["Id"];
-                            var names = reader["Name"];
+                            var names = reader["Authorname"];
                             var dateOfBirth = reader["DATE_OF_BIRTH"];
                             var country = reader["Country"];
                             var aboutAuthor = reader["About_Author"];
@@ -266,7 +266,7 @@ namespace BookDatabase
                             author.Id = id;
                             author.AboutAuthor = (string)aboutAuthor;
                             return author;
-                        }
+                        
                     }
                 }
             }
@@ -328,7 +328,7 @@ namespace BookDatabase
                             book.Author = author;
                             book.Name = name;
                             book.Genre = genre;
-                            book.Image = GetBM((byte[])photoByte!);
+                            book.Image = GetBM((byte[])photoByte!, Size.Small);
 
                             list.Add(book);
                         }
@@ -516,7 +516,7 @@ namespace BookDatabase
 
 
         // decoding byte[] data into bitmapImage
-        private BitmapImage GetBM(byte[] data, int size = 0)
+        private BitmapImage GetBM(byte[] data, Size size)
         {
             var bitmap = new BitmapImage();
             using (var ms = new MemoryStream(data))
@@ -525,12 +525,12 @@ namespace BookDatabase
                 bitmap.CacheOption = BitmapCacheOption.OnLoad;
                 bitmap.CreateOptions = BitmapCreateOptions.IgnoreColorProfile;
 
-                if (size == 0)
+                if (size == Size.Small)
                 {
                     bitmap.DecodePixelWidth = 125;
                     bitmap.DecodePixelHeight = 150;
                 }
-                else if (size == 1)
+                else if (size == Size.Medium)
                 {
                     bitmap.DecodePixelWidth = 520;
                     bitmap.DecodePixelHeight = 800;

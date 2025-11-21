@@ -6,52 +6,153 @@
              xmlns:local="clr-namespace:BookDatabase.Details"
              mc:Ignorable="d" 
              Height="720" Width="1280">
+    <StackPanel>
 
-    <Grid>
-        <Image x:Name="BookImage" Width="230" Height="340" Margin="13,16,1037,364" Source="{Binding ImageSource}"></Image>
+            <Grid Margin="0,40,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <!-- levá část -->
+                    <ColumnDefinition Width="Auto" />
+                    <!-- tlačítka vpravo -->
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0">
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+                        <Image x:Name="BookImage" Width="300" Height="400"  Source="{Binding ImageSource}" VerticalAlignment="Top" Margin="20,0,10,0"></Image>
+
+                        <StackPanel VerticalAlignment="Top" Margin="0,0,40,50">
+
+                            <TextBlock  FontSize="35" x:Name="BookTitleBox" MaxWidth="400" TextWrapping="Wrap" MaxHeight="100">Tady Bude Nazev Knihy</TextBlock>
+                            <TextBlock Margin="0,0,0,20" FontSize="25" x:Name="AuthorNameBox">Tady Bude jmeno Autora</TextBlock>
+
+                            <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                                <TextBlock  FontSize="20" HorizontalAlignment="Center">ŽÁNR:</TextBlock>
+                                <TextBlock Margin="10,0,0,0"  FontSize="20" HorizontalAlignment="Center" x:Name="GenreBox">tu bude žánr</TextBlock>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                                <TextBlock  FontSize="20" HorizontalAlignment="Center">JAZYK:</TextBlock>
+                                <TextBlock Margin="10,0,0,0"  FontSize="20" HorizontalAlignment="Center"  x:Name="LanguageBox">tu bude jazyk</TextBlock>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                                <TextBlock  FontSize="20" HorizontalAlignment="Center">DÉLKA KNIHY:</TextBlock>
+                                <TextBlock Margin="10,0,0,0" FontSize="20" HorizontalAlignment="Center" x:Name="LengthBox">tu bude delka</TextBlock>
+                            </StackPanel>
+
+                            <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
+                                <TextBlock  FontSize="20" HorizontalAlignment="Center">TYP OBALU:</TextBlock>
+                                <TextBlock Margin="10,0,0,0" FontSize="20" HorizontalAlignment="Center" x:Name="TypeBox">tu bude typ obalu</TextBlock>
+                            </StackPanel>
+
+                            <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
+                                <TextBlock  FontSize="20" HorizontalAlignment="Center">ISBN:</TextBlock>
+                                <TextBlock  FontSize="20" HorizontalAlignment="Center" x:Name="ISBNBox" Margin="10,0,0,0">tu bude isbn</TextBlock>
+                            </StackPanel>
 
 
-        <TextBlock Margin="281,23,314,622" FontSize="45" x:Name="BookTitleBox">Tady Bude Nazev Knihy</TextBlock>
-        <TextBlock Margin="281,98,359,566" FontSize="35" x:Name="AuthorNameBox">Tady Bude jmeno Autora</TextBlock>
 
-        <TextBlock FontSize="25" Margin="835,9,300,674">Popis knihy:</TextBlock>
-        <Border BorderThickness="1" BorderBrush="Black" Margin="835,51,30,400">
-            <ScrollViewer VerticalScrollBarVisibility="Hidden">
-                <TextBlock FontSize="18" x:Name="DescriptionBox" TextWrapping="Wrap">Tady Bude popis</TextBlock>
-            </ScrollViewer>
-        </Border>
+                            <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
+                                <TextBlock  FontSize="20" HorizontalAlignment="Center">VYDAVATEL:</TextBlock>
+                                <TextBlock Margin="10,0,0,0" FontSize="20" HorizontalAlignment="Center"  x:Name="PublisherBox">tu bude vydavatel</TextBlock>
+                            </StackPanel>
+                            <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
+                                <TextBlock  FontSize="20" HorizontalAlignment="Center">EAN:</TextBlock>
+                                <TextBlock Margin="10,0,0,0" FontSize="20" HorizontalAlignment="Center"  x:Name="EANBox">tu bude ean</TextBlock>
+                            </StackPanel>
 
-        <TextBlock FontSize="25" Margin="835,341,136,341">Hodnocení knihy:</TextBlock>
-        <Border BorderThickness="1" BorderBrush="Black" Margin="835,384,30,86">
-            <ScrollViewer VerticalScrollBarVisibility="Hidden">
-                <TextBlock FontSize="18" TextWrapping="Wrap" x:Name="RatingBox">Tady Bude zhodnocení</TextBlock>
-            </ScrollViewer>
-        </Border>
-
-
-        <Button Margin="41,603,1065,65" Cursor="Hand" Click="BackToBooksWindow">ZPĚT</Button>
-        <Button Margin="320,200,786,468" Cursor="Hand" Click="EditBook">EDIT</Button>
-        <Button Margin="281,603,825,65" Cursor="Hand" Click="DeleteBook">DELETE</Button>
+                        </StackPanel>
 
 
 
-        <StackPanel Margin="531,154,479,36">
-            <TextBlock  FontSize="20" HorizontalAlignment="Center" Margin="0,0,0,0">ŽÁNR:</TextBlock>
-            <TextBlock  FontSize="20" HorizontalAlignment="Center" Margin="0,0,0,20" x:Name="GenreBox">tu bude žánr</TextBlock>
-            <TextBlock  FontSize="20" HorizontalAlignment="Center">TYP OBALU:</TextBlock>
-            <TextBlock  FontSize="20" HorizontalAlignment="Center" Margin="0,0,0,20" x:Name="TypeBox">tu bude typ obalu</TextBlock>
-            <TextBlock  FontSize="20" HorizontalAlignment="Center">JAZYK:</TextBlock>
-            <TextBlock  FontSize="20" HorizontalAlignment="Center" Margin="0,0,0,20" x:Name="LanguageBox">tu bude jazyk</TextBlock>
-            <TextBlock  FontSize="20" HorizontalAlignment="Center">DÉLKA KNIHY:</TextBlock>
-            <TextBlock  FontSize="20" HorizontalAlignment="Center" Margin="0,0,0,20" x:Name="LengthBox">tu bude jazyk</TextBlock>
-            <TextBlock  FontSize="20" HorizontalAlignment="Center">VYDAVATEL:</TextBlock>
-            <TextBlock  FontSize="20" HorizontalAlignment="Center" Margin="0,0,0,20" x:Name="PublisherBox">tu bude vydavatel</TextBlock>
-            <TextBlock  FontSize="20" HorizontalAlignment="Center">EAN:</TextBlock>
-            <TextBlock  FontSize="20" HorizontalAlignment="Center" Margin="0,0,0,20" x:Name="EANBox">tu bude ean</TextBlock>
-            <TextBlock  FontSize="20" HorizontalAlignment="Center">ISBN:</TextBlock>
-            <TextBlock  FontSize="20" HorizontalAlignment="Center" Margin="0,0,0,20" x:Name="ISBNBox">tu bude isbn</TextBlock>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Grid.Column="1" Margin="0,130,0,0">
+
+                        <Button  Width="200" Height="50" FontSize="32" Click="DeleteBook" Foreground="White" Cursor="Hand" Margin="20,0,20,0">
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <Border  x:Name="border" Background="#FF4040"  CornerRadius="10" BorderBrush="Transparent" BorderThickness="0" Padding="{TemplateBinding Padding}">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter TargetName="border" Property="Background" Value="#FFFF0000"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Button.Template>
+                            Smazat
+                        </Button>
+
+                        <Button  Width="200" Height="50" FontSize="25" Click="EditBook" Foreground="White" Cursor="Hand" Margin="20,0,20,0">
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <Border  x:Name="border" Background="#FF5A7EFF"  CornerRadius="10" BorderBrush="Transparent" BorderThickness="0" Padding="{TemplateBinding Padding}">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter TargetName="border" Property="Background" Value="#FF1E3AFF"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Button.Template>
+                            Editovat
+                        </Button>
+
+                        <Button  Width="200" Height="50" FontSize="32" Click="BackToBooksWindow" Foreground="White" Cursor="Hand" x:Name="AddEditButton" Margin="20,0,20,0">
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <Border  x:Name="border" Background="#11FF11"  CornerRadius="10" BorderBrush="Transparent" BorderThickness="0" Padding="{TemplateBinding Padding}">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter TargetName="border" Property="Background" Value="#11BB11"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Button.Template>
+                            Zpět
+                        </Button>
+
+                    </StackPanel>
+
+
+                </StackPanel>
+               
+                <StackPanel Grid.Column="1">
+                    <StackPanel>
+                        <StackPanel HorizontalAlignment="Right" Margin="0,0,10,20">
+                            <TextBlock FontSize="25" >Popis knihy:</TextBlock>
+                            <Border BorderThickness="1" BorderBrush="Black" Height="250" Width="500" Padding="10,3,0,3">
+                                <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="0,0,10,0">
+                                    <TextBlock FontSize="18"  x:Name="DescriptionBox" TextWrapping="Wrap">Tady Bude popis</TextBlock>
+                                </ScrollViewer>
+                            </Border>
+                        </StackPanel>
+
+
+
+                        <StackPanel HorizontalAlignment="Right" Margin="0,0,10,0">
+                            <TextBlock FontSize="25" >Hodnocení knihy:</TextBlock>
+                            <Border BorderThickness="1" BorderBrush="Black" Height="250" Width="500" Padding="10,3,0,3">
+                                <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="0,0,10,0">
+                                    <TextBlock FontSize="18"  TextWrapping="Wrap" x:Name="RatingBox">Tady Bude zhodnocení</TextBlock>
+                                </ScrollViewer>
+                            </Border>
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>
+
+
+
+
+
+            </Grid>
+           
         </StackPanel>
 
 
-    </Grid>
 </UserControl>

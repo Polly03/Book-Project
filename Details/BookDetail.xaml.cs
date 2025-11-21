@@ -17,16 +17,23 @@ namespace BookDatabase.Details
     {
       
         public Database db = Database.Instace;
-        public Book SelectedBook { get; set; }
+        private Book FselectedBook;
+        public Book SelectedBook
+        {
+            get => FselectedBook;
+            set
+            {
+                FselectedBook = value;  
+                ShowBook();
+            }
+        }
         // book selected for details
         public BookDetail(string title)
         {
             InitializeComponent();
             this.DataContext = this;
-            Book book = db.SelectBook(title, 1);
+            Book book = db.SelectBook(title, Models.Size.Medium);
             this.SelectedBook = book;
-
-            ShowBook();
 
         }
 
@@ -58,12 +65,11 @@ namespace BookDatabase.Details
         // editing book with Adjusted user control AddBookForm for editing book
         private void EditBook(object sender, RoutedEventArgs e)
         {
-            AddBookForm win = new AddBookForm("edit", SelectedBook);
+            AddBookForm win = new AddBookForm(Func.Edit, SelectedBook);
         
             win.Closed += (s, eArgs) =>
             {
-                SelectedBook = db.SelectBook(win.EditBook!.Name, 1);
-                ShowBook();
+                SelectedBook = db.SelectBook(win.EditBook!.Name, Models.Size.Small);
             };
 
             win.ShowDialog();
@@ -87,5 +93,7 @@ namespace BookDatabase.Details
                 BackToBooksWindow(this, e);
             }
         }
+
+       
     }
 }

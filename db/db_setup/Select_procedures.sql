@@ -11,16 +11,22 @@ returns (
     ABOUT_AUTHOR blob sub_type 1 segment size 80,
     COUNTRY varchar(64),
     DATE_OF_BIRTH varchar(64),
-    NAME varchar(64)
-    )
+    AUTHORNAME varchar(64)
+)
 as
 begin
-    FOR SELECT distinct Authors.Id, (Authors.Name || ' ' || authors.surname) name, Authors.dateOfBirth, Countries.Name, authors.aboutauthor
-        from Authors
-        Join Countries on Authors.countryId = Countries.Id
-        where (Authors.Name || ' ' || Authors.Surname) = :NAME_INPUT
-    
-    INTO :ID, :Name, :DATE_OF_BIRTH, :Country, :About_Author DO
+    FOR SELECT DISTINCT 
+            Authors.Id, 
+            (Authors.Name || ' ' || Authors.Surname) AS Authorname, 
+            Authors.DateOfBirth, 
+            Countries.Name AS Country, 
+            Authors.AboutAuthor
+        FROM Authors
+        JOIN Countries ON Authors.CountryId = Countries.Id
+        WHERE (Authors.Name || ' ' || Authors.Surname) = :NAME_INPUT
+        ORDER BY Authorname
+    INTO :ID, :AUTHORNAME, :DATE_OF_BIRTH, :COUNTRY, :ABOUT_AUTHOR
+    DO
         SUSPEND;
 end;
 ^
@@ -55,6 +61,8 @@ BEGIN
         IF (COUNTRIES_LIST IS NOT NULL AND TRIM(COUNTRIES_LIST) <> '') THEN
         sql_text = sql_text || ' AND Countries.Name IN (' || COUNTRIES_LIST || ')';
 
+        sql_text = sql_text || 'Order by Authors.Name';
+
     FOR EXECUTE STATEMENT sql_text INTO :Name,:surname, :dateOfBirth, :Country DO
     SUSPEND;
 end;
@@ -78,6 +86,7 @@ BEGIN
         from Authors
         Join Countries on Authors.countryId = Countries.Id
         where Authors.Name CONTAINING :search OR Authors.Surname CONTAINING :search
+        order by Authors.Name
     
     INTO :Name, :Surname, :dateOfBirth, :Country DO
         SUSPEND;
@@ -117,6 +126,7 @@ begin FOR
        JOIN book_to_type btt on btt.bookid = books.id
        JOIN booktypes on booktypes.id = btt.typeid
        WHERE Books.name = :name_of_book
+       Order By author_name
        INTO :name, :description, :rating, :length_OF_BOOK, :photo, :isbn, :ean, :language, :author, :genre, :publisher, :book_type, :ID DO
   suspend;
 end;
@@ -164,6 +174,8 @@ BEGIN
     IF (PUBLISHING_HOUSE_LIST IS NOT NULL AND TRIM(PUBLISHING_HOUSE_LIST) <> '') THEN
         SQL_TEXT = SQL_TEXT || ' AND Publishers.Name IN (' || PUBLISHING_HOUSE_LIST || ')';
 
+        Sql_TEXT = SQL_TEXT || 'order by Fullname';
+
     FOR EXECUTE STATEMENT sql_text INTO :Photo, :Name, :Fullname, :Genre DO
         SUSPEND;
 end;
@@ -192,6 +204,7 @@ BEGIN
         JOIN Languages ON Books.LanguageID = Languages.ID
         WHERE Authors.Name CONTAINING :search
         OR Books.Name CONTAINING :search
+        order by Fullname
     
     INTO :Photo, :Name, :Fullname, :Genre DO
         SUSPEND;
@@ -217,12 +230,12 @@ declare variable SQL_QUERY varchar(8000);
 BEGIN
     if (TABLE_NAME = 'Authors') then
     BEGIN
-        SQL_QUERY = 'SELECT (Authors.Name || '' ''  || Authors.surname) AS Name FROM ' || TABLE_NAME;
+        SQL_QUERY = 'SELECT (Authors.Name || '' ''  || Authors.surname) AS Name FROM ' || TABLE_NAME || ' Order by Name';
     END
 
     else
     BEGIN
-    SQL_QUERY = 'SELECT Name FROM ' || TABLE_NAME;
+    SQL_QUERY = 'SELECT Name FROM ' || TABLE_NAME || ' Order by Name';
     END
 
     FOR EXECUTE STATEMENT sql_query INTO :Name
